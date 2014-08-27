@@ -1,0 +1,1063 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22507CF6-6DA4-4653-A175-D69DBA162711}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Priem</RootNamespace>
+    <AssemblyName>Priem_aspirant</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Shwz-Disney-Timon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Priem.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BDClassLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\BDClassLib.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>bin\Debug\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="RtfWriter, Version=0.9.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\RtfWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WordOut, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_SHARED LIBS\WordOut\bin\Debug\WordOut.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BooksPasha\BackUpFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\BackUpFix.designer.cs">
+      <DependentUpon>BackUpFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\CardEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\CardEntry.designer.cs">
+      <DependentUpon>CardEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\CardExam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\CardExam.Designer.cs">
+      <DependentUpon>CardExam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\CardExamInEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\CardExamInEntry.Designer.cs">
+      <DependentUpon>CardExamInEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\CardOlympBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\CardOlympBook.Designer.cs">
+      <DependentUpon>CardOlympBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\EgeExamList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\EgeExamList.Designer.cs">
+      <DependentUpon>EgeExamList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\EnterMarksManual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\EnterMarksManual.Designer.cs">
+      <DependentUpon>EnterMarksManual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\EntryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\EntryList.designer.cs">
+      <DependentUpon>EntryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\ExamList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\ExamList.Designer.cs">
+      <DependentUpon>ExamList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\ExamNameList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\ExamNameList.Designer.cs">
+      <DependentUpon>ExamNameList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\MinEgeList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\MinEgeList.Designer.cs">
+      <DependentUpon>MinEgeList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\OlympBookList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\OlympBookList.Designer.cs">
+      <DependentUpon>OlympBookList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooksPasha\SelectExamManual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BooksPasha\SelectExamManual.designer.cs">
+      <DependentUpon>SelectExamManual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\BookCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\BookCard.designer.cs">
+      <DependentUpon>BookCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\BookCardInt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\BookCardInt.Designer.cs">
+      <DependentUpon>BookCardInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\CardFromList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\CardFromList.designer.cs">
+      <DependentUpon>CardFromList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\SimpleBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\SimpleBook.Designer.cs">
+      <DependentUpon>SimpleBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardAbit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardAbit.designer.cs">
+      <DependentUpon>CardAbit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardAbit.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardAttMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardAttMarks.designer.cs">
+      <DependentUpon>CardAttMarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardBenefitDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardBenefitDocument.Designer.cs">
+      <DependentUpon>CardBenefitDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardCompetitionInInet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardCompetitionInInet.Designer.cs" />
+    <Compile Include="Cards\CardCompetitionInInet.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardDocInventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardDocInventory.designer.cs">
+      <DependentUpon>CardDocInventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardFromInet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardFromInet.Designer.cs">
+      <DependentUpon>CardFromInet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardFromInet.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardObrazProgramInEntryInCompetitionInInet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardObrazProgramInEntryInCompetitionInInet.Designer.cs" />
+    <Compile Include="Cards\CardPaidData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardPaidData.designer.cs">
+      <DependentUpon>CardPaidData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardPaidData.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardPerson.designer.cs">
+      <DependentUpon>CardPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\CardPerson.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardProfileInObrazProgramInEntryInCompetition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\CardProfileInObrazProgramInEntryInCompetition.Designer.cs" />
+    <Compile Include="Cards\DocCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\DocCard.designer.cs">
+      <DependentUpon>DocCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\DocsClass.cs" />
+    <Compile Include="Cards\EgeCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\EgeCard.designer.cs">
+      <DependentUpon>EgeCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\EgeCard.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\OlympCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\OlympCard.designer.cs">
+      <DependentUpon>OlympCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\OlympCard.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\ShortCompetitionClass.cs" />
+    <Compile Include="ChangeAbitClass.cs" />
+    <Compile Include="Crypto\AddMark.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\AddMark.Designer.cs">
+      <DependentUpon>AddMark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\AppealMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\AppealMarks.Designer.cs">
+      <DependentUpon>AppealMarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\Decriptor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\Decriptor.Designer.cs">
+      <DependentUpon>Decriptor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\EnterMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\EnterMarks.designer.cs">
+      <DependentUpon>EnterMarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedCard.designer.cs">
+      <DependentUpon>ExamsVedCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedList.designer.cs">
+      <DependentUpon>ExamsVedList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedRoomCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedRoomCard.designer.cs">
+      <DependentUpon>ExamsVedRoomCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedRoomList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedRoomList.designer.cs">
+      <DependentUpon>ExamsVedRoomList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\LoadMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\LoadMarks.Designer.cs">
+      <DependentUpon>LoadMarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\SelectExamCrypto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\SelectExamCrypto.designer.cs">
+      <DependentUpon>SelectExamCrypto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\SelectVed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\SelectVed.Designer.cs">
+      <DependentUpon>SelectVed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\SelectVedForLoad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\SelectVedForLoad.Designer.cs">
+      <DependentUpon>SelectVedForLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\SetNewMark.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\SetNewMark.Designer.cs">
+      <DependentUpon>SetNewMark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\BookList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\BookList.Designer.cs">
+      <DependentUpon>BookList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exams\ExamResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exams\ExamResults.designer.cs">
+      <DependentUpon>ExamResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exams\Exams.cs" />
+    <Compile Include="Exams\Olymp2Competition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exams\Olymp2Competition.designer.cs">
+      <DependentUpon>Olymp2Competition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exams\Olymp2Mark.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exams\Olymp2Mark.designer.cs">
+      <DependentUpon>Olymp2Mark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportClass.cs" />
+    <Compile Include="FBS\EgeClass.cs" />
+    <Compile Include="FBS\FBSClass.cs" />
+    <Compile Include="FBS\LoadEgeMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBS\LoadEgeMarks.designer.cs">
+      <DependentUpon>LoadEgeMarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBS\LoadFBS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBS\LoadFBS.designer.cs">
+      <DependentUpon>LoadFBS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\Columns.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\Columns.designer.cs">
+      <DependentUpon>Columns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\FilterList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\FilterList.designer.cs">
+      <DependentUpon>FilterList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\Filters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\Filters.designer.cs">
+      <DependentUpon>Filters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\FormFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\Groups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\Groups.designer.cs">
+      <DependentUpon>Groups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\StrangeAboutFilters.cs" />
+    <Compile Include="HelpClass.cs" />
+    <Compile Include="Lists\AllAbitList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\AllAbitList.designer.cs">
+      <DependentUpon>AllAbitList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\ApplicationInetList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\ApplicationInetList.Designer.cs">
+      <DependentUpon>ApplicationInetList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\ListAbit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\ListAbit.designer.cs">
+      <DependentUpon>ListAbit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\ListHostel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\ListHostel.designer.cs">
+      <DependentUpon>ListHostel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\ListPersonFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\ListPersonFilter.designer.cs">
+      <DependentUpon>ListPersonFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\OlympAbitList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\OlympAbitList.designer.cs">
+      <DependentUpon>OlympAbitList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\OlympCheckList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\OlympCheckList.Designer.cs">
+      <DependentUpon>OlympCheckList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\OnlineChangesList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\OnlineChangesList.Designer.cs">
+      <DependentUpon>OnlineChangesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\PersonChanges.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\PersonChanges.designer.cs">
+      <DependentUpon>PersonChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\RatingList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\RatingList.designer.cs">
+      <DependentUpon>RatingList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\VedExamLists.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\VedExamLists.designer.cs">
+      <DependentUpon>VedExamLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoadFromInet.cs" />
+    <Compile Include="MainClass.Cards.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lists\PersonInetList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lists\PersonInetList.Designer.cs">
+      <DependentUpon>PersonInetList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Migrator.designer.cs">
+      <DependentUpon>Migrator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Print.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocols\ChangeCompBEProtocol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\ChangeCompBEProtocolList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\ChangeCompCelProtocol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\ChangeCompCelProtocolList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\DisEnableProtocol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\DisEnableProtocolList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\DisEntryViewList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\DisEntryViewList.designer.cs">
+      <DependentUpon>DisEntryViewList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocols\DisEntryViewProtocol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\DisEntryViewProtocol.designer.cs">
+      <DependentUpon>DisEntryViewProtocol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocols\EnableProtocol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\EnableProtocolList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\EntryViewList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\EntryViewList.designer.cs">
+      <DependentUpon>EntryViewList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocols\EntryViewProtocol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\OrderNumbers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\OrderNumbers.designer.cs">
+      <DependentUpon>OrderNumbers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocols\ProtocolCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\ProtocolCard.designer.cs">
+      <DependentUpon>ProtocolCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocols\ProtocolTypes.cs" />
+    <Compile Include="Protocols\ProtocolList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Protocols\ProtocolList.designer.cs">
+      <DependentUpon>ProtocolList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocols\ProtocolList.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SomeMethodsClass.cs" />
+    <Compile Include="Statistics\AbitFacultyIntersection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\AbitFacultyIntersection.Designer.cs">
+      <DependentUpon>AbitFacultyIntersection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\AbitFacultyIntersectionPersons.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\AbitFacultyIntersectionPersons.Designer.cs">
+      <DependentUpon>AbitFacultyIntersectionPersons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\AbitEGEMarksStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\AbitEGEMarksStatistics.Designer.cs">
+      <DependentUpon>AbitEGEMarksStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\CountAbitStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\CountAbitStatistics.Designer.cs">
+      <DependentUpon>CountAbitStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\CPK1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\CPK1.Designer.cs">
+      <DependentUpon>CPK1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\EgeStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\EgeStatistics.Designer.cs">
+      <DependentUpon>EgeStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\EgeStatistics.Fields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\FormA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\FormA.Designer.cs">
+      <DependentUpon>FormA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\NewWatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\NewWatch.Designer.cs">
+      <DependentUpon>NewWatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\OlympAbitBallsAndRatings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\OlympAbitBallsAndRatings.Designer.cs">
+      <DependentUpon>OlympAbitBallsAndRatings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\OlympLevelAbitRating.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\OlympLevelAbitRating.Designer.cs">
+      <DependentUpon>OlympLevelAbitRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\OlympRegionBySubject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\OlympRegionBySubject.Designer.cs">
+      <DependentUpon>OlympRegionBySubject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\OlympSubjectByRegion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\OlympSubjectByRegion.Designer.cs">
+      <DependentUpon>OlympSubjectByRegion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\PersonStatRating.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\PersonStatRating.Designer.cs">
+      <DependentUpon>PersonStatRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\RegionAbitEGEMarksStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\RegionAbitEGEMarksStatistics.Designer.cs">
+      <DependentUpon>RegionAbitEGEMarksStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\RegionAbitStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\RegionAbitStatistics.Designer.cs">
+      <DependentUpon>RegionAbitStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\RegionAbitStatstics_Reversed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\RegionAbitStatstics_Reversed.Designer.cs">
+      <DependentUpon>RegionAbitStatstics_Reversed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\RegionFacultyAbitCountStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\RegionFacultyAbitCountStatistics.Designer.cs">
+      <DependentUpon>RegionFacultyAbitCountStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\Watch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics\Watch.designer.cs">
+      <DependentUpon>Watch.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BooksPasha\BackUpFix.resx">
+      <DependentUpon>BackUpFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\CardEntry.resx">
+      <DependentUpon>CardEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\CardExam.resx">
+      <DependentUpon>CardExam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\CardExamInEntry.resx">
+      <DependentUpon>CardExamInEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\CardOlympBook.resx">
+      <DependentUpon>CardOlympBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\EgeExamList.resx">
+      <DependentUpon>EgeExamList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\EnterMarksManual.resx">
+      <DependentUpon>EnterMarksManual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\EntryList.resx">
+      <DependentUpon>EntryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\ExamList.resx">
+      <DependentUpon>ExamList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\ExamNameList.resx">
+      <DependentUpon>ExamNameList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\OlympBookList.resx">
+      <DependentUpon>OlympBookList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BooksPasha\SelectExamManual.resx">
+      <DependentUpon>SelectExamManual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\BookCard.resx">
+      <DependentUpon>BookCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\CardFromList.resx">
+      <DependentUpon>CardFromList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\BookList.resx">
+      <DependentUpon>BookList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\SimpleBook.resx">
+      <DependentUpon>SimpleBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardAbit.resx">
+      <DependentUpon>CardAbit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardAttMarks.resx">
+      <DependentUpon>CardAttMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardBenefitDocument.resx">
+      <DependentUpon>CardBenefitDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardCompetitionInInet.resx">
+      <DependentUpon>CardCompetitionInInet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardDocInventory.resx">
+      <DependentUpon>CardDocInventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardFromInet.resx">
+      <DependentUpon>CardFromInet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardPaidData.resx">
+      <DependentUpon>CardPaidData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\CardPerson.resx">
+      <DependentUpon>CardPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\DocCard.resx">
+      <DependentUpon>DocCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\EgeCard.resx">
+      <DependentUpon>EgeCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\OlympCard.resx">
+      <DependentUpon>OlympCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\AddMark.resx">
+      <DependentUpon>AddMark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\AppealMarks.resx">
+      <DependentUpon>AppealMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\Decriptor.resx">
+      <DependentUpon>Decriptor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\EnterMarks.resx">
+      <DependentUpon>EnterMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\ExamsVedCard.resx">
+      <DependentUpon>ExamsVedCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\ExamsVedList.resx">
+      <DependentUpon>ExamsVedList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\ExamsVedRoomCard.resx">
+      <DependentUpon>ExamsVedRoomCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\ExamsVedRoomList.resx">
+      <DependentUpon>ExamsVedRoomList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\LoadMarks.resx">
+      <DependentUpon>LoadMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\SelectExamCrypto.resx">
+      <DependentUpon>SelectExamCrypto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\SelectVed.resx">
+      <DependentUpon>SelectVed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\SelectVedForLoad.resx">
+      <DependentUpon>SelectVedForLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\SetNewMark.resx">
+      <DependentUpon>SetNewMark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exams\ExamResults.resx">
+      <DependentUpon>ExamResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exams\Olymp2Competition.resx">
+      <DependentUpon>Olymp2Competition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exams\Olymp2Mark.resx">
+      <DependentUpon>Olymp2Mark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBS\LoadEgeMarks.resx">
+      <DependentUpon>LoadEgeMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBS\LoadFBS.resx">
+      <DependentUpon>LoadFBS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\Columns.resx">
+      <DependentUpon>Columns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\FilterList.resx">
+      <DependentUpon>FilterList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\Filters.resx">
+      <DependentUpon>Filters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\Groups.resx">
+      <DependentUpon>Groups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\AllAbitList.resx">
+      <DependentUpon>AllAbitList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\ApplicationInetList.resx">
+      <DependentUpon>ApplicationInetList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\ListAbit.resx">
+      <DependentUpon>ListAbit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\ListHostel.resx">
+      <DependentUpon>ListHostel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\ListPersonFilter.resx">
+      <DependentUpon>ListPersonFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\OlympAbitList.resx">
+      <DependentUpon>OlympAbitList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\OlympCheckList.resx">
+      <DependentUpon>OlympCheckList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\OnlineChangesList.resx">
+      <DependentUpon>OnlineChangesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\PersonChanges.resx">
+      <DependentUpon>PersonChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\RatingList.resx">
+      <DependentUpon>RatingList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\VedExamLists.resx">
+      <DependentUpon>VedExamLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lists\PersonInetList.resx">
+      <DependentUpon>PersonInetList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrator.resx">
+      <DependentUpon>Migrator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Protocols\DisEntryViewList.resx">
+      <DependentUpon>DisEntryViewList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Protocols\EntryViewList.resx">
+      <DependentUpon>EntryViewList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Protocols\OrderNumbers.resx">
+      <DependentUpon>OrderNumbers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Protocols\ProtocolCard.resx">
+      <DependentUpon>ProtocolCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Protocols\ProtocolList.resx">
+      <DependentUpon>ProtocolList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\AbitFacultyIntersection.resx">
+      <DependentUpon>AbitFacultyIntersection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\AbitFacultyIntersectionPersons.resx">
+      <DependentUpon>AbitFacultyIntersectionPersons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\AbitEGEMarksStatistics.resx">
+      <DependentUpon>AbitEGEMarksStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\CountAbitStatistics.resx">
+      <DependentUpon>CountAbitStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\CPK1.resx">
+      <DependentUpon>CPK1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\EgeStatistics.resx">
+      <DependentUpon>EgeStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\FormA.resx">
+      <DependentUpon>FormA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\NewWatch.resx">
+      <DependentUpon>NewWatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\OlympAbitBallsAndRatings.resx">
+      <DependentUpon>OlympAbitBallsAndRatings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\OlympLevelAbitRating.resx">
+      <DependentUpon>OlympLevelAbitRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\OlympRegionBySubject.resx">
+      <DependentUpon>OlympRegionBySubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\OlympSubjectByRegion.resx">
+      <DependentUpon>OlympSubjectByRegion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\PersonStatRating.resx">
+      <DependentUpon>PersonStatRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\RegionAbitEGEMarksStatistics.resx">
+      <DependentUpon>RegionAbitEGEMarksStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\RegionAbitStatistics.resx">
+      <DependentUpon>RegionAbitStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\RegionAbitStatstics_Reversed.resx">
+      <DependentUpon>RegionAbitStatstics_Reversed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\RegionFacultyAbitCountStatistics.resx">
+      <DependentUpon>RegionFacultyAbitCountStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistics\Watch.resx">
+      <DependentUpon>Watch.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\PriemEntities.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="XML Schemes\запрос-детали по справочнику.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\запрос-импорт.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\запрос-получение результата импорта.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\запрос-получение сведений об ОУ.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\запрос-проверка заявления.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\запрос-список справочников.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\запрос-удаление.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\ответ-детали по справочнику.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\ответ-импорт.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\ответ-получение результата импорта.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\ответ-получение сведений об ОУ.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\ответ-проверка заявления .xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\ответ-список справочников.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML Schemes\ответ-удаление.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1kurs.ico" />
+    <Content Include="Magistery.ico" />
+    <Content Include="Shwz-Disney-Timon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PriemLib\PriemLib\PriemLib.csproj">
+      <Project>{957a6e48-2cf1-4360-bbe5-d27246bc2093}</Project>
+      <Name>PriemLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_SHARED LIBS\BaseFormsLib\BaseFormsLib\BaseFormsLib.csproj">
+      <Project>{264EF71D-FE21-4BE1-B7EB-CCF3B5FD219F}</Project>
+      <Name>BaseFormsLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_SHARED LIBS\EducServLib\EducServLib\EducServLib.csproj">
+      <Project>{96257583-5FF8-4F63-AED3-96C36DF6477D}</Project>
+      <Name>EducServLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
