@@ -92,7 +92,7 @@ WHERE hlpStatRatingList.PersonId = @PersonId";
         }
         private void btnOpenPersonCard_Click(object sender, EventArgs e)
         {
-            MainClassCards.OpenCardPerson(MainClass.mainform, _PersonId.ToString(), null, null);
+            MainClassCards.OpenCardPerson(_PersonId.ToString(), null, null);
         }
         private void btnClose_Click(object sender, EventArgs e)
         {

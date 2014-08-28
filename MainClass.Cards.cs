@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using BaseFormsLib;
+using PriemLib;
 
 namespace Priem
 {
@@ -13,9 +14,9 @@ namespace Priem
 
     public static partial class MainClassCards
     {
-        public static void OpenCardPerson(Form mainform, string personId, BaseFormEx formOwner, int? rowIndex)
+        public static void OpenCardPerson(string personId, BaseFormEx formOwner, int? rowIndex)
         {
-            foreach (Form frmChild in mainform.MdiChildren)
+            foreach (Form frmChild in MainClass.mainform.MdiChildren)
             {
                 if (frmChild is CardPerson)
                 {
@@ -38,9 +39,9 @@ namespace Priem
             crd.Show();
         }
 
-        public static void OpenCardAbit(Form mainform, string abId, BaseFormEx formOwner, int? rowIndex)
+        public static void OpenCardAbit(string abId, BaseFormEx formOwner, int? rowIndex)
         {
-            foreach (Form frmChild in mainform.MdiChildren)
+            foreach (Form frmChild in MainClass.mainform.MdiChildren)
             {
                 if (frmChild is CardAbit)
                 {
@@ -58,9 +59,9 @@ namespace Priem
             new CardAbit(abId, rowIndex, formOwner).Show();
         }
 
-        public static void OpenNewProtocol(Form mainform, ProtocolList formOwner, int iFacultyId, int iStudyFormId, int iStudyBasisId, ProtocolTypes _pType)
+        public static void OpenNewProtocol(ProtocolList formOwner, int iFacultyId, int iStudyFormId, int iStudyBasisId, ProtocolTypes _pType)
         {
-            foreach (Form frmChild in mainform.MdiChildren)
+            foreach (Form frmChild in MainClass.mainform.MdiChildren)
             {
                 if (frmChild is ProtocolCard)
                 {

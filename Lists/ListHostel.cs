@@ -81,7 +81,7 @@ namespace Priem
 
         protected override void OpenCard(string itemId, BaseFormEx formOwner, int? index)
         {
-            MainClassCards.OpenCardPerson(MainClass.mainform, itemId, this, dgvAbiturients.CurrentRow.Index);
+            MainClassCards.OpenCardPerson(itemId, this, dgvAbiturients.CurrentRow.Index);
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

@@ -122,7 +122,7 @@ namespace Priem
             {
                 string abId = dgvAbitList.Rows[dgvAbitList.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
                 if (abId != "")
-                    MainClassCards.OpenCardAbit(MainClass.mainform, abId, this, dgvAbitList.CurrentRow.Index);
+                    MainClassCards.OpenCardAbit(abId, this, dgvAbitList.CurrentRow.Index);
             }
         }
 

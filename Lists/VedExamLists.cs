@@ -143,7 +143,7 @@ namespace Priem
 
         protected override void OpenCard(string id, BaseFormEx formOwner, int? index)
         {
-            MainClassCards.OpenCardAbit(MainClass.mainform, id, this, dgvVed.CurrentRow.Index);
+            MainClassCards.OpenCardAbit(id, this, dgvVed.CurrentRow.Index);
         }
 
         //обновление грида

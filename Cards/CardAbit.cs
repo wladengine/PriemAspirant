@@ -1573,7 +1573,7 @@ namespace Priem
 
         private void btnCardPerson_Click(object sender, EventArgs e)
         {
-            MainClassCards.OpenCardPerson(MainClass.mainform, _personId.ToString(), null, -1);
+            MainClassCards.OpenCardPerson(_personId.ToString(), null, -1);
         }
 
         //данные по оплате

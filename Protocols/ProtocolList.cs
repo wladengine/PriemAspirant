@@ -329,7 +329,7 @@ namespace Priem
                 string abId = dgvProtocols.Rows[dgvProtocols.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
                 if (abId != "")
                 {
-                    MainClassCards.OpenCardAbit(MainClass.mainform, abId, this, dgvProtocols.CurrentCell.RowIndex);
+                    MainClassCards.OpenCardAbit(abId, this, dgvProtocols.CurrentCell.RowIndex);
                 }
             }
         }
@@ -341,7 +341,7 @@ namespace Priem
                 return;
 
             if (StudyFormId != null)
-                MainClassCards.OpenNewProtocol(MainClass.mainform, this, FacultyId.Value, StudyFormId.Value, StudyBasisId.Value, _protocolType);
+                MainClassCards.OpenNewProtocol(this, FacultyId.Value, StudyFormId.Value, StudyBasisId.Value, _protocolType);
         }
 
         //открытие карточки по двойному клику

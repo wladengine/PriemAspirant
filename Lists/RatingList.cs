@@ -363,7 +363,7 @@ namespace Priem
         
         protected override void OpenCard(string id, BaseFormsLib.BaseFormEx formOwner, int? index)
         {
-            MainClassCards.OpenCardAbit(MainClass.mainform, id, this, dgvAbits.CurrentRow.Index);
+            MainClassCards.OpenCardAbit(id, this, dgvAbits.CurrentRow.Index);
         }
 
         int GetPlanValueAndCheckLock()

@@ -999,7 +999,7 @@ namespace Priem
                 string abId = dgvApplications.Rows[dgvApplications.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
                 if (abId != "")
                 {
-                    MainClassCards.OpenCardAbit(MainClass.mainform, abId, this, dgvApplications.CurrentRow.Index);
+                    MainClassCards.OpenCardAbit(abId, this, dgvApplications.CurrentRow.Index);
                 }
             }
         }

@@ -1337,7 +1337,7 @@ FROM [extApplicationDetails] WHERE [ApplicationId]=@AppId";
                                 where per.Barcode == _personBarc
                                 select per.Id).FirstOrDefault();
 
-                MainClassCards.OpenCardPerson(MainClass.mainform, perId.ToString(), null, null);
+                MainClassCards.OpenCardPerson(perId.ToString(), null, null);
             }
         }
 
