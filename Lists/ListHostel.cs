@@ -11,6 +11,7 @@ using EducServLib;
 using BaseFormsLib;
 using WordOut;
 using PriemLib;
+
 namespace Priem
 {
     /*Список Person для общежитий*/

@@ -85,108 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BooksPasha\BackUpFix.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\BackUpFix.designer.cs">
-      <DependentUpon>BackUpFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\CardEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\CardEntry.designer.cs">
-      <DependentUpon>CardEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\CardExam.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\CardExam.Designer.cs">
-      <DependentUpon>CardExam.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\CardExamInEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\CardExamInEntry.Designer.cs">
-      <DependentUpon>CardExamInEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\CardOlympBook.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\CardOlympBook.Designer.cs">
-      <DependentUpon>CardOlympBook.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\EgeExamList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\EgeExamList.Designer.cs">
-      <DependentUpon>EgeExamList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\EnterMarksManual.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\EnterMarksManual.Designer.cs">
-      <DependentUpon>EnterMarksManual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\EntryList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\EntryList.designer.cs">
-      <DependentUpon>EntryList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\ExamList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\ExamList.Designer.cs">
-      <DependentUpon>ExamList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\ExamNameList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\ExamNameList.Designer.cs">
-      <DependentUpon>ExamNameList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\MinEgeList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\MinEgeList.Designer.cs">
-      <DependentUpon>MinEgeList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\OlympBookList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\OlympBookList.Designer.cs">
-      <DependentUpon>OlympBookList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BooksPasha\SelectExamManual.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BooksPasha\SelectExamManual.designer.cs">
-      <DependentUpon>SelectExamManual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Books\BookCard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Books\BookCard.designer.cs">
-      <DependentUpon>BookCard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Books\BookCardInt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Books\BookCardInt.Designer.cs">
-      <DependentUpon>BookCardInt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Books\CardFromList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Books\CardFromList.designer.cs">
-      <DependentUpon>CardFromList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Books\SimpleBook.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Books\SimpleBook.Designer.cs">
-      <DependentUpon>SimpleBook.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cards\CardAbit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -361,19 +259,12 @@
     <Compile Include="Crypto\SetNewMark.Designer.cs">
       <DependentUpon>SetNewMark.cs</DependentUpon>
     </Compile>
-    <Compile Include="Books\BookList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Books\BookList.Designer.cs">
-      <DependentUpon>BookList.cs</DependentUpon>
-    </Compile>
     <Compile Include="Exams\ExamResults.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Exams\ExamResults.designer.cs">
       <DependentUpon>ExamResults.cs</DependentUpon>
     </Compile>
-    <Compile Include="Exams\Exams.cs" />
     <Compile Include="Exams\Olymp2Competition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -429,7 +320,6 @@
       <DependentUpon>Groups.cs</DependentUpon>
     </Compile>
     <Compile Include="Filters\StrangeAboutFilters.cs" />
-    <Compile Include="HelpClass.cs" />
     <Compile Include="Lists\AllAbitList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -706,54 +596,6 @@
     <Compile Include="Statistics\Watch.designer.cs">
       <DependentUpon>Watch.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="BooksPasha\BackUpFix.resx">
-      <DependentUpon>BackUpFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\CardEntry.resx">
-      <DependentUpon>CardEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\CardExam.resx">
-      <DependentUpon>CardExam.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\CardExamInEntry.resx">
-      <DependentUpon>CardExamInEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\CardOlympBook.resx">
-      <DependentUpon>CardOlympBook.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\EgeExamList.resx">
-      <DependentUpon>EgeExamList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\EnterMarksManual.resx">
-      <DependentUpon>EnterMarksManual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\EntryList.resx">
-      <DependentUpon>EntryList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\ExamList.resx">
-      <DependentUpon>ExamList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\ExamNameList.resx">
-      <DependentUpon>ExamNameList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\OlympBookList.resx">
-      <DependentUpon>OlympBookList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BooksPasha\SelectExamManual.resx">
-      <DependentUpon>SelectExamManual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Books\BookCard.resx">
-      <DependentUpon>BookCard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Books\CardFromList.resx">
-      <DependentUpon>CardFromList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Books\BookList.resx">
-      <DependentUpon>BookList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Books\SimpleBook.resx">
-      <DependentUpon>SimpleBook.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Cards\CardAbit.resx">
       <DependentUpon>CardAbit.cs</DependentUpon>
     </EmbeddedResource>
@@ -1040,7 +882,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PriemLib\PriemLib\PriemLib.csproj">
-      <Project>{957a6e48-2cf1-4360-bbe5-d27246bc2093}</Project>
+      <Project>{686F95EC-4AFB-4B37-AA60-70D9AC584CD8}</Project>
       <Name>PriemLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\_SHARED LIBS\BaseFormsLib\BaseFormsLib\BaseFormsLib.csproj">

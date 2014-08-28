@@ -11,6 +11,7 @@ using System.Transactions;
 using BDClassLib;
 using EducServLib;
 using WordOut;
+using PriemLib; 
 
 namespace Priem
 {
