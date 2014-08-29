@@ -18,7 +18,7 @@ namespace Priem
     {
         private DBPriem _bdc;
         private string sQuery;
-        protected MainClass.ProtocolRefreshHandler prh = null;
+        protected ProtocolRefreshHandler prh = null;
 
         public EntryViewList()
         {            
@@ -85,7 +85,7 @@ namespace Priem
             cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
             cbLicenseProgram.SelectedIndexChanged += new EventHandler(cbLicenseProgram_SelectedIndexChanged);
 
-            prh = new MainClass.ProtocolRefreshHandler(UpdateDataGrid);
+            prh = new ProtocolRefreshHandler(UpdateDataGrid);
             MainClass.AddProtocolHandler(prh);          
         }
 

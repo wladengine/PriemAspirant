@@ -17,7 +17,7 @@ namespace Priem
     public partial class PersonChangesList : BaseFormEx
     {
         private DBPriem _bdc;
-        private MainClass.DataRefreshHandler _drh;
+        private DataRefreshHandler _drh;
 
         public PersonChangesList()
         {
@@ -31,7 +31,7 @@ namespace Priem
             this.MdiParent = MainClass.mainform;
             _bdc = MainClass.Bdc;
 
-            _drh = new MainClass.DataRefreshHandler(UpdateDataGrid);
+            _drh = new DataRefreshHandler(UpdateDataGrid);
             MainClass.AddHandler(_drh);
 
             Dgv = dgvChanges;

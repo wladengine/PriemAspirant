@@ -67,8 +67,9 @@ namespace Priem
             PrepareRegion();
             MigrateProfSpez();
             MigrateOrders();
-            MigrateAbits();
             _odc.ExecuteWithTrasaction(_alQueries);
+            MigrateAbits();
+            //_odc.ExecuteWithTrasaction(_alQueries);
             MessageBox.Show("Готово!");
             _odc.CloseDataBase();
         }
@@ -108,33 +109,32 @@ namespace Priem
             slSpec = new SortedList<string, string>();
 
             string query = @"SELECT DISTINCT LicenseProgramId, FacultyId, LicenseProgramCode, LicenseProgramName  
-                       FROM ed.qEntry " + (string.IsNullOrEmpty(FacultyId) ? "" : " WHERE ed.qEntry.FacultyId = " + FacultyId);
+                       FROM ed.qEntry WHERE qEntry.StudyLevelGroupId = " + MainClass.studyLevelGroupId + ((string.IsNullOrEmpty(FacultyId) ? "" : " AND ed.qEntry.FacultyId = " + FacultyId));
 
             DataSet dsProf = _bdc.GetDataSet(query);
 
             int newProfId = 1;
             foreach (DataRow rowProf in dsProf.Tables[0].Rows)
             {
-                string LPName = rowProf["LicenseProgramName"].ToString().Length > 100 ? rowProf["LicenseProgramName"].ToString().Substring(0, 100) : rowProf["LicenseProgramName"].ToString();
-                string queryIns = string.Format("INSERT INTO Profession (Id, Name, Code, FacultyId) VALUES ({0}, '{1}', '{2}', {3})", newProfId, LPName, rowProf["LicenseProgramCode"].ToString(), rowProf["FacultyId"].ToString());
+                string queryIns = string.Format("INSERT INTO Profession (Id, Name, Code, FacultyId) VALUES ({0}, '{1}', '{2}', {3})", newProfId, rowProf["LicenseProgramName"].ToString(), rowProf["LicenseProgramCode"].ToString(), rowProf["FacultyId"].ToString());
                 _odc.ExecuteQuery(queryIns);
 
-                string key = rowProf["FacultyId"].ToString() + "_" + rowProf["LicenseProgramId"].ToString() + "_" + rowProf["LicenseProgramCode"].ToString() + "_" + LPName;
+                string key = rowProf["FacultyId"].ToString() + "_" + rowProf["LicenseProgramId"].ToString();
                 string value = newProfId.ToString();
                 slProf.Add(key, value);
 
                 newProfId++;
             }
 
-            query = @"SELECT DISTINCT LicenseProgramId, LicenseProgramCode, LicenseProgramName, FacultyId, ProfileId, ProfileName 
-                       FROM ed.qEntry WHERE NOT ProfileId IS NULL " + (string.IsNullOrEmpty(FacultyId) ? "" : " AND ed.qEntry.FacultyId = " + FacultyId);
+            query = @"SELECT DISTINCT LicenseProgramId, FacultyId, ProfileId, ProfileName 
+                       FROM ed.qEntry WHERE NOT ProfileId IS NULL AND qEntry.StudyLevelGroupId = " + MainClass.studyLevelGroupId + ((string.IsNullOrEmpty(FacultyId) ? "" : " AND ed.qEntry.FacultyId = " + FacultyId));
 
             DataSet dsSpec = _bdc.GetDataSet(query);
 
             int newSpecId = 1;
             foreach (DataRow rowSpec in dsSpec.Tables[0].Rows)
-            {
-                string profId = slProf[rowSpec["FacultyId"].ToString() + "_" + rowSpec["LicenseProgramId"].ToString() + "_" + rowSpec["LicenseProgramCode"].ToString() + "_" + rowSpec["LicenseProgramName"].ToString()];
+            {               
+                string profId = slProf[rowSpec["FacultyId"].ToString() + "_" + rowSpec["LicenseProgramId"].ToString()];
 
                 string queryIns = string.Format("INSERT INTO Specialization (Id, Name, ProfessionId) VALUES ({0}, '{1}', {2})", newSpecId, rowSpec["ProfileName"].ToString(), profId);
                 _odc.ExecuteQuery(queryIns);
@@ -146,11 +146,10 @@ namespace Priem
                 newSpecId++;
             }
         }
-       
         private void MigrateOrders()
         {
             string query = @"SELECT ed.OrderNumbers.*, ed.Protocol.FacultyId, ed.Protocol.StudyFormId, ed.Protocol.StudyBasisId FROM ed.OrderNumbers 
-                             INNER JOIN ed.Protocol On ed.OrderNumbers.ProtocolId = ed.Protocol.Id WHERE 1=1 " + GetFilter("ed.Protocol");
+                             INNER JOIN ed.Protocol On ed.OrderNumbers.ProtocolId = ed.Protocol.Id WHERE Protocol.StudyLevelGroupId = " + MainClass.studyLevelGroupId + " " + GetFilter("ed.Protocol");
             string queryAbits;
 
             DataSet ds = _bdc.GetDataSet(query);
@@ -170,7 +169,7 @@ namespace Priem
                     foreach (DataRow drr in _bdc.GetDataSet(queryAbits).Tables[0].Rows)
                     {
                         _slIds.Add(drr["AbiturientId"].ToString(), _NewId);
-                    }                 
+                    }
                     _NewId++;          
                 }
                 if (dr["OrderNumFor"].ToString().Length != 0)
@@ -183,13 +182,11 @@ namespace Priem
                     foreach (DataRow drr in _bdc.GetDataSet(queryAbits).Tables[0].Rows)
                     {
                         _slIds.Add(drr["AbiturientId"].ToString(), _NewId);
-                    } 
+                    }
                     _NewId++;          
-                }  
+                }
             }
         }
-
-        //миграция
         private void MigrateAbits()
         {
             NewWatch wc = new NewWatch(100);
@@ -202,76 +199,76 @@ namespace Priem
                 int.TryParse(FacultyId, out iFacultyId);
 
                 var abitList =
-                    from Ab in context.Abiturient
-                    join Ent in context.qEntry on Ab.EntryId equals Ent.Id
-                    join extEV in context.extEntryView on Ab.Id equals extEV.AbiturientId
-                    where Ab.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId &&
-                    (iFacultyId == 0 ? true : Ab.Entry.FacultyId == iFacultyId)
-                    select new
-                    {
-                        Ab.Id,
-                        Ab.RegNum,
-                        Ab.Person.Surname,
-                        Ab.Person.Name,
-                        Ab.Person.SecondName,
-                        Ab.Person.BirthDate,
-                        Ab.Person.BirthPlace,
-                        Ab.Person.Sex,
-                        Ab.Person.PassportTypeId,
-                        Ab.Person.PassportSeries,
-                        Ab.Person.PassportNumber,
-                        Ab.Person.PassportAuthor,
-                        Ab.Person.PassportDate,
-                        Ab.Person.NationalityId,
-                        Ab.Person.Person_Contacts.RegionId,
-                        Ab.Person.Person_Contacts.Phone,
-                        Ab.Person.Person_Contacts.Mobiles,
-                        Ab.LanguageId,
-                        Ab.Person.Person_AdditionalInfo.Privileges,
-                        Ab.Person.Person_Contacts.Code,
-                        Ab.Person.Person_Contacts.City,
-                        Ab.Person.Person_Contacts.Street,
-                        Ab.Person.Person_Contacts.House,
-                        Ab.Person.Person_Contacts.Korpus,
-                        Ab.Person.Person_Contacts.Flat,
-                        Ab.Person.Person_Contacts.CodeReal,
-                        Ab.Person.Person_Contacts.CityReal,
-                        Ab.Person.Person_Contacts.StreetReal,
-                        Ab.Person.Person_Contacts.HouseReal,
-                        Ab.Person.Person_Contacts.KorpusReal,
-                        Ab.Person.Person_Contacts.FlatReal,
-                        Ab.Person.Person_EducationInfo.SchoolTypeId,
-                        Ab.Person.Person_EducationInfo.SchoolCity,
-                        Ab.Person.Person_EducationInfo.SchoolName,
-                        Ab.Person.Person_EducationInfo.SchoolNum,
-                        Ab.Person.Person_EducationInfo.SchoolExitYear,
-                        Ab.Person.Person_EducationInfo.AttestatRegion,
-                        Ab.Person.Person_EducationInfo.AttestatSeries,
-                        Ab.Person.Person_EducationInfo.AttestatNum,
-                        Ab.Person.Person_EducationInfo.DiplomSeries,
-                        Ab.Person.Person_EducationInfo.DiplomNum,
-                        Ab.Person.Person_EducationInfo.IsExcellent,
-                        Nation = Ab.Person.Person_Contacts.Country.Name,
-                        Ab.Entry.FacultyId,
-                        Ab.Entry.StudyFormId,
-                        Ab.Entry.StudyBasisId,
-                        Ab.Entry.LicenseProgramId,
-                        LicenseProgramCode = Ab.Entry.SP_LicenseProgram.Code,
-                        LicenseProgramName = Ab.Entry.SP_LicenseProgram.Name,
-                        Ab.Entry.ProfileId,
-                        Ab.CompetitionId,
-                        Ab.StudyNumber,
-                        ObrazProgramName = Ab.Entry.SP_ObrazProgram.Name,
-                        ObrazProgramCrypt = Ab.Entry.StudyLevel.Acronym + "." + Ab.Entry.SP_ObrazProgram.Number + "." + MainClass.PriemYear,
-                        Ab.DocDate,
-                        Ab.IsListener,
-                        Ab.Entry.StudyPlanNumber,
-                        ListenerTypeId = Ab.Entry.IsSecond ? 1 : (Ab.Entry.IsReduced ? 2 : (Ab.Entry.IsParallel ? 3 : 0)),
-                        EntryProtId = extEV.Id,
-                        Ab.Person.Person_EducationInfo.HEExitYear,
-                        Ab.Person.Person_AdditionalInfo.HostelEduc,
-                        Ab.HasOriginals
-                    };
+                    (from Ab in context.Abiturient
+                     join Ent in context.extEntry on Ab.EntryId equals Ent.Id
+                     join extEV in context.extEntryView on Ab.Id equals extEV.AbiturientId
+                     where Ab.Entry.StudyLevel.LevelGroupId == MainClass.studyLevelGroupId &&
+                     (iFacultyId == 0 ? true : Ab.Entry.FacultyId == iFacultyId)
+                     //&& extEV.Date > new DateTime(2013, 9, 18)
+                     select new
+                     {
+                         Ab.Id,
+                         Ab.RegNum,
+                         Ab.Person.Surname,
+                         Ab.Person.Name,
+                         Ab.Person.SecondName,
+                         Ab.Person.BirthDate,
+                         Ab.Person.BirthPlace,
+                         Ab.Person.Sex,
+                         Ab.Person.PassportTypeId,
+                         Ab.Person.PassportSeries,
+                         Ab.Person.PassportNumber,
+                         Ab.Person.PassportAuthor,
+                         Ab.Person.PassportDate,
+                         Ab.Person.NationalityId,
+                         Ab.Person.Person_Contacts.RegionId,
+                         Ab.Person.Person_Contacts.Phone,
+                         Ab.Person.Person_Contacts.Mobiles,
+                         Ab.LanguageId,
+                         Ab.Person.Person_AdditionalInfo.Privileges,
+                         Ab.Person.Person_Contacts.Code,
+                         Ab.Person.Person_Contacts.City,
+                         Ab.Person.Person_Contacts.Street,
+                         Ab.Person.Person_Contacts.House,
+                         Ab.Person.Person_Contacts.Korpus,
+                         Ab.Person.Person_Contacts.Flat,
+                         Ab.Person.Person_Contacts.CodeReal,
+                         Ab.Person.Person_Contacts.CityReal,
+                         Ab.Person.Person_Contacts.StreetReal,
+                         Ab.Person.Person_Contacts.HouseReal,
+                         Ab.Person.Person_Contacts.KorpusReal,
+                         Ab.Person.Person_Contacts.FlatReal,
+                         Ab.Person.Person_EducationInfo.SchoolTypeId,
+                         Ab.Person.Person_EducationInfo.SchoolCity,
+                         Ab.Person.Person_EducationInfo.SchoolName,
+                         Ab.Person.Person_EducationInfo.SchoolNum,
+                         Ab.Person.Person_EducationInfo.SchoolExitYear,
+                         Ab.Person.Person_EducationInfo.AttestatRegion,
+                         Ab.Person.Person_EducationInfo.AttestatSeries,
+                         Ab.Person.Person_EducationInfo.AttestatNum,
+                         Ab.Person.Person_EducationInfo.DiplomSeries,
+                         Ab.Person.Person_EducationInfo.DiplomNum,
+                         Ab.Person.Person_EducationInfo.IsExcellent,
+                         Nation = Ab.Person.Person_Contacts.Country.Name,
+                         Ab.Entry.FacultyId,
+                         Ab.Entry.StudyFormId,
+                         Ab.Entry.StudyBasisId,
+                         Ab.Entry.LicenseProgramId,
+                         Ab.Entry.ProfileId,
+                         Ab.CompetitionId,
+                         Ab.StudyNumber,
+                         ObrazProgramName = Ab.Entry.SP_ObrazProgram.Name,
+                         ObrazProgramCrypt = Ab.Entry.StudyLevel.Acronym + "." + Ab.Entry.SP_ObrazProgram.Number + "." + MainClass.sPriemYear,
+                         Ab.DocDate,
+                         Ab.IsListener,
+                         Ab.Entry.StudyPlanNumber,
+                         ListenerTypeId = Ab.Entry.IsSecond ? 1 : (Ab.Entry.IsReduced ? 2 : (Ab.Entry.IsParallel ? 3 : 0)),
+                         //EntryProtId = extEV.Id,
+                         Ab.Person.Person_EducationInfo.HEExitYear,
+                         Ab.Person.Person_AdditionalInfo.HostelEduc,
+                         Ab.HasOriginals,
+                         Ab.Person.SNILS
+                     }).ToList();
 
 
                 if (abitList.Count() == 0)
@@ -279,6 +276,14 @@ namespace Priem
 
                 wc.SetMax(abitList.Count());
                 wc.SetText("Импорт данных...");
+
+                var notApplicableList = abitList.Select(x => x.Id).Except(_slIds.Keys.Select(x => Guid.Parse(x))).ToList();
+
+                if (notApplicableList.Count() > 0)
+                {
+                    WinFormsServ.Error("Not found orders for " + notApplicableList.Count() + " Ids");
+                    return;
+                }
 
                 foreach (var Abit in abitList.ToList())
                 {
@@ -304,7 +309,7 @@ namespace Priem
                     if (ph.Length > 100)
                         ph = ph.Substring(0, 100);
 
-                    string profId = slProf[Abit.FacultyId + "_" + Abit.LicenseProgramId + "_" + Abit.LicenseProgramCode + "_" + (Abit.LicenseProgramName.Length > 100 ? Abit.LicenseProgramName.Substring(0, 100) : Abit.LicenseProgramName)];
+                    string profId = slProf[Abit.FacultyId + "_" + Abit.LicenseProgramId];
 
                     string specId;
                     if (!Abit.ProfileId.HasValue)
@@ -333,7 +338,7 @@ namespace Priem
                         "[Phone], [ZipCode], [Adress], [LifeAddress], " +
                         "[BirthDate], [Sex], " +
                         "[PasswordTypeId], [PaswSeries], [PaswNumber], [PaswDate], [PaswAuthor], " +
-                        "[StudyNumber], [EntryOrderId], [EduProgName], [EduProgKod], [StudyPlanNumber])" +
+                        "[StudyNumber], [EntryOrderId], [EduProgName], [EduProgKod], [StudyPlanNumber], [SNILS])" +
                         "VALUES (" +
                         "'{0}','{1}','{2}','{3}'," +
                         "'{4}','{5}','{6}','{7}', " +
@@ -345,21 +350,21 @@ namespace Priem
                         "'{28}','{29}','{30}','{31}'," +
                         "'{32}','{33}'," +
                         "'{34}','{35}','{36}','{37}','{38}'," +
-                        "'{39}','{40}', '{41}','{42}', '{43}')",
+                        "'{39}','{40}', '{41}','{42}', '{43}', '{44}')",
                         Abit.RegNum, Abit.Name, Abit.SecondName, Abit.Surname,
                         Abit.Privileges.ToString(), QueryServ.QueryForBool(Abit.IsExcellent.ToString()), Abit.ListenerTypeId.ToString(), QueryServ.QueryForBool(Abit.IsListener.ToString()),
                         QueryServ.QueryForBool(Abit.HostelEduc.ToString()), Abit.FacultyId.ToString(), profId, specId,
                         Abit.StudyBasisId, Abit.StudyFormId, Abit.CompetitionId,
-                        Abit.DocDate.ToString(), regionId, Abit.RegionId.HasValue ? Abit.RegionId.ToString() : "1",
+                        Abit.DocDate, regionId, Abit.RegionId.HasValue ? Abit.RegionId.ToString() : "1",
                         Abit.LanguageId.HasValue ? Abit.LanguageId.Value.ToString() : "1",
                         educSeries, Abit.AttestatRegion, educNum, QueryServ.QueryForBool(Abit.HasOriginals.ToString()),
-                        Abit.SchoolName.Replace("'", "").Substring(0, Abit.SchoolName.Length > 200 ? 200 : Abit.SchoolName.Length), Abit.SchoolCity, Abit.SchoolNum, (Abit.SchoolTypeId ?? 1).ToString(),
+                        Abit.SchoolName.Replace("'", "").Substring(0, Abit.SchoolName.Length > 200 ? 200 : Abit.SchoolName.Length), Abit.SchoolCity, Abit.SchoolNum, (Abit.SchoolTypeId ?? 1).ToString(), 
                         (string.IsNullOrEmpty(educYear) ? DateTime.Now.Year.ToString() : educYear),
                         ph, zc, a, la,
                         Abit.BirthDate.ToString(), QueryServ.QueryForBool(Abit.Sex.ToString()),
                         Abit.PassportTypeId.ToString(), Abit.PassportSeries, Abit.PassportNumber, Abit.PassportDate.ToString(), pa,
                         Abit.StudyNumber, abId,
-                        (Abit.ObrazProgramName.Length > 128 ? Abit.ObrazProgramName.Substring(0, 128) : Abit.ObrazProgramName), Abit.ObrazProgramCrypt ?? "", Abit.StudyPlanNumber ?? "");
+                        (Abit.ObrazProgramName.Length > 128 ? Abit.ObrazProgramName.Substring(0, 128) : Abit.ObrazProgramName), Abit.ObrazProgramCrypt, (Abit.StudyPlanNumber ?? ""), Abit.SNILS ?? "");
 
                     _odc.ExecuteQuery(s);
 
@@ -368,7 +373,7 @@ namespace Priem
                 }
             }
             wc.Close();
-        }
+        }        
 
         //фильтр по факультету
         private string GetFilter(string table)
@@ -395,14 +400,15 @@ namespace Priem
             _odc = new OleDbClass();
             _odc.OpenDatabase(newfile);
 
-            string query = string.Format("SELECT DISTINCT ed.extAbitAspirant.Id, ed.Person.Name, ed.Person.SecondName, ed.Person.Surname, " +
-                              "ed.Person.BirthDate, ed.extAbitAspirant.StudyNumber, ed.extAbitAspirant.StudyLevelId, " +
+            string query = string.Format("SELECT DISTINCT ed.extAbit.Id, ed.Person.Name, ed.Person.SecondName, ed.Person.Surname, " +
+                              "ed.Person.BirthDate, ed.extAbit.StudyNumber, ed.extAbit.StudyLevelId, " +
                               "ed.Person.PassportTypeId, case when ed.Person.PassportTypeId=1 then 'Р' when ed.Person.PassportTypeId=3 then 'З' else '' end as PassportType, " +
-                              "ed.Person.PassportSeries, ed.Person.PassportNumber,  " +
+                              "ed.Person.PassportSeries, ed.Person.PassportNumber, EEE.DateFinishEduc, " +
                               "ed.extEntryView.Id AS EntryProtId " +
-                              "FROM ed.extAbitAspirant INNER JOIN ed.Person ON ed.extAbitAspirant.PersonId = ed.Person.Id " +
-                              "INNER JOIN ed.extEntryView ON ed.extEntryView.AbiturientId = ed.extAbitAspirant.Id " +
-                              "WHERE ed.extAbitAspirant.StudyFormId = 1 {0}", GetFilter("extAbitAspirant"));
+                              "FROM ed.extAbit INNER JOIN ed.Person ON ed.extAbit.PersonId = ed.Person.Id " +
+                              "INNER JOIN ed.extEntryView ON ed.extEntryView.AbiturientId = ed.extAbit.Id " +
+                              "INNER JOIN ed.Entry AS EEE ON EEE.Id = extAbit.EntryId " +
+                              "WHERE ed.extAbit.StudyFormId = 1 {0}", GetFilter("extAbit"));
 
             DataSet ds = _bdc.GetDataSet(query);
 
@@ -427,23 +433,39 @@ namespace Priem
                 string course;
 
                 string stLevel = dr["StudyLevelId"].ToString();
+                DateTime? dtFinish = dr.Field<DateTime?>("DateFinishEduc");
+                
                 if (stLevel == "16")
                 {
-                    dateEnd = "31.08.2016";
                     course = "1";
+                    if (dtFinish.HasValue)
+                        dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
+                    else
+                        dateEnd = "31.08." + (DateTime.Now.Year + 4).ToString();
                 }
                 else if (stLevel == "17")
                 {
-                    dateEnd = "31.08.2014";
                     course = "5";
+                    if (dtFinish.HasValue)
+                        dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
+                    else
+                        dateEnd = "31.08." + (DateTime.Now.Year + 2).ToString();
                 }
                 else
                 {
-                    dateEnd = "31.08.2017";
                     course = "1";
+                    if (dtFinish.HasValue)
+                        dateEnd = dtFinish.Value.ToString("dd.MM.yyyy");
+                    else
+                        dateEnd = "31.08." + (DateTime.Now.Year + 5).ToString();
                 }
 
                 string datebirth = ((DateTime)dr["BirthDate"]).ToString("dd.MM.yyyy");
+                string OrgCode = "21";
+                if (FacultyId == "17")
+                    OrgCode = "197";
+                if (FacultyId == "29")
+                    OrgCode = "105";
 
                 string s = string.Format(
                     "INSERT INTO sList ([DOC_KIND], [DOC_SN], [DOC_S]," +
@@ -451,7 +473,7 @@ namespace Priem
                     "[ORGCODE], [DATEEND], [BIRTHDAY], [COURSE])" +
                     "VALUES ('{0}','{1}','{2}'," +
                     "'{3}','{4}','{5}','{6}','{7}'," +
-                    "'21','{8}','{9}','{10}')",
+                    "'" + OrgCode + "','{8}','{9}','{10}')",
                     dr["PassportType"].ToString(), ser1, ser2,
                     dr["PassportNumber"].ToString(), dr["StudyNumber"].ToString(), dr["Surname"].ToString(), dr["Name"].ToString(), dr["SecondName"].ToString(),
                     dateEnd, datebirth, course);

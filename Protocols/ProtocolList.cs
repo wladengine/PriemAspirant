@@ -25,8 +25,8 @@ namespace Priem
         private string _protocolName;
         private string _protocolReason;
         
-        protected MainClass.DataRefreshHandler drh = null;
-        protected MainClass.ProtocolRefreshHandler prh = null;
+        protected DataRefreshHandler drh = null;
+        protected ProtocolRefreshHandler prh = null;
 
         //конструктор
         public ProtocolList(ProtocolTypes protocolType)
@@ -65,9 +65,9 @@ namespace Priem
         protected virtual void InitControls()
         {
             InitFocusHandlers();
-            drh = new MainClass.DataRefreshHandler(UpdateDataGrid);
-            prh = new MainClass.ProtocolRefreshHandler(UpdateProtocolList);
-            prh += new MainClass.ProtocolRefreshHandler(SelectLastProtocol);
+            drh = new DataRefreshHandler(UpdateDataGrid);
+            prh = new ProtocolRefreshHandler(UpdateProtocolList);
+            prh += new ProtocolRefreshHandler(SelectLastProtocol);
             MainClass.AddHandler(drh);
             MainClass.AddProtocolHandler(prh);
 

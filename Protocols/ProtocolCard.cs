@@ -34,7 +34,7 @@ namespace Priem
 
         protected bool? _isListener;
 
-        protected MainClass.DataRefreshHandler _drh;
+        protected DataRefreshHandler _drh;
         protected bool isNew;
         protected bool isConfirmed; //проставили галочку, что уверены
 
@@ -118,7 +118,7 @@ namespace Priem
             this.CenterToParent();
             InitFocusHandlers();
 
-            _drh = new MainClass.DataRefreshHandler(UpdateRightGrid);           
+            _drh = new DataRefreshHandler(UpdateRightGrid);           
             MainClass.AddHandler(_drh);
 
             btnDelete.Visible = false;

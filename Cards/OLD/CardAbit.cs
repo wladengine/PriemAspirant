@@ -20,7 +20,7 @@ namespace Priem
 {
     public partial class CardAbit : CardFromList
     {
-        private MainClass.DataRefreshHandler _drh;
+        private DataRefreshHandler _drh;
 
         private Guid? _personId;
         private bool inEnableProtocol;
@@ -88,7 +88,7 @@ namespace Priem
             base.ExtraInit();
             _tableName = "ed.Abiturient";
 
-            _drh = new MainClass.DataRefreshHandler(UpdateFIO);
+            _drh = new DataRefreshHandler(UpdateFIO);
             MainClass.AddHandler(_drh);
 
             tcCard = tabCard;

@@ -85,27 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cards\CardAbit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardAbit.designer.cs">
-      <DependentUpon>CardAbit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\CardAbit.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardAttMarks.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardAttMarks.designer.cs">
-      <DependentUpon>CardAttMarks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\CardBenefitDocument.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardBenefitDocument.Designer.cs">
-      <DependentUpon>CardBenefitDocument.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cards\CardCompetitionInInet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,53 +111,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cards\CardObrazProgramInEntryInCompetitionInInet.Designer.cs" />
-    <Compile Include="Cards\CardPaidData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardPaidData.designer.cs">
-      <DependentUpon>CardPaidData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\CardPaidData.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardPerson.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardPerson.designer.cs">
-      <DependentUpon>CardPerson.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\CardPerson.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Cards\CardProfileInObrazProgramInEntryInCompetition.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cards\CardProfileInObrazProgramInEntryInCompetition.Designer.cs" />
-    <Compile Include="Cards\DocCard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\DocCard.designer.cs">
-      <DependentUpon>DocCard.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cards\DocsClass.cs" />
-    <Compile Include="Cards\EgeCard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\EgeCard.designer.cs">
-      <DependentUpon>EgeCard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\EgeCard.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\OlympCard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\OlympCard.designer.cs">
-      <DependentUpon>OlympCard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\OlympCard.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Cards\ShortCompetitionClass.cs" />
     <Compile Include="ChangeAbitClass.cs" />
     <Compile Include="Crypto\AddMark.cs">
@@ -596,15 +533,6 @@
     <Compile Include="Statistics\Watch.designer.cs">
       <DependentUpon>Watch.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Cards\CardAbit.resx">
-      <DependentUpon>CardAbit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\CardAttMarks.resx">
-      <DependentUpon>CardAttMarks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\CardBenefitDocument.resx">
-      <DependentUpon>CardBenefitDocument.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Cards\CardCompetitionInInet.resx">
       <DependentUpon>CardCompetitionInInet.cs</DependentUpon>
     </EmbeddedResource>
@@ -613,21 +541,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cards\CardFromInet.resx">
       <DependentUpon>CardFromInet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\CardPaidData.resx">
-      <DependentUpon>CardPaidData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\CardPerson.resx">
-      <DependentUpon>CardPerson.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\DocCard.resx">
-      <DependentUpon>DocCard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\EgeCard.resx">
-      <DependentUpon>EgeCard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\OlympCard.resx">
-      <DependentUpon>OlympCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Crypto\AddMark.resx">
       <DependentUpon>AddMark.cs</DependentUpon>

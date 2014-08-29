@@ -9,8 +9,8 @@ using PriemLib;
 
 namespace Priem
 {
-    public delegate void DataRefreshHandler();
-    public delegate void ProtocolRefreshHandler();
+    //public delegate void DataRefreshHandler();
+    //public delegate void ProtocolRefreshHandler();
 
     public static partial class MainClassCards
     {
