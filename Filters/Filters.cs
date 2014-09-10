@@ -73,7 +73,7 @@ namespace Priem
             AddItem(new FilterItem("Факультет", FilterType.Multi, "ed.qAbiturient.FacultyId", "ed.qAbiturient", " SELECT Id, Name FROM ed.qFaculty "));
             AddItem(new FilterItem("Форма обучения", FilterType.Multi, "ed.qAbiturient.StudyFormId", "ed.qAbiturient", "SELECT Id, Name FROM ed.StudyForm "));
             AddItem(new FilterItem("Основа обучения", FilterType.Multi, "ed.qAbiturient.StudyBasisId", "ed.qAbiturient", " SELECT Id, Name FROM ed.StudyBasis "));
-            AddItem(new FilterItem("Предоставлять общежитие на время обучения", FilterType.Bool, "ed.qAbiturient.HostelEduc", "ed.qAbiturient"));
+            AddItem(new FilterItem("Предоставлять общежитие на время обучения", FilterType.Bool, "ed.extPersonAspirant.HostelEduc", "ed.extPersonAspirant"));
             AddItem(new FilterItem("Тип конкурса", FilterType.Multi, "ed.qAbiturient.CompetitionId", "ed.qAbiturient", "SELECT Id, Name FROM ed.Competition ORDER BY Name"));           
             AddItem(new FilterItem("Слушатель", FilterType.Bool, "ed.qAbiturient.IsListener", "ed.qAbiturient"));                      
             AddItem(new FilterItem("Оплатил", FilterType.Bool, "ed.qAbiturient.IsPaid", "ed.qAbiturient"));
