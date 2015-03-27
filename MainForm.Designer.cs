@@ -101,17 +101,12 @@
             this.smiMakeBackDoc = new System.Windows.Forms.ToolStripMenuItem();
             this.smiDeleteDog = new System.Windows.Forms.ToolStripMenuItem();
             this.smiReSetMarksForPaid = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiADAccounts = new System.Windows.Forms.ToolStripMenuItem();
             this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
             this.smiEnterMarks = new System.Windows.Forms.ToolStripMenuItem();
             this.smiLoadMarks = new System.Windows.Forms.ToolStripMenuItem();
             this.smiDecryptor = new System.Windows.Forms.ToolStripMenuItem();
             this.smiAppeal = new System.Windows.Forms.ToolStripMenuItem();
-            this.smiFBS = new System.Windows.Forms.ToolStripMenuItem();
-            this.smiGetByFIOPasp = new System.Windows.Forms.ToolStripMenuItem();
-            this.smiGetByFIOPasp2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.smiGetByBalls = new System.Windows.Forms.ToolStripMenuItem();
-            this.smiLoadFBS = new System.Windows.Forms.ToolStripMenuItem();
-            this.smiEgeLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.smiExport = new System.Windows.Forms.ToolStripMenuItem();
             this.smiVTB = new System.Windows.Forms.ToolStripMenuItem();
             this.smiSberbank = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,7 +117,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblDBPath = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslMain = new System.Windows.Forms.ToolStripStatusLabel();
-            this.smiADAccounts = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -139,7 +133,6 @@
             this.smiHelp,
             this.smiBooks,
             this.smiCrypto,
-            this.smiFBS,
             this.smiExport,
             this.smiImport});
             this.msMainMenu.Location = new System.Drawing.Point(0, 0);
@@ -714,6 +707,13 @@
             this.smiReSetMarksForPaid.Text = "Скопировать оценки для новых платников";
             this.smiReSetMarksForPaid.Click += new System.EventHandler(this.smiReSetMarksForPaid_Click);
             // 
+            // smiADAccounts
+            // 
+            this.smiADAccounts.Name = "smiADAccounts";
+            this.smiADAccounts.Size = new System.Drawing.Size(453, 22);
+            this.smiADAccounts.Text = "Загрузка аккаунтов";
+            this.smiADAccounts.Click += new System.EventHandler(this.smiADAccounts_Click);
+            // 
             // smiCrypto
             // 
             this.smiCrypto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -752,53 +752,6 @@
             this.smiAppeal.Size = new System.Drawing.Size(242, 22);
             this.smiAppeal.Text = "Ведомость для аппеляции";
             this.smiAppeal.Click += new System.EventHandler(this.smiAppeal_Click);
-            // 
-            // smiFBS
-            // 
-            this.smiFBS.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smiGetByFIOPasp,
-            this.smiGetByFIOPasp2,
-            this.smiGetByBalls,
-            this.smiLoadFBS,
-            this.smiEgeLoad});
-            this.smiFBS.Name = "smiFBS";
-            this.smiFBS.Size = new System.Drawing.Size(122, 20);
-            this.smiFBS.Text = "Проверка ФБС ЕГЭ";
-            // 
-            // smiGetByFIOPasp
-            // 
-            this.smiGetByFIOPasp.Name = "smiGetByFIOPasp";
-            this.smiGetByFIOPasp.Size = new System.Drawing.Size(397, 22);
-            this.smiGetByFIOPasp.Text = "Сформировать запрос по номеру паспорта";
-            this.smiGetByFIOPasp.Click += new System.EventHandler(this.smiGetByFIOPasp_Click);
-            // 
-            // smiGetByFIOPasp2
-            // 
-            this.smiGetByFIOPasp2.Name = "smiGetByFIOPasp2";
-            this.smiGetByFIOPasp2.Size = new System.Drawing.Size(397, 22);
-            this.smiGetByFIOPasp2.Text = "Запрос по номеру паспорта 2";
-            this.smiGetByFIOPasp2.Click += new System.EventHandler(this.smiGetByFIOPasp2_Click);
-            // 
-            // smiGetByBalls
-            // 
-            this.smiGetByBalls.Name = "smiGetByBalls";
-            this.smiGetByBalls.Size = new System.Drawing.Size(397, 22);
-            this.smiGetByBalls.Text = "Сформировать запрос по номеру свидетельства и баллам";
-            this.smiGetByBalls.Click += new System.EventHandler(this.smiGetByBalls_Click);
-            // 
-            // smiLoadFBS
-            // 
-            this.smiLoadFBS.Name = "smiLoadFBS";
-            this.smiLoadFBS.Size = new System.Drawing.Size(397, 22);
-            this.smiLoadFBS.Text = "Загрузить ответ ФБС";
-            this.smiLoadFBS.Click += new System.EventHandler(this.smiLoadFBS_Click);
-            // 
-            // smiEgeLoad
-            // 
-            this.smiEgeLoad.Name = "smiEgeLoad";
-            this.smiEgeLoad.Size = new System.Drawing.Size(397, 22);
-            this.smiEgeLoad.Text = "Загрузить ЕГЭ";
-            this.smiEgeLoad.Click += new System.EventHandler(this.smiEgeLoad_Click);
             // 
             // smiExport
             // 
@@ -871,13 +824,6 @@
             // 
             this.tsslMain.Name = "tsslMain";
             this.tsslMain.Size = new System.Drawing.Size(0, 17);
-            // 
-            // smiADAccounts
-            // 
-            this.smiADAccounts.Name = "smiADAccounts";
-            this.smiADAccounts.Size = new System.Drawing.Size(453, 22);
-            this.smiADAccounts.Text = "Загрузка аккаунтов";
-            this.smiADAccounts.Click += new System.EventHandler(this.smiADAccounts_Click);
             // 
             // MainForm
             // 
@@ -952,11 +898,6 @@
         private System.Windows.Forms.ToolStripMenuItem smiLoadMarks;
         private System.Windows.Forms.ToolStripMenuItem smiDecryptor;
         private System.Windows.Forms.ToolStripMenuItem smiAppeal;
-        private System.Windows.Forms.ToolStripMenuItem smiFBS;
-        private System.Windows.Forms.ToolStripMenuItem smiGetByBalls;
-        private System.Windows.Forms.ToolStripMenuItem smiGetByFIOPasp;
-        private System.Windows.Forms.ToolStripMenuItem smiLoadFBS;
-        private System.Windows.Forms.ToolStripMenuItem smiEgeLoad;
         private System.Windows.Forms.ToolStripMenuItem smiExport;
         private System.Windows.Forms.ToolStripMenuItem smiVTB;
         private System.Windows.Forms.ToolStripMenuItem smiSberbank;
@@ -979,7 +920,6 @@
         private System.Windows.Forms.ToolStripMenuItem smiRegionStat;
         private System.Windows.Forms.ToolStripMenuItem smiRegionAbitsStat;
         private System.Windows.Forms.ToolStripMenuItem smiRegionStatMarks;
-        private System.Windows.Forms.ToolStripMenuItem smiGetByFIOPasp2;
         private System.Windows.Forms.ToolStripMenuItem smiRegionFacultyAbitCount;
         private System.Windows.Forms.ToolStripMenuItem smiRatingBackUp;
         private System.Windows.Forms.ToolStripMenuItem smiMakeBackDoc;

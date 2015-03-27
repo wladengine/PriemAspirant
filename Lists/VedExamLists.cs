@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.Linq;
 
 using EducServLib;
-using BDClassLib;
+//using BDClassLib;
 using WordOut;
 using BaseFormsLib;
 using PriemLib;
@@ -288,7 +288,7 @@ namespace Priem
                     if (dgvr.Cells["Печать"].Value.ToString() == "True")
                     {
                         Guid abitId = new Guid(dgvr.Cells["Id"].Value.ToString());
-                        Print.PrintExamListWord(abitId, false/*true*/);
+                        PriemLib.Print.PrintExamListWord(abitId, false/*true*/);
                     }
                 }
             }

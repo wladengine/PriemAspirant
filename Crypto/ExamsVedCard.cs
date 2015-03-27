@@ -11,7 +11,7 @@ using System.Data.Objects;
 using System.Transactions;
 
 using EducServLib;
-using BDClassLib;
+//using BDClassLib;
 using BaseFormsLib;
 using PriemLib;
 

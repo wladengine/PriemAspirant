@@ -138,7 +138,7 @@ namespace Priem
             using (PriemEntities context = new PriemEntities())
             {
                 var persMark = from evh in context.ExamsVedHistory
-                               join pers in context.extPersonAspirant
+                               join pers in context.extPerson
                                on evh.PersonId equals pers.Id
                                where evh.ExamsVedId == _vedId
                                select new
@@ -275,7 +275,7 @@ namespace Priem
                     int i = 1;
 
                     var persMark = from evh in context.ExamsVedHistory
-                               join pers in context.extPersonAspirant
+                               join pers in context.extPerson
                                on evh.PersonId equals pers.Id
                                where evh.ExamsVedId == _vedId
                                select new

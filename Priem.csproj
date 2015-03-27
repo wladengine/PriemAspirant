@@ -11,7 +11,8 @@
     <RootNamespace>Priem</RootNamespace>
     <AssemblyName>Priem_aspirant</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -48,19 +49,17 @@
     <StartupObject>Priem.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BDClassLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\BDClassLib.dll</HintPath>
+    <Reference Include="BDClassLib">
+      <HintPath>..\..\..\OnlineAbit2013\OnlineAbit2013\BDClassLib.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
-      <HintPath>bin\Debug\itextsharp.dll</HintPath>
+      <HintPath>..\..\PriemLib\PriemLib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="RtfWriter, Version=0.9.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\RtfWriter.dll</HintPath>
+    <Reference Include="RtfWriter">
+      <HintPath>..\..\..\EDUCATION\StudyDisciplines\StudyDisciplines\RtfWriter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -85,38 +84,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cards\CardCompetitionInInet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardCompetitionInInet.Designer.cs" />
-    <Compile Include="Cards\CardCompetitionInInet.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardDocInventory.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardDocInventory.designer.cs">
-      <DependentUpon>CardDocInventory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\CardFromInet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardFromInet.Designer.cs">
-      <DependentUpon>CardFromInet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cards\CardFromInet.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardObrazProgramInEntryInCompetitionInInet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardObrazProgramInEntryInCompetitionInInet.Designer.cs" />
-    <Compile Include="Cards\CardProfileInObrazProgramInEntryInCompetition.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cards\CardProfileInObrazProgramInEntryInCompetition.Designer.cs" />
-    <Compile Include="Cards\DocsClass.cs" />
-    <Compile Include="Cards\ShortCompetitionClass.cs" />
     <Compile Include="ChangeAbitClass.cs" />
     <Compile Include="Crypto\AddMark.cs">
       <SubType>Form</SubType>
@@ -196,18 +163,6 @@
     <Compile Include="Crypto\SetNewMark.Designer.cs">
       <DependentUpon>SetNewMark.cs</DependentUpon>
     </Compile>
-    <Compile Include="Exams\ExamResults.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Exams\ExamResults.designer.cs">
-      <DependentUpon>ExamResults.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Exams\Olymp2Competition.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Exams\Olymp2Competition.designer.cs">
-      <DependentUpon>Olymp2Competition.cs</DependentUpon>
-    </Compile>
     <Compile Include="Exams\Olymp2Mark.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,59 +170,17 @@
       <DependentUpon>Olymp2Mark.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportClass.cs" />
-    <Compile Include="FBS\EgeClass.cs" />
-    <Compile Include="FBS\FBSClass.cs" />
-    <Compile Include="FBS\LoadEgeMarks.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FBS\LoadEgeMarks.designer.cs">
-      <DependentUpon>LoadEgeMarks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FBS\LoadFBS.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FBS\LoadFBS.designer.cs">
-      <DependentUpon>LoadFBS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Filters\Columns.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Filters\Columns.designer.cs">
-      <DependentUpon>Columns.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Filters\FilterList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Filters\FilterList.designer.cs">
-      <DependentUpon>FilterList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Filters\Filters.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Filters\Filters.designer.cs">
-      <DependentUpon>Filters.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Filters\FormFilter.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Filters\Groups.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Filters\Groups.designer.cs">
       <DependentUpon>Groups.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filters\StrangeAboutFilters.cs" />
     <Compile Include="Lists\AllAbitList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Lists\AllAbitList.designer.cs">
       <DependentUpon>AllAbitList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lists\ApplicationInetList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lists\ApplicationInetList.Designer.cs">
-      <DependentUpon>ApplicationInetList.cs</DependentUpon>
     </Compile>
     <Compile Include="Lists\ListAbit.cs">
       <SubType>Form</SubType>
@@ -293,18 +206,6 @@
     <Compile Include="Lists\OlympAbitList.designer.cs">
       <DependentUpon>OlympAbitList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lists\OlympCheckList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lists\OlympCheckList.Designer.cs">
-      <DependentUpon>OlympCheckList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lists\OnlineChangesList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lists\OnlineChangesList.Designer.cs">
-      <DependentUpon>OnlineChangesList.cs</DependentUpon>
-    </Compile>
     <Compile Include="Lists\PersonChanges.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,7 +224,6 @@
     <Compile Include="Lists\VedExamLists.designer.cs">
       <DependentUpon>VedExamLists.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadFromInet.cs" />
     <Compile Include="MainClass.Cards.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -332,18 +232,6 @@
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lists\PersonInetList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lists\PersonInetList.Designer.cs">
-      <DependentUpon>PersonInetList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Migrator.designer.cs">
-      <DependentUpon>Migrator.cs</DependentUpon>
     </Compile>
     <Compile Include="Print.cs" />
     <Compile Include="Program.cs" />
@@ -415,133 +303,6 @@
     <Compile Include="Protocols\ProtocolList.Fields.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SomeMethodsClass.cs" />
-    <Compile Include="Statistics\AbitFacultyIntersection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\AbitFacultyIntersection.Designer.cs">
-      <DependentUpon>AbitFacultyIntersection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\AbitFacultyIntersectionPersons.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\AbitFacultyIntersectionPersons.Designer.cs">
-      <DependentUpon>AbitFacultyIntersectionPersons.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\AbitEGEMarksStatistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\AbitEGEMarksStatistics.Designer.cs">
-      <DependentUpon>AbitEGEMarksStatistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\CountAbitStatistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\CountAbitStatistics.Designer.cs">
-      <DependentUpon>CountAbitStatistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\CPK1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\CPK1.Designer.cs">
-      <DependentUpon>CPK1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\EgeStatistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\EgeStatistics.Designer.cs">
-      <DependentUpon>EgeStatistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\EgeStatistics.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\FormA.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\FormA.Designer.cs">
-      <DependentUpon>FormA.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\NewWatch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\NewWatch.Designer.cs">
-      <DependentUpon>NewWatch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\OlympAbitBallsAndRatings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\OlympAbitBallsAndRatings.Designer.cs">
-      <DependentUpon>OlympAbitBallsAndRatings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\OlympLevelAbitRating.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\OlympLevelAbitRating.Designer.cs">
-      <DependentUpon>OlympLevelAbitRating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\OlympRegionBySubject.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\OlympRegionBySubject.Designer.cs">
-      <DependentUpon>OlympRegionBySubject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\OlympSubjectByRegion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\OlympSubjectByRegion.Designer.cs">
-      <DependentUpon>OlympSubjectByRegion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\PersonStatRating.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\PersonStatRating.Designer.cs">
-      <DependentUpon>PersonStatRating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\RegionAbitEGEMarksStatistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\RegionAbitEGEMarksStatistics.Designer.cs">
-      <DependentUpon>RegionAbitEGEMarksStatistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\RegionAbitStatistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\RegionAbitStatistics.Designer.cs">
-      <DependentUpon>RegionAbitStatistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\RegionAbitStatstics_Reversed.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\RegionAbitStatstics_Reversed.Designer.cs">
-      <DependentUpon>RegionAbitStatstics_Reversed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\RegionFacultyAbitCountStatistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\RegionFacultyAbitCountStatistics.Designer.cs">
-      <DependentUpon>RegionFacultyAbitCountStatistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Statistics\Watch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Statistics\Watch.designer.cs">
-      <DependentUpon>Watch.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Cards\CardCompetitionInInet.resx">
-      <DependentUpon>CardCompetitionInInet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\CardDocInventory.resx">
-      <DependentUpon>CardDocInventory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cards\CardFromInet.resx">
-      <DependentUpon>CardFromInet.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crypto\AddMark.resx">
       <DependentUpon>AddMark.cs</DependentUpon>
     </EmbeddedResource>
@@ -581,38 +342,14 @@
     <EmbeddedResource Include="Crypto\SetNewMark.resx">
       <DependentUpon>SetNewMark.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Exams\ExamResults.resx">
-      <DependentUpon>ExamResults.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Exams\Olymp2Competition.resx">
-      <DependentUpon>Olymp2Competition.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Exams\Olymp2Mark.resx">
       <DependentUpon>Olymp2Mark.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FBS\LoadEgeMarks.resx">
-      <DependentUpon>LoadEgeMarks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FBS\LoadFBS.resx">
-      <DependentUpon>LoadFBS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Filters\Columns.resx">
-      <DependentUpon>Columns.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Filters\FilterList.resx">
-      <DependentUpon>FilterList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Filters\Filters.resx">
-      <DependentUpon>Filters.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\Groups.resx">
       <DependentUpon>Groups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lists\AllAbitList.resx">
       <DependentUpon>AllAbitList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lists\ApplicationInetList.resx">
-      <DependentUpon>ApplicationInetList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lists\ListAbit.resx">
       <DependentUpon>ListAbit.cs</DependentUpon>
@@ -626,12 +363,6 @@
     <EmbeddedResource Include="Lists\OlympAbitList.resx">
       <DependentUpon>OlympAbitList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lists\OlympCheckList.resx">
-      <DependentUpon>OlympCheckList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lists\OnlineChangesList.resx">
-      <DependentUpon>OnlineChangesList.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Lists\PersonChanges.resx">
       <DependentUpon>PersonChanges.cs</DependentUpon>
     </EmbeddedResource>
@@ -643,12 +374,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lists\PersonInetList.resx">
-      <DependentUpon>PersonInetList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrator.resx">
-      <DependentUpon>Migrator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -675,63 +400,6 @@
     <EmbeddedResource Include="Protocols\ProtocolList.resx">
       <DependentUpon>ProtocolList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\AbitFacultyIntersection.resx">
-      <DependentUpon>AbitFacultyIntersection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\AbitFacultyIntersectionPersons.resx">
-      <DependentUpon>AbitFacultyIntersectionPersons.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\AbitEGEMarksStatistics.resx">
-      <DependentUpon>AbitEGEMarksStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\CountAbitStatistics.resx">
-      <DependentUpon>CountAbitStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\CPK1.resx">
-      <DependentUpon>CPK1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\EgeStatistics.resx">
-      <DependentUpon>EgeStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\FormA.resx">
-      <DependentUpon>FormA.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\NewWatch.resx">
-      <DependentUpon>NewWatch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\OlympAbitBallsAndRatings.resx">
-      <DependentUpon>OlympAbitBallsAndRatings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\OlympLevelAbitRating.resx">
-      <DependentUpon>OlympLevelAbitRating.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\OlympRegionBySubject.resx">
-      <DependentUpon>OlympRegionBySubject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\OlympSubjectByRegion.resx">
-      <DependentUpon>OlympSubjectByRegion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\PersonStatRating.resx">
-      <DependentUpon>PersonStatRating.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\RegionAbitEGEMarksStatistics.resx">
-      <DependentUpon>RegionAbitEGEMarksStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\RegionAbitStatistics.resx">
-      <DependentUpon>RegionAbitStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\RegionAbitStatstics_Reversed.resx">
-      <DependentUpon>RegionAbitStatstics_Reversed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\RegionFacultyAbitCountStatistics.resx">
-      <DependentUpon>RegionFacultyAbitCountStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Statistics\Watch.resx">
-      <DependentUpon>Watch.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -745,55 +413,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="XML Schemes\запрос-детали по справочнику.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\запрос-импорт.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\запрос-получение результата импорта.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\запрос-получение сведений об ОУ.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\запрос-проверка заявления.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\запрос-список справочников.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\запрос-удаление.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\ответ-детали по справочнику.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\ответ-импорт.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\ответ-получение результата импорта.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\ответ-получение сведений об ОУ.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\ответ-проверка заявления .xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\ответ-список справочников.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="XML Schemes\ответ-удаление.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1kurs.ico" />
     <Content Include="Magistery.ico" />
     <Content Include="Shwz-Disney-Timon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\EDUCATION\EducServLib\EducServLib\EducServLib.csproj">
+      <Project>{96257583-5ff8-4f63-aed3-96c36df6477d}</Project>
+      <Name>EducServLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\PriemLib\PriemLib\PriemLib.csproj">
       <Project>{686F95EC-4AFB-4B37-AA60-70D9AC584CD8}</Project>
       <Name>PriemLib</Name>
@@ -802,10 +431,9 @@
       <Project>{264EF71D-FE21-4BE1-B7EB-CCF3B5FD219F}</Project>
       <Name>BaseFormsLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_SHARED LIBS\EducServLib\EducServLib\EducServLib.csproj">
-      <Project>{96257583-5FF8-4F63-AED3-96C36DF6477D}</Project>
-      <Name>EducServLib</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cards\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using BDClassLib;
+//using BDClassLib;
 using EducServLib;
 using BaseFormsLib;
 using PriemLib;

@@ -43,7 +43,7 @@ namespace Priem
             sfd.FileName = cbProtocolNum.Text + " - Протокол о допуске (" + ProtocolDate.ToShortDateString() + ")";
             sfd.Filter = "ADOBE Pdf files|*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
-                Print.PrintEnableProtocol(ComboServ.GetComboId(cbProtocolNum), false, sfd.FileName);
+                PriemLib.Print.PrintEnableProtocol(ComboServ.GetComboId(cbProtocolNum), false, sfd.FileName);
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Collections;
 using System.Linq;
 using System.Transactions;
  
-using BDClassLib;
+//using BDClassLib;
 using EducServLib;
 using WordOut;
 using BaseFormsLib;

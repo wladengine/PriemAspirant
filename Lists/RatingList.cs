@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Data.Objects;
 
 using EducServLib;
-using BDClassLib;
+//using BDClassLib;
 using WordOut;
 using PriemLib;
 using RtfWriter;
@@ -132,15 +132,11 @@ namespace Priem
             set { ComboServ.SetComboId(cbObrazProgram, value); }
         }
 
-        public Guid? ProfileId
+        public int? ProfileId
         {
             get
             {
-                string prId = ComboServ.GetComboId(cbProfile);
-                if (string.IsNullOrEmpty(prId))
-                    return null;
-                else
-                    return new Guid(prId);
+                return ComboServ.GetComboIdInt(cbProfile);
             }
             set
             {
@@ -726,8 +722,8 @@ namespace Priem
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "ADOBE Pdf files|*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
-                Print.PrintRatingProtocol(StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, IsCel,  
-                    plan, sfd.FileName, IsSecond, IsReduced, IsParallel);
+                PriemLib.Print.PrintRatingProtocol(StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId,ProfileId, IsCel, false,
+                    plan, sfd.FileName, IsSecond, IsReduced, IsParallel, false);
         }        
 
         private void btnWord_Click(object sender, EventArgs e)

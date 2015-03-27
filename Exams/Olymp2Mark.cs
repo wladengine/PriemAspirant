@@ -10,7 +10,7 @@ using System.Linq;
 using System.Transactions;
 
 using EducServLib;
-using BDClassLib;
+//using BDClassLib;
 using WordOut;
 using BaseFormsLib;
 using PriemLib;

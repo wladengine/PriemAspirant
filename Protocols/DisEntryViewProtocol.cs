@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Transactions;
 
-using BDClassLib;
+//using BDClassLib;
 using EducServLib;
 using WordOut;
 using PriemLib; 

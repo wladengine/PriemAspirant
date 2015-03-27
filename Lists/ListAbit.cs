@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 
 using EducServLib;
-using BDClassLib;
+//using BDClassLib;
 using WordOut;
 using BaseFormsLib;
 using Excel = Microsoft.Office.Interop.Excel;

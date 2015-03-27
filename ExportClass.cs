@@ -539,50 +539,50 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
             }
         }
 
-        public static void ImportLoginsFromCSV()
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(ofd.FileName, Encoding.GetEncoding(1251)))
-                    using (PriemEntities context = new PriemEntities())
-                    {
-                        while (!sr.EndOfStream)
-                        {
-                            string str = sr.ReadLine();
-                            string[] splitted = str.Split(';');
-                            if (splitted.Count() < 7)
-                                continue;
+        //public static void ImportLoginsFromCSV()
+        //{
+        //    OpenFileDialog ofd = new OpenFileDialog();
+        //    if (ofd.ShowDialog() == DialogResult.OK)
+        //    {
+        //        try
+        //        {
+        //            using (StreamReader sr = new StreamReader(ofd.FileName, Encoding.GetEncoding(1251)))
+        //            using (PriemEntities context = new PriemEntities())
+        //            {
+        //                while (!sr.EndOfStream)
+        //                {
+        //                    string str = sr.ReadLine();
+        //                    string[] splitted = str.Split(';');
+        //                    if (splitted.Count() < 7)
+        //                        continue;
 
-                            string displayName = splitted[4];
-                            string birthdate = splitted[3];
-                            DateTime bDate = DateTime.Now;
-                            if (!DateTime.TryParse(birthdate, out bDate))
-                                continue;
-                            string account = splitted[5];
+        //                    string displayName = splitted[4];
+        //                    string birthdate = splitted[3];
+        //                    DateTime bDate = DateTime.Now;
+        //                    if (!DateTime.TryParse(birthdate, out bDate))
+        //                        continue;
+        //                    string account = splitted[5];
 
-                            Guid? AbiturientId =
-                                (from extPers in context.extPersonAll
-                                 join Abit in context.Abiturient on extPers.Id equals Abit.PersonId
-                                 join extEnt in context.extEntryView on Abit.Id equals extEnt.AbiturientId
-                                 join Ad in context.ADUserData on Abit.Id equals Ad.AbiturientId
-                                 where extPers.FIO == displayName && extPers.BirthDate == bDate
-                                 select Abit.Id).FirstOrDefault();
+        //                    Guid? AbiturientId =
+        //                        (from extPers in context.extPersonAll
+        //                         join Abit in context.Abiturient on extPers.Id equals Abit.PersonId
+        //                         join extEnt in context.extEntryView on Abit.Id equals extEnt.AbiturientId
+        //                         join Ad in context.ADUserData on Abit.Id equals Ad.AbiturientId
+        //                         where extPers.FIO == displayName && extPers.BirthDate == bDate
+        //                         select Abit.Id).FirstOrDefault();
 
-                            if (!AbiturientId.HasValue || AbiturientId.Value == Guid.Empty)
-                                continue;
+        //                    if (!AbiturientId.HasValue || AbiturientId.Value == Guid.Empty)
+        //                        continue;
 
-                            context.ADUserData_Update(AbiturientId, account + "@spbu.ru", account, "", true);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    WinFormsServ.Error(ex.Message + (ex.InnerException == null ? "" : "\nINNER EXCEPTION: " + ex.InnerException.Message));
-                }
-            }
-        }
+        //                    context.ADUserData_Update(AbiturientId, account + "@spbu.ru", account, "", true);
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            WinFormsServ.Error(ex.Message + (ex.InnerException == null ? "" : "\nINNER EXCEPTION: " + ex.InnerException.Message));
+        //        }
+        //    }
+        //}
     }
 }

@@ -40,7 +40,7 @@ namespace Priem
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "ADOBE Pdf files|*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
-                Print.PrintChangeCompBEProtocol(ComboServ.GetComboId(cbProtocolNum), false, sfd.FileName);
+                PriemLib.Print.PrintChangeCompBEProtocol(ComboServ.GetComboId(cbProtocolNum), false, sfd.FileName);
         }
     }
 }
