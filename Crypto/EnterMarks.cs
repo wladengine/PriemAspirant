@@ -25,7 +25,6 @@ namespace Priem
         private string _dateExam;
         private string _facultyId;
         private string _studybasisId;       
-        private bool _isLoad;
         private bool _isAdditional;
 
         private string _vedNum;
@@ -38,7 +37,6 @@ namespace Priem
             this._vedId = vedId;
             
             _isModified = true;
-            _isLoad = false;
             _isOral = isOral;
            
             InitControls();
@@ -91,7 +89,6 @@ namespace Priem
                 
                 if (exVed.IsLoad)
                 {
-                    _isLoad = true;
                     _isModified = false;
                     dgvMarks.ReadOnly = true;
                     btnSave.Text = "Изменить";

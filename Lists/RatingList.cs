@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.Data.Objects;
 
 using EducServLib;
-//using BDClassLib;
 using WordOut;
 using PriemLib;
 using RtfWriter;
@@ -359,7 +358,7 @@ namespace Priem
         
         protected override void OpenCard(string id, BaseFormsLib.BaseFormEx formOwner, int? index)
         {
-            MainClassCards.OpenCardAbit(id, this, dgvAbits.CurrentRow.Index);
+            MainClass.OpenCardAbit(id, this, dgvAbits.CurrentRow.Index);
         }
 
         int GetPlanValueAndCheckLock()

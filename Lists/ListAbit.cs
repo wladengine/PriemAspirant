@@ -12,7 +12,6 @@ using EducServLib;
 //using BDClassLib;
 using WordOut;
 using BaseFormsLib;
-using Excel = Microsoft.Office.Interop.Excel;
 using PriemLib;
 
 namespace Priem
@@ -122,7 +121,7 @@ namespace Priem
             {
                 string abId = dgvAbitList.Rows[dgvAbitList.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
                 if (abId != "")
-                    MainClassCards.OpenCardAbit(abId, this, dgvAbitList.CurrentRow.Index);
+                    MainClass.OpenCardAbit(abId, this, dgvAbitList.CurrentRow.Index);
             }
         }
 
@@ -392,7 +391,6 @@ namespace Priem
 
                     i++;
                 }
-
             }
             catch (Exception exc)
             {
@@ -460,80 +458,8 @@ namespace Priem
 
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Файлы Excel (.xls)|*.xls";
-            if (sfd.ShowDialog(this) == DialogResult.OK)
-            {
-                try
-                {
-                    List<string> columnList = new List<string>();
-                    foreach (DataGridViewColumn column in dgvAbitList.Columns)
-                        if (column.Visible)
-                            columnList.Add(column.Name);
-                    Excel.Application exc = new Excel.Application();
-                    Excel.Workbook wb = exc.Workbooks.Add(System.Reflection.Missing.Value);
-                    Excel.Worksheet ws = (Excel.Worksheet)exc.ActiveSheet;
-
-                    //почему имя рабочего листа <<в ВТБ>>???
-                    ws.Name = "в ВТБ";
-
-                    ws.Cells[1, 1] = "№ п/п";
-                    for (int j = 0; j < columnList.Count; j++)
-                        ws.Cells[1, j + 2] = dgvAbitList.Columns[columnList[j]].HeaderText;
-
-                    //Excel.Range rg = ws.get_Range(ws.Cells[1, 1], ws.Cells[dgvAbitList.RowCount, dgvAbitList.ColumnCount]);
-
-
-                    //cellXY.NumberFormat = 0.00;
-
-                    //ws.Cells[2, 5] = "12";
-
-                    int i = 0;
-                    // печать из грида
-                    foreach (DataGridViewRow dgvr in dgvAbitList.Rows)
-                    {
-                        ws.Cells[i + 2, 1] = (i + 1).ToString();
-                        for (int j = 0; j < columnList.Count; j++)
-                            ws.Cells[i + 2, j + 2] = dgvAbitList.Rows[i].Cells[columnList[j]].Value.ToString();
-
-                        i++;
-                    }
-
-                    wb.SaveAs(sfd.FileName, Excel.XlFileFormat.xlExcel7,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        Excel.XlSaveAsAccessMode.xlExclusive,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value);
-                    exc.Visible = true;
-                    //по идее, из приложения Excel выходить не надо, пользователь в силах это сделать и самостоятельно, когда насмотрится на свой отсчёт
-                    //exc.Quit();
-                    //exc = null;
-
-                }
-                catch (System.Runtime.InteropServices.COMException exc)
-                {
-                    MessageBox.Show(exc.Message);
-                }
-            }
-            //На всякий случай
-            sfd.Dispose();
+            PrintClass.PrintAllToExcel(Dgv);
         }
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //if (dgvAbitList.CurrentRow.Index >= 0)
-            //{
-            //    _bdc.ExecuteQuery(string.Format("INSERT INTO _FirstWave (AbiturientId, SortNum, Green) VALUES ('{0}',6666,0)",dgvAbitList.CurrentRow.Cells["Id"].Value.ToString()));
-            //}
-
-            //MessageBox.Show("Done! " + dgvAbitList.CurrentRow.Cells["ФИО"].Value.ToString());
-        }
     }
 }

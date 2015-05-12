@@ -17,16 +17,12 @@ namespace Priem
     public partial class EntryViewList : BaseForm
     {
         private DBPriem _bdc;
-        private string sQuery;
         protected ProtocolRefreshHandler prh = null;
 
         public EntryViewList()
         {            
             this.CenterToParent();
             this.MdiParent = MainClass.mainform;
-
-            //this.sQuery = string.Format("SELECT DISTINCT Person.Id, {0} as Ид_номер, Person.Surname AS Фамилия, Person.Name AS Имя, Person.SecondName AS Отчество, Person.BirthDate AS Дата_рождения " +
-            //                       "FROM Person INNER JOIN ExamsVedHistory ON ExamsVedHistory.PersonId = Person.Id ", MainClass.GetStringPersonNumber());
 
             InitializeComponent();
             InitControls();
@@ -40,9 +36,7 @@ namespace Priem
             {                
                 btnPrintOrder.Visible = btnPrintOrder.Enabled = btnCancelView.Enabled = btnCancelView.Visible = true;
                 chbIsForeign.Visible = true;
-               
-                //btnCreate.Enabled = false;
-            } 
+            }
 
             if (MainClass.IsPrintOrder())
             {
@@ -56,10 +50,6 @@ namespace Priem
                 chbIsForeign.Location = new Point(28, 515);
                 chbIsForeign.Visible = chbIsForeign.Enabled = true;
             }
-
-            //// посомтреть, почему отдельные факультеты
-            //if (_bdc.IsMed() || _bdc.GetFacultyId() == "9" || _bdc.GetFacultyId() == "14" || _bdc.GetFacultyId() == "20")
-            //    btnCreate.Enabled = true;
 
             //if (_bdc.IsReadOnly())
             //    btnPrintOrder.Visible = btnPrintOrder.Enabled = true;
@@ -93,70 +83,75 @@ namespace Priem
         {
             FillStudyForm();            
         }
-
         void cbStudyBasis_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillStudyForm();            
         }
-
         void cbStudyForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillLicenseProgram();
         }
-
         void cbLicenseProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDataGrid();
         }
+        private void chbIsListener_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+        private void chbIsSecond_CheckedChanged(object sender, EventArgs e)
+        {
+            FillStudyForm();
+        }
+        private void chbIsReduced_CheckedChanged(object sender, EventArgs e)
+        {
+            FillStudyForm();
+        }
+        private void chbIsParallel_CheckedChanged(object sender, EventArgs e)
+        {
+            FillStudyForm();
+        }             
 
         public int? FacultyId
         {
             get { return ComboServ.GetComboIdInt(cbFaculty); }
             set { ComboServ.SetComboId(cbFaculty, value); }
         }
-
         public int? LicenseProgramId
         {
             get { return ComboServ.GetComboIdInt(cbLicenseProgram); }
             set { ComboServ.SetComboId(cbLicenseProgram, value); }
         }
-        
         public int? StudyBasisId
         {
             get { return ComboServ.GetComboIdInt(cbStudyBasis); }
             set { ComboServ.SetComboId(cbStudyBasis, value); }
         }
-
         public int? StudyFormId
         {
             get { return ComboServ.GetComboIdInt(cbStudyForm); }
             set { ComboServ.SetComboId(cbStudyForm, value); }
         }
-
         public bool IsSecond
         {
             get { return chbIsSecond.Checked; }
             set { chbIsSecond.Checked = value; }
         }
-
         public bool IsReduced
         {
             get { return chbIsReduced.Checked; }
             set { chbIsReduced.Checked = value; }
         }
-
         public bool IsParallel
         {
             get { return chbIsParallel.Checked; }
             set { chbIsParallel.Checked = value; }
         }
-
         public bool IsListener
         {
             get { return chbIsListener.Checked; }
             set { chbIsListener.Checked = value; }
         } 
-
         private void FillStudyForm()
         {
             using (PriemEntities context = new PriemEntities())
@@ -170,7 +165,6 @@ namespace Priem
                 ComboServ.FillCombo(cbStudyForm, lst, false, false);
             }
         }
-
         private void FillLicenseProgram()
         {
             using (PriemEntities context = new PriemEntities())
@@ -189,7 +183,6 @@ namespace Priem
                 ComboServ.FillCombo(cbLicenseProgram, lst, false, true);
             }
         }
-
         private void UpdateDataGrid()
         {
             if (StudyFormId == null || StudyBasisId == null)
@@ -206,7 +199,6 @@ namespace Priem
         {
             new EntryViewProtocol(null, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, LicenseProgramId, IsSecond, IsReduced, IsParallel, IsListener, chbCel.Checked).Show();            
         }
-
         private void btnPrint_Click(object sender, EventArgs e)
         {  
             if (dgvViews.CurrentRow == null)
@@ -220,7 +212,6 @@ namespace Priem
             if (sfd.ShowDialog() == DialogResult.OK)
                 Print.PrintEntryView(dgvViews.CurrentRow.Cells["Id"].Value.ToString(), sfd.FileName);
         }
-
         private void btnPrintOrder_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null)
@@ -233,7 +224,6 @@ namespace Priem
 
             Print.PrintOrder(protocolId, !chbIsForeign.Checked, chbCel.Checked);
         }
-
         private void btnOrderReview_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null)
@@ -246,7 +236,6 @@ namespace Priem
 
             Print.PrintOrderReview(protocolId, !chbIsForeign.Checked);
         }
-
         private void btnCancelView_Click(object sender, EventArgs e)
         {
             if(!MainClass.IsPasha())
@@ -272,24 +261,6 @@ namespace Priem
             MainClass.RemoveProtocolHandler(prh);
         }
 
-        private void chbIsListener_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateDataGrid();
-        }
-
-        private void chbIsSecond_CheckedChanged(object sender, EventArgs e)
-        {
-            FillStudyForm();
-        }
-
-        private void chbIsReduced_CheckedChanged(object sender, EventArgs e)
-        {
-            FillStudyForm();
-        }
-
-        private void chbIsParallel_CheckedChanged(object sender, EventArgs e)
-        {
-            FillStudyForm();
-        }             
+        
     }
 }

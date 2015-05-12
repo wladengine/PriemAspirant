@@ -19,16 +19,12 @@ namespace Priem
     public partial class DisEntryViewList : BaseForm
     {
         private DBPriem _bdc;
-        private string sQuery;
         protected ProtocolRefreshHandler prh = null;
 
         public DisEntryViewList()
         {            
             this.CenterToParent();
             this.MdiParent = MainClass.mainform;
-
-            this.sQuery = @"SELECT DISTINCT ed.extPersonAspirant.Id, ed.extPersonAspirant.PersonNum as Ид_номер, ed.extPersonAspirant.Surname AS Фамилия, ed.extPersonAspirant.Name AS Имя, ed.extPersonAspirant.SecondName AS Отчество, 
-                            ed.extPersonAspirant.BirthDate AS Дата_рождения FROM ed.extPersonAspirant INNER JOIN ed.ExamsVedHistory ON ed.ExamsVedHistory.PersonId = ed.extPersonAspirant.Id ";
 
             InitializeComponent();
             InitControls();
@@ -71,22 +67,27 @@ namespace Priem
             MainClass.AddProtocolHandler(prh);
         }
 
-        void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbFaculty_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillStudyForm();
         }
-
-        void cbStudyBasis_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbStudyBasis_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillStudyForm();
         }
-
-        void cbStudyForm_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbStudyForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillLicenseProgram();
         }
-
-        void cbLicenseProgram_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbLicenseProgram_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+        private void chbIsListener_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+        private void chbIsSecond_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDataGrid();
         }
@@ -96,43 +97,36 @@ namespace Priem
             get { return ComboServ.GetComboIdInt(cbFaculty); }
             set { ComboServ.SetComboId(cbFaculty, value); }
         }
-
         public int? LicenseProgramId
         {
             get { return ComboServ.GetComboIdInt(cbLicenseProgram); }
             set { ComboServ.SetComboId(cbLicenseProgram, value); }
         }
-
         public int? StudyBasisId
         {
             get { return ComboServ.GetComboIdInt(cbStudyBasis); }
             set { ComboServ.SetComboId(cbStudyBasis, value); }
         }
-
         public int? StudyFormId
         {
             get { return ComboServ.GetComboIdInt(cbStudyForm); }
             set { ComboServ.SetComboId(cbStudyForm, value); }
         }
-
         public bool IsSecond
         {
             get { return chbIsSecond.Checked; }
             set { chbIsSecond.Checked = value; }
         }
-
         public bool IsReduced
         {
             get { return chbIsReduced.Checked; }
             set { chbIsReduced.Checked = value; }
         }
-
         public bool IsParallel
         {
             get { return chbIsParallel.Checked; }
             set { chbIsParallel.Checked = value; }
         }
-
         public bool IsListener
         {
             get { return chbIsListener.Checked; }
@@ -152,7 +146,6 @@ namespace Priem
                 ComboServ.FillCombo(cbStudyForm, lst, false, false);
             }
         }
-
         private void FillLicenseProgram()
         {
             using (PriemEntities context = new PriemEntities())
@@ -171,7 +164,6 @@ namespace Priem
                 ComboServ.FillCombo(cbLicenseProgram, lst, false, false);
             }
         }
-        
         private void UpdateDataGrid()
         {
             if (StudyFormId == null || StudyBasisId == null)
@@ -187,7 +179,6 @@ namespace Priem
         {
             new DisEntryViewProtocol(null, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, null, IsSecond, IsReduced, IsParallel, IsListener).Show();                      
         }
-
         private void btnCancelView_Click(object sender, EventArgs e)
         {
             if (!MainClass.IsPasha())
@@ -207,7 +198,6 @@ namespace Priem
                 }
             }          
         }
-
         private void btnPrintOrder_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null || dgvViews.CurrentRow.Index < 0)
@@ -249,7 +239,6 @@ namespace Priem
                 }
             }
         }
-
         private void btnPrint_Click(object sender, EventArgs e)
         {
             if (dgvViews.CurrentRow == null || dgvViews.CurrentRow.Index < 0)
@@ -260,14 +249,6 @@ namespace Priem
             Print.PrintDisEntryView(protocolId);
         }
 
-        private void chbIsListener_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateDataGrid();
-        }
-
-        private void chbIsSecond_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateDataGrid();
-        }
+        
     }
 }

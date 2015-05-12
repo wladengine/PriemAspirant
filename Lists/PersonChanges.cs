@@ -102,7 +102,7 @@ namespace Priem
                 string perId = dgvChanges.Rows[dgvChanges.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
                 if (perId != "")
                 {
-                    MainClassCards.OpenCardPerson(perId, this, dgvChanges.CurrentRow.Index);
+                    MainClass.OpenCardPerson(perId, this, dgvChanges.CurrentRow.Index);
                 }
             }
         }

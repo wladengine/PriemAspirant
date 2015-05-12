@@ -482,7 +482,7 @@ namespace Priem
                 string abId = dgvRight.Rows[dgvRight.CurrentCell.RowIndex].Cells["Id"].Value.ToString();
                 if (abId != "")
                 {
-                    MainClassCards.OpenCardPerson(abId, this, dgvRight.CurrentRow.Index);
+                    MainClass.OpenCardPerson(abId, this, dgvRight.CurrentRow.Index);
                 }
             }                
         }        

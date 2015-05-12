@@ -373,24 +373,13 @@ namespace Priem
                          pi.Props
                      }).FirstOrDefault();
 
-                //bool IsCommonWithParent = false;
                 string dogType = dogovorInfo.DogovorTypeId.ToString();
-                //if (dogType.Equals("1"))
-                //    if (!String.IsNullOrEmpty(dogovorInfo.Parent))
-                //    {
-                //        dogType = "2";
-                //       IsCommonWithParent = true;
-                //    }
-
+                
                 WordDoc wd = new WordDoc(string.Format(@"{0}\Dogovor{1}.dot", MainClass.dirTemplates, dogType), !forPrint);
 
                 //вступление
                 wd.SetFields("DogovorNum", dogovorInfo.DogovorNum.ToString());
                 wd.SetFields("DogovorDate", dogovorInfo.DogovorDate.ToLongDateString());
-
-                //wd.SetFields("DogovorDay", ((DateTime)dsRow["DogovorDate"]).Date.Day.ToString());
-                //wd.SetFields("DogovorMonth", ((DateTime)dsRow["DogovorDate"]).Date.Month.ToString());
-                //wd.SetFields("DogovorYear", ((DateTime)dsRow["DogovorDate"]).Date.Year.ToString());
 
                 //проректор и студент
                 wd.SetFields("Lico", dogovorInfo.Prorector);
@@ -401,25 +390,20 @@ namespace Priem
 
                 string programcode = abit.ObrazProgramCrypt.Trim();
                 string profcode = abit.LicenseProgramCode.Trim();
-                string level = "";
 
                 wd.SetFields("ObrazProgramName", "(" + programcode + ") " + abit.ObrazProgramName.Trim());
-                // wd.SetFields("ObrazProgramName1", abit.ObrazProgramName.Trim());//drPr["ObrazProgram"].ToString().Trim()
-                // wd.SetFields("ProgramCode", programcode);
 
-                wd.SetFields("Profession", "(" + profcode + ") " + abit.LicenseProgramName);//drPr["Profession"].ToString().Trim()
+                wd.SetFields("Profession", "(" + profcode + ") " + abit.LicenseProgramName);
 
                 wd.SetFields("StudyCourse", "1");
                 wd.SetFields("StudyFaculty", abit.FacultyName);
                 string form = context.StudyForm.Where(x => x.Id == abit.StudyFormId).Select(x => x.Name).FirstOrDefault().ToLower();
                 wd.SetFields("StudyForm", form.ToLower());
-                //wd.SetFields("StudyLevel", level);
 
                 wd.SetFields("Qualification", dogovorInfo.Qualification);
 
                 //сроки обучения
                 wd.SetFields("Srok", dogovorInfo.Srok);
-                //wd.SetFields("SrokIndividual", dogovorInfo.SrokIndividual);
 
                 DateTime dStart = dogovorInfo.DateStart;
                 wd.SetFields("DateStart", dStart.ToLongDateString());
@@ -429,17 +413,8 @@ namespace Priem
                 //суммы обучения
                 wd.SetFields("SumTotal", dogovorInfo.SumTotal);
 
-                //wd.SetFields("SumFirstYear", dogovorInfo.SumFirstYear);
                 wd.SetFields("SumFirstPeriod", dogovorInfo.SumFirstPeriod);
 
-                //wd.SetFields("PayPeriod", dogovorInfo.PayPeriod);
-
-
-                //wd.SetFields("Parent", dogovorInfo.Parent);
-
-                /*if (dogovorInfo.Parent.Trim().Length > 0)
-                    wd.SetFields("AbitFIORod", dogovorInfo.AbitFIORod);
-                */
                 wd.SetFields("Address1", string.Format("{0} {1}, {2}, {3}, ", person.Code, person.CountryName, person.RegionName, person.City));
                 wd.SetFields("Address2", string.Format("{0} дом {1} {2} кв. {3}", person.Street, person.House, person.Korpus == string.Empty ? "" : "корп. " + person.Korpus, person.Flat));
 
@@ -466,7 +441,6 @@ namespace Priem
                     case "2":
                         {
                             wd.SetFields("CustomerLico", dogovorInfo.Customer);
-                            //wd.SetFields("AbitFIORod2", dsRow["AbitFIORod"].ToString());
                             wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
                             wd.SetFields("CustomerINN", "Паспорт: " + dogovorInfo.CustomerPassport);
                             wd.SetFields("CustomerRS", "Выдан: " + dogovorInfo.CustomerPassportAuthor);
@@ -477,7 +451,6 @@ namespace Priem
                     case "4":
                         {
                             wd.SetFields("Customer", dogovorInfo.Customer);
-                            //wd.SetFields("AbitFIORod2", dsRow["AbitFIORod"].ToString());
                             wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
                             wd.SetFields("CustomerINN", dogovorInfo.CustomerPassport);
                             wd.SetFields("CustomerRS", dogovorInfo.CustomerPassportAuthor);
@@ -490,7 +463,6 @@ namespace Priem
                             wd.SetFields("Customer", dogovorInfo.Customer);
                             wd.SetFields("CustomerLico", dogovorInfo.CustomerLico);
                             wd.SetFields("CustomerReason", dogovorInfo.CustomerReason);
-                            //wd.SetFields("AbitFIORod2", dsRow["AbitFIORod"].ToString());
                             wd.SetFields("CustomerAddress", dogovorInfo.CustomerAddress);
                             wd.SetFields("CustomerINN", "ИНН " + dogovorInfo.CustomerINN);
                             wd.SetFields("CustomerRS", "Р/С " + dogovorInfo.CustomerRS);
@@ -610,10 +582,9 @@ namespace Priem
                         p = new Paragraph(10f);
                         p.Add(new Paragraph("по " + facDat, font));
 
-                        string bakspec = "", naprspec = "", naprspecRod = "", profspec = "", naprobProgRod = "", educDoc = ""; ;
+                        string bakspec = "", naprspecRod = "", naprobProgRod = "", educDoc = ""; ;
 
                         naprobProgRod = "образовательной программе";
-                        naprspec = "направление";
                         naprspecRod = "направлению";
 
                         educDoc = "о высшем профессиональном образовании";
@@ -642,8 +613,6 @@ namespace Priem
                         p.SpacingBefore = 20f;
                         document.Add(p);
 
-
-                        string curSpez = "-";
                         string curObProg = "-";
                         string curHeader = "-";
 
@@ -877,11 +846,11 @@ namespace Priem
                 }
 
                 //string educDoc = "об образовании";
-                string copyDoc = "оригиналы";
-                if (isList.HasValue && isList.Value)
-                {
-                    copyDoc = "заверенные ксерокопии";
-                }
+                //string copyDoc = "оригиналы";
+                //if (isList.HasValue && isList.Value)
+                //{
+                //    copyDoc = "заверенные ксерокопии";
+                //}
 
                 string dogovorDoc = "";
                 switch (basisId)
@@ -1086,8 +1055,7 @@ namespace Priem
 
                         td.AddRow(1);
                         curRow++;
-                        //td[0, curRow] = string.Format("1.{0}. {1}, {3} {2}", (pos + "." + subpos), v.ФИО, v.NameRod, v.Sex ? "гражданин" : "гражданка");
-                        td[0, curRow] = string.Format("\t\t1.{0}. {1} {2} ", pos, v.ФИО + ',', balls + ballToStr);//, string.IsNullOrEmpty(Motivation) ? "" : ("\n\n\t\t" + tmpMotiv + "\n"));
+                        td[0, curRow] = string.Format("\t\t1.{0}. {1} {2} ", pos, v.ФИО + ',', balls + ballToStr);
                     }
                 }
 
@@ -1487,26 +1455,6 @@ namespace Priem
                         break;
                 }
 
-                string bakspec = "", naprspec = "", naprspecRod = "", profspec = "";
-
-                if (MainClass.dbType == PriemType.PriemAspirant)
-                {
-                    bakspec = "магистра";
-                    naprspec = "направление";
-                    naprspecRod = "направлению";
-                    profspec = "магистерской программе";
-                }
-                else
-                {
-                    if (LicenseProgramCode.EndsWith("00"))
-                        bakspec = "бакалавра";
-                    else
-                        bakspec = "подготовки специалиста";
-
-                    naprspec = "направление";
-                    naprspecRod = "направлению";
-                    profspec = "профилю";
-                }
                 wd.SetFields("Граждан", isRus ? "граждан РФ" : "иностранных граждан");
                 wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
                 wd.SetFields("Стипендия", (basisId == "2" || formId == "2") ? "" : "\r\nи назначении стипендии");
@@ -1514,8 +1462,8 @@ namespace Priem
                 wd.SetFields("Факультет", facDat);
                 wd.SetFields("Форма", form);
                 wd.SetFields("Основа", basis);
-                wd.SetFields("БакСпец", bakspec);
-                wd.SetFields("НапрСпец", string.Format(" {0} {1} «{2}»", naprspecRod, LicenseProgramCode, LicenseProgramName));
+                wd.SetFields("БакСпец", "аспиранта");
+                wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
                 wd.SetFields("ПриказОт", docDate);
                 wd.SetFields("ПриказНомер", docNum);
                 wd.SetFields("ПриказОт2", docDate);
@@ -1523,59 +1471,11 @@ namespace Priem
                 wd.SetFields("Сокращ", sec);
 
                 int curRow = 4;
-                //int counter = 0;
-                //string curSpez = "-";
-                //string curHeader = "-";
-                //string curCountry = "-";
-
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
-                    /*
-                    ++counter;
-                    string spez = r["specialization"].ToString();
-                    if (spez != curSpez)
-                    {
-                        td.AddRow(1);
-                        curRow++;
-                        td[0, curRow] = string.Format("{3}\tпо {0} {1} \"{2}\"", naprspecRod, professionCode, profession, curSpez == "-" ? "" : "\r\n");
-
-                        if (!string.IsNullOrEmpty(spez))
-                        {
-                            td.AddRow(1);
-                            curRow++;
-                            td[0, curRow] = string.Format("\tпо {0} \"{1}\"", profspec, spez);
-                        }
-                        
-                        curSpez = spez;
-                    }
-
-                    if (!isRus)
-                    {
-                        string country = r["NameRod"].ToString();
-                        if (country != curCountry)
-                        {
-                            td.AddRow(1);
-                            curRow++;
-                            td[0, curRow] = string.Format("\r\n граждан {0}:", country);
-
-                            curCountry = country;
-                        }
-                    }
-
-                    string header = r["EntryHeaderName"].ToString();
-                    if (header != curHeader)
-                    {
-                        td.AddRow(1);
-                        curRow++;
-                        td[0, curRow] = string.Format("\r\n\t{0}:", header);
-
-                        curHeader = header;
-                    }
-                    */
                     td.AddRow(1);
                     curRow++;
                     td[0, curRow] = string.Format("\t\tп. № {0} {1} - исключить.", r["ФИО"].ToString(), r["TotalSum"]);
-
                 }
             }
             catch (WordException we)
@@ -1691,27 +1591,6 @@ namespace Priem
                         break;
                 }
 
-                string bakspec = "", naprspec = "", naprspecRod = "", profspec = "";
-
-                if (MainClass.dbType == PriemType.PriemAspirant)
-                {
-                    bakspec = "магистра";
-                    naprspec = "направление";
-                    naprspecRod = "направлению";
-                    profspec = "магистерской программе";
-                }
-                else
-                {
-                    if (LicenseProgramCode.EndsWith("00"))
-                        bakspec = "бакалавра";
-                    else
-                        bakspec = "подготовки специалиста";
-
-                    naprspec = "направление";
-                    naprspecRod = "направлению";
-                    profspec = "профилю";
-
-                }
                 wd.SetFields("Граждан", isRus ? "граждан РФ" : "иностранных граждан");
                 wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
                 wd.SetFields("Стипендия", basisId == "2" ? "" : "и назначении стипендии");
@@ -1719,8 +1598,8 @@ namespace Priem
                 wd.SetFields("Факультет", facDat);
                 wd.SetFields("Форма", form);
                 wd.SetFields("Основа", basis);
-                wd.SetFields("БакСпец", bakspec);
-                wd.SetFields("НапрСпец", string.Format(" {0} {1} «{2}»", naprspecRod, LicenseProgramCode, LicenseProgramName));
+                wd.SetFields("БакСпец", "аспиранта");
+                wd.SetFields("НапрСпец", string.Format(" направлению {0} «{1}»", LicenseProgramCode, LicenseProgramName));
                 wd.SetFields("ПриказОт", docDate);
                 wd.SetFields("ПриказНомер", docNum);
                 wd.SetFields("ПриказОт2", docDate);
@@ -1729,70 +1608,21 @@ namespace Priem
                 wd.SetFields("ПредставлениеНомер", protocolNum);
                 wd.SetFields("Сокращ", sec);
 
-
                 int curRow = 4;
-                //int counter = 0;
-                //string curSpez = "-";
-                //string curHeader = "-";
-                //string curCountry = "-";
-
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
-                    /*
-                    ++counter;
-                    string spez = r["specialization"].ToString();
-                    if (spez != curSpez)
-                    {
-                        td.AddRow(1);
-                        curRow++;
-                        td[0, curRow] = string.Format("{3}\tпо {0} {1} \"{2}\"", naprspecRod, professionCode, profession, curSpez == "-" ? "" : "\r\n");
-
-                        if (!string.IsNullOrEmpty(spez))
-                        {
-                            td.AddRow(1);
-                            curRow++;
-                            td[0, curRow] = string.Format("\tпо {0} \"{1}\"", profspec, spez);
-                        }
-                        
-                        curSpez = spez;
-                    }
-
-                    if (!isRus)
-                    {
-                        string country = r["NameRod"].ToString();
-                        if (country != curCountry)
-                        {
-                            td.AddRow(1);
-                            curRow++;
-                            td[0, curRow] = string.Format("\r\n граждан {0}:", country);
-
-                            curCountry = country;
-                        }
-                    }
-
-                    string header = r["EntryHeaderName"].ToString();
-                    if (header != curHeader)
-                    {
-                        td.AddRow(1);
-                        curRow++;
-                        td[0, curRow] = string.Format("\r\n\t{0}:", header);
-
-                        curHeader = header;
-                    }
-                    */
                     td.AddRow(1);
                     curRow++;
                     td[0, curRow] = string.Format("\t\tп. № {0}, {1} - исключить.", r["ФИО"].ToString(), r["TotalSum"]);
-
                 }
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
         public static string[] GetSplittedStrings(string sourceStr, int firstStrLen, int strLen, int numOfStrings)

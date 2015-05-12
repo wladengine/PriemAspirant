@@ -496,7 +496,7 @@ namespace Priem
 
         protected override void OpenCard(string id, BaseFormsLib.BaseFormEx formOwner, int? index)
         {
-            MainClassCards.OpenCardAbit(id, this, dgvAbitList.CurrentRow.Index);
+            MainClass.OpenCardAbit(id, this, dgvAbitList.CurrentRow.Index);
         }
 
         private void btnOk_Click(object sender, EventArgs e)

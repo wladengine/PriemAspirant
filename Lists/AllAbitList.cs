@@ -10,7 +10,6 @@ using System.Linq;
 
 using EducServLib;
 using WordOut;
-using Excel = Microsoft.Office.Interop.Excel;
 using BaseFormsLib;
 using PriemLib;
 namespace Priem
@@ -72,69 +71,7 @@ namespace Priem
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Файлы Excel (.xls)|*.xls";
-            if (sfd.ShowDialog(this) == DialogResult.OK)
-            {
-                try
-                {
-                    List<string> columnList = new List<string>();
-                    foreach (DataGridViewColumn column in dgvAbitList.Columns)
-                        if (column.Visible)
-                            columnList.Add(column.Name);
-                    Excel.Application exc = new Excel.Application();
-                    Excel.Workbook wb = exc.Workbooks.Add(System.Reflection.Missing.Value);
-                    Excel.Worksheet ws = (Excel.Worksheet)exc.ActiveSheet;
-
-                    //почему имя рабочего листа <<в ВТБ>>???
-                    ws.Name = "заявления на другие факультеты";
-
-                    ws.Cells[1, 1] = "№ п/п";
-                    for (int j = 0; j < columnList.Count; j++)
-                        ws.Cells[1, j + 2] = dgvAbitList.Columns[columnList[j]].HeaderText;
-
-                    //Excel.Range rg = ws.get_Range(ws.Cells[1, 1], ws.Cells[dgvAbitList.RowCount, dgvAbitList.ColumnCount]);
-
-
-                    //cellXY.NumberFormat = 0.00;
-
-                    //ws.Cells[2, 5] = "12";
-
-                    int i = 0;
-                    // печать из грида
-                    foreach (DataGridViewRow dgvr in dgvAbitList.Rows)
-                    {
-                        ws.Cells[i + 2, 1] = (i + 1).ToString();
-                        for (int j = 0; j < columnList.Count; j++)
-                            ws.Cells[i + 2, j + 2] = dgvAbitList.Rows[i].Cells[columnList[j]].Value.ToString();
-
-                        i++;
-                    }
-
-                    wb.SaveAs(sfd.FileName, Excel.XlFileFormat.xlExcel7,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        Excel.XlSaveAsAccessMode.xlExclusive,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value,
-                        System.Reflection.Missing.Value);
-                    exc.Visible = true;
-                    //по идее, из приложения Excel выходить не надо, пользователь в силах это сделать и самостоятельно, когда насмотрится на свой отсчёт
-                    //exc.Quit();
-                    //exc = null;
-
-                }
-                catch (System.Runtime.InteropServices.COMException exc)
-                {
-                    MessageBox.Show(exc.Message);
-                }
-            }
-            //На всякий случай
-            sfd.Dispose();
+            PrintClass.PrintAllToExcel(this);
         }
     }
 }

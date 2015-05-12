@@ -55,9 +55,6 @@
     <Reference Include="itextsharp">
       <HintPath>..\..\PriemLib\PriemLib\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="RtfWriter">
       <HintPath>..\..\..\EDUCATION\StudyDisciplines\StudyDisciplines\RtfWriter.dll</HintPath>
     </Reference>
@@ -170,12 +167,6 @@
       <DependentUpon>Olymp2Mark.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportClass.cs" />
-    <Compile Include="Filters\Groups.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Filters\Groups.designer.cs">
-      <DependentUpon>Groups.cs</DependentUpon>
-    </Compile>
     <Compile Include="Lists\AllAbitList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,9 +215,6 @@
     <Compile Include="Lists\VedExamLists.designer.cs">
       <DependentUpon>VedExamLists.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainClass.Cards.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,9 +233,7 @@
     <Compile Include="Protocols\ChangeCompCelProtocol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Protocols\ChangeCompCelProtocolList.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Protocols\ChangeCompCelProtocolList.cs" />
     <Compile Include="Protocols\DisEnableProtocol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,16 +279,6 @@
     <Compile Include="Protocols\ProtocolCard.designer.cs">
       <DependentUpon>ProtocolCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Protocols\ProtocolTypes.cs" />
-    <Compile Include="Protocols\ProtocolList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Protocols\ProtocolList.designer.cs">
-      <DependentUpon>ProtocolList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Protocols\ProtocolList.Fields.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <EmbeddedResource Include="Crypto\AddMark.resx">
       <DependentUpon>AddMark.cs</DependentUpon>
     </EmbeddedResource>
@@ -344,9 +320,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Exams\Olymp2Mark.resx">
       <DependentUpon>Olymp2Mark.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Filters\Groups.resx">
-      <DependentUpon>Groups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lists\AllAbitList.resx">
       <DependentUpon>AllAbitList.cs</DependentUpon>
@@ -396,9 +369,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Protocols\ProtocolCard.resx">
       <DependentUpon>ProtocolCard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Protocols\ProtocolList.resx">
-      <DependentUpon>ProtocolList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
