@@ -60,7 +60,7 @@ namespace Priem
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }
         }
 
@@ -184,7 +184,7 @@ namespace Priem
 
             using (PriemEntities context = new PriemEntities())
             {
-                var ent = Exams.GetExamsWithFilters(context, FacultyId, LicenseProgramId, ObrazProgramId, null, StudyFormId, StudyBasisId, null, null, null);
+                var ent = Exams.GetExamsWithFilters(context, MainClass.lstStudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, null, StudyFormId, StudyBasisId, null, null, null);
                 List<KeyValuePair<string, string>> lst = ent.ToList().Select(u => new KeyValuePair<string, string>(u.ExamId.ToString(), u.ExamName)).Distinct().ToList();
                 ComboServ.FillCombo(cbExam, lst, false, false);
             }
@@ -411,7 +411,7 @@ namespace Priem
         {
             string s1 = string.Empty;
 
-            s1 += " AND ed.qAbiturient.StudyLevelGroupId = " + MainClass.studyLevelGroupId;
+            s1 += " AND ed.qAbiturient.StudyLevelGroupId IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
 
             //обработали форму обучения  
             if (StudyFormId != null)
@@ -565,7 +565,7 @@ namespace Priem
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error("Ошибка при сохранении перезачета оценок. Оценки перезачтены не будут. " + ex.Message);
+                    WinFormsServ.Error("Ошибка при сохранении перезачета оценок. Оценки перезачтены не будут. ", ex);
                 }
 
                 UpdateDataGrid();
@@ -625,7 +625,7 @@ namespace Priem
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при выводе в Word: " + ex.Message);
+                WinFormsServ.Error("Ошибка при выводе в Word: ", ex);
             }
         }
     }

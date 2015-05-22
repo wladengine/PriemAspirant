@@ -132,7 +132,7 @@ namespace Priem
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при заполнении грида данными протокола: " + ex.Message);
+                WinFormsServ.Error("Ошибка при заполнении грида данными протокола: ", ex);
             }
         }
 
@@ -157,7 +157,7 @@ namespace Priem
 
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при записи в коллекцию: " + ex.Message);
+                WinFormsServ.Error("Ошибка при записи в коллекцию: ", ex);
                 return false;
             }            
         }        

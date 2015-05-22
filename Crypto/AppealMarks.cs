@@ -280,7 +280,7 @@ namespace Priem
 
                 catch (Exception exc)
                 {
-                    WinFormsServ.Error("Ошибка сохранения данных: \n" + exc.Message);
+                    WinFormsServ.Error("Ошибка сохранения данных: \n", exc);
                     return;
                 }
             }

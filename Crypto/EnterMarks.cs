@@ -218,7 +218,7 @@ namespace Priem
 
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка сохранения данных: \n" + exc.Message);
+                WinFormsServ.Error("Ошибка сохранения данных: \n", exc);
                 return false;
             }             
         }
@@ -307,7 +307,7 @@ namespace Priem
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка вывода в Word: \n" + exc.Message);
+                WinFormsServ.Error("Ошибка вывода в Word: \n", exc);
             }
         }       
         

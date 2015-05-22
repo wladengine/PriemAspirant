@@ -68,7 +68,7 @@ namespace Priem
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы ведомостей: " + ex.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ведомостей: ", ex);
             }
         }
 
@@ -149,29 +149,30 @@ namespace Priem
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    List<KeyValuePair<string, string>> lst = ((from ent in context.extExamsVed
-                                                               where ent.StudyLevelGroupId == MainClass.studyLevelGroupId
-                                                               && ent.FacultyId == FacultyId
-                                                               && (StudyBasisId != null ? ent.StudyBasisId == StudyBasisId : true == true)
-
-                                                               select new
-                                                               {
-                                                                   ent.Id,
-                                                                   ent.ExamName,
-                                                                   ent.Date,
-                                                                   StBasis = ent.StudyBasisId == null ? "" : ent.StudyBasisAcr,
-                                                                   AddVed = ent.IsAddVed ? " дополнительная" : "",
-                                                                   ent.AddCount
-                                                               }).Distinct()).ToList().Select(u => new KeyValuePair<string, string>(u.Id.ToString(),
-                                                                   u.ExamName + ' ' + u.Date.ToShortDateString() + ' ' + u.StBasis + u.AddVed +
-                                                                   (u.AddCount > 1 ? "(" + Convert.ToString(u.AddCount) + ")" : ""))).ToList();
+                    List<KeyValuePair<string, string>> lst =
+                        ((from ent in context.extExamsVed
+                          where MainClass.lstStudyLevelGroupId.Contains(ent.StudyLevelGroupId)
+                          && ent.FacultyId == FacultyId
+                          && (StudyBasisId != null ? ent.StudyBasisId == StudyBasisId : true == true)
+                          select new
+                          {
+                              ent.Id,
+                              ent.ExamName,
+                              ent.Date,
+                              StBasis = ent.StudyBasisId == null ? "" : ent.StudyBasisAcr,
+                              AddVed = ent.IsAddVed ? " дополнительная" : "",
+                              ent.AddCount
+                          }).Distinct()).ToList()
+                          .Select(u => new KeyValuePair<string, string>(u.Id.ToString(),
+                                u.ExamName + ' ' + u.Date.ToShortDateString() + ' ' + u.StBasis + u.AddVed +
+                                (u.AddCount > 1 ? "(" + Convert.ToString(u.AddCount) + ")" : ""))).ToList();
 
                     ComboServ.FillCombo(cbExamVed, lst, true, false);    
                 }
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при обновлении списка ведомостей: " + ex.Message);
+                WinFormsServ.Error("Ошибка при обновлении списка ведомостей: " + ex);
             }
         }
                
@@ -207,7 +208,7 @@ namespace Priem
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при обновлении списка ведомостей: " + ex.Message);
+                WinFormsServ.Error("Ошибка при обновлении списка ведомостей: " + ex);
             }
         }
 
@@ -327,7 +328,7 @@ namespace Priem
                     }
                     catch (Exception de)
                     {
-                        WinFormsServ.Error("Ошибка удаления данных " + de.Message);
+                        WinFormsServ.Error("Ошибка удаления данных " + de);
                     }
                 }
             }          
@@ -424,7 +425,7 @@ namespace Priem
             }
             catch(Exception exc)
             {
-                WinFormsServ.Error("Ошибка при экспорте: " + exc.Message);
+                WinFormsServ.Error("Ошибка при экспорте: ", exc);
             } 
         }       
     }

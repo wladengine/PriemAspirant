@@ -27,13 +27,13 @@ namespace Priem
             {
                 //взять максимум номера, если еще ничего не назначено
                 string num = (from ab in context.extAbitAspirant
-                              where ab.StudyLevelGroupId == MainClass.studyLevelGroupId
+                              where ab.StudyLevelGroupId == MainClass.lstStudyLevelGroupId.First()
                               select ab.StudyNumber).Max();
                
                 var abits = from ab in context.extAbitAspirant
                             join ev in context.extEntryView
                             on ab.Id equals ev.AbiturientId
-                            where ab.StudyLevelGroupId == MainClass.studyLevelGroupId && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
+                            where MainClass.lstStudyLevelGroupId.Contains(ab.StudyLevelGroupId) && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
                             orderby ab.FacultyId, ab.FIO
                             select ab;
 
@@ -132,7 +132,7 @@ inner join ed.person on ed.person.id=ed.extAbitAspirant.personid
 inner join ed.country as nation on nation.id=ed.person.nationalityid
 inner join ed.passporttype on ed.passporttype.id=ed.person.passporttypeid
 left join ed.region on ed.region.id=ed.person.regionid
-where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extAbitAspirant.studylevelgroupid = " + MainClass.studyLevelGroupId;
+where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extAbitAspirant.studylevelgroupid IN (" + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId) + ")";
 
 
                     DataSet ds = MainClass.Bdc.GetDataSet(query);
@@ -261,7 +261,7 @@ inner join ed.person on ed.person.id=ed.extAbitAspirant.personid
 inner join ed.country as nation on nation.id=ed.person.nationalityid
 inner join ed.passporttype on ed.passporttype.id=ed.person.passporttypeid
 left join ed.region on ed.region.id=ed.person.regionid
-where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extAbitAspirant.studylevelgroupid = " + MainClass.studyLevelGroupId;
+where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.extAbitAspirant.studylevelgroupid IN " + Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId);
 
 
                     DataSet ds = MainClass.Bdc.GetDataSet(query);
@@ -372,7 +372,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                 }
                 catch (Exception ex)
                 {
-                    WinFormsServ.Error(ex.Message + (ex.InnerException == null ? "" : "\nINNER EXCEPTION: " + ex.InnerException.Message));
+                    WinFormsServ.Error(ex);
                 }
                 MessageBox.Show("Перезачтено оценок - " + cnt);
             }
@@ -419,7 +419,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
         //        }
         //        catch (Exception ex)
         //        {
-        //            WinFormsServ.Error(ex.Message + (ex.InnerException == null ? "" : "\nINNER EXCEPTION: " + ex.InnerException.Message));
+        //            WinFormsServ.Error(ex);
         //        }
         //    }
         //}

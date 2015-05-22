@@ -25,8 +25,7 @@ namespace Priem
             //}
             //catch (Exception exc)
             //{
-            //    MessageBox.Show(string.Format("Ошибка в приложении:\n{0}{1}", exc.Message, 
-            //        exc.InnerException != null ? "\nВнутреннее исключение: \n" + exc.InnerException.Message : ""));
+            //    MessageBox.Show("Ошибка в приложении:\n", exc);
             //}
         }
 

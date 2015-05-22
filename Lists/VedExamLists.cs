@@ -275,7 +275,7 @@ namespace Priem
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка вывода в Word: \n" + exc.Message);
+                WinFormsServ.Error("Ошибка вывода в Word: \n", exc);
             }
         }
 

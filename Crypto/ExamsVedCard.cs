@@ -85,7 +85,7 @@ namespace Priem
                 {
                     addCount = (from vd in context.extExamsVed
                                 where vd.ExamId == examId && vd.Date == passDate.Date
-                                && vd.FacultyId == facultyId && vd.StudyLevelGroupId == MainClass.studyLevelGroupId
+                                && vd.FacultyId == facultyId && MainClass.lstStudyLevelGroupId.Contains(vd.StudyLevelGroupId)
                                 && (studyBasisId != null ? vd.StudyBasisId == studyBasisId : true == true)
                                 select vd.AddCount).Max();
                     
@@ -162,7 +162,7 @@ namespace Priem
                 else
                     ComboServ.FillCombo(cbStudyBasis, HelpClass.GetComboListByQuery(string.Format("SELECT CONVERT(varchar(100), Id) AS Id, Name FROM ed.StudyBasis WHERE Id = {0} ORDER BY Name", studyBasisId)), false, false);
 
-                ComboServ.FillCombo(cbStudyForm, HelpClass.GetComboListByQuery(string.Format("SELECT DISTINCT CONVERT(varchar(100), StudyFormId) AS Id, StudyFormName AS Name FROM ed.qEntry WHERE StudyLevelGroupId = {0} AND FacultyId = {1} ORDER BY Name", MainClass.studyLevelGroupId, facultyId)), false, true);
+                ComboServ.FillCombo(cbStudyForm, HelpClass.GetComboListByQuery(string.Format("SELECT DISTINCT CONVERT(varchar(100), StudyFormId) AS Id, StudyFormName AS Name FROM ed.qEntry WHERE StudyLevelGroupId IN ({0}) AND FacultyId = {1} ORDER BY Name", Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId), facultyId)), false, true);
                 FillObrazProgram();
 
                 //заполнение гридов            

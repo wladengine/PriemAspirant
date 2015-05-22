@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Data;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using WordOut;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -303,7 +303,7 @@ namespace Priem
 
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -739,7 +739,7 @@ namespace Priem
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
             finally
             {
@@ -1072,11 +1072,11 @@ namespace Priem
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -1349,11 +1349,11 @@ namespace Priem
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -1375,14 +1375,13 @@ namespace Priem
                      INNER JOIN ed.Competition ON ed.Competition.Id = ed.extAbitAspirant.CompetitionId 
                      LEFT JOIN ed.extAbitMarksSum ON ed.extAbitAspirant.Id = ed.extAbitMarksSum.Id";
 
-                string where = " WHERE ed.extDisEntryView.Id = @protocolId AND extDisEntryView.StudyLevelGroupId=@StudyLevelGroupId";
+                string where = " WHERE ed.extDisEntryView.Id = @protocolId ";
                 where += " AND ed.extPersonAspirant.NationalityId" + (isRus ? "=1 " : "<>1 ");
                 string orderby = " ORDER BY ed.extAbitAspirant.ProfileName, NameRod ,ФИО ";
 
                 SortedList<string, object> slDel = new SortedList<string, object>();
 
                 slDel.Add("@protocolId", protocolId);
-                slDel.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
 
                 DataSet ds = MainClass.Bdc.GetDataSet(query + where + orderby, slDel);
 
@@ -1480,11 +1479,11 @@ namespace Priem
             }
             catch (WordException we)
             {
-                WinFormsServ.Error(we.Message);
+                WinFormsServ.Error(we);
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error(exc.Message);
+                WinFormsServ.Error(exc);
             }
         }
 
@@ -1506,7 +1505,7 @@ namespace Priem
                      INNER JOIN ed.Competition ON ed.Competition.Id = ed.extAbitAspirant.CompetitionId 
                      LEFT JOIN ed.extAbitMarksSum ON ed.extAbitAspirant.Id = ed.extAbitMarksSum.Id";
 
-                string where = " WHERE extDisEntryView.Id = @protocolId AND extDisEntryView.StudyLevelGroupId=@StudyLevelGroupId";
+                string where = " WHERE extDisEntryView.Id = @protocolId";
                 string orderby = " ORDER BY extAbitAspirant.ProfileName, NameRod, ФИО ";
 
                 DateTime protocolDate = (DateTime)MainClass.Bdc.GetValue(string.Format("SELECT Protocol.Date FROM ed.Protocol WHERE Protocol.Id='{0}'", protocolId));
@@ -1515,7 +1514,6 @@ namespace Priem
                 SortedList<string, object> slDel = new SortedList<string, object>();
 
                 slDel.Add("@protocolId", protocolId);
-                slDel.Add("@StudyLevelGroupId", MainClass.studyLevelGroupId);
 
                 DataSet ds = MainClass.Bdc.GetDataSet(query + where + orderby, slDel);
 

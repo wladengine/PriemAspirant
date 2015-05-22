@@ -56,7 +56,7 @@ namespace Priem
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка при инициализации формы " + exc.Message);
+                WinFormsServ.Error("Ошибка при инициализации формы ", exc);
             }           
         }
 
@@ -346,7 +346,7 @@ namespace Priem
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка вывода в Word: \n" + exc.Message);
+                WinFormsServ.Error("Ошибка вывода в Word: \n", exc);
             }
         }        
 

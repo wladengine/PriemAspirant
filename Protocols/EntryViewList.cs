@@ -65,6 +65,7 @@ namespace Priem
             ComboServ.FillCombo(cbStudyBasis, HelpClass.GetComboListByTable("ed.StudyBasis", "ORDER BY Name"), false, false);
 
             cbStudyBasis.SelectedIndex = 0;
+            FillStudyLevelGroup();
             FillStudyForm();
             FillLicenseProgram();             
             
@@ -74,6 +75,7 @@ namespace Priem
             cbStudyForm.SelectedIndexChanged += new EventHandler(cbStudyForm_SelectedIndexChanged);
             cbStudyBasis.SelectedIndexChanged += new EventHandler(cbStudyBasis_SelectedIndexChanged);
             cbLicenseProgram.SelectedIndexChanged += new EventHandler(cbLicenseProgram_SelectedIndexChanged);
+            cbStudyLevelGroup.SelectedIndexChanged += cbFaculty_SelectedIndexChanged;
 
             prh = new ProtocolRefreshHandler(UpdateDataGrid);
             MainClass.AddProtocolHandler(prh);          
@@ -110,8 +112,13 @@ namespace Priem
         private void chbIsParallel_CheckedChanged(object sender, EventArgs e)
         {
             FillStudyForm();
-        }             
+        }
 
+        public int? StudyLevelGroupId
+        {
+            get { return ComboServ.GetComboIdInt(cbStudyLevelGroup); }
+            set { ComboServ.SetComboId(cbStudyLevelGroup, value); }
+        }
         public int? FacultyId
         {
             get { return ComboServ.GetComboIdInt(cbFaculty); }
@@ -151,7 +158,18 @@ namespace Priem
         {
             get { return chbIsListener.Checked; }
             set { chbIsListener.Checked = value; }
-        } 
+        }
+        private void FillStudyLevelGroup()
+        {
+            using (PriemEntities context = new PriemEntities())
+            {
+                var ent = MainClass.GetEntry(context).Select(x => new { x.StudyLevelGroupId, x.StudyLevelGroupName }).ToList();
+
+                List<KeyValuePair<string, string>> lst = ent.Select(u => new KeyValuePair<string, string>(u.StudyLevelGroupId.ToString(), u.StudyLevelGroupName)).Distinct().ToList();
+
+                ComboServ.FillCombo(cbStudyLevelGroup, lst, false, false);
+            }
+        }
         private void FillStudyForm()
         {
             using (PriemEntities context = new PriemEntities())
@@ -191,13 +209,14 @@ namespace Priem
                 return;
             }
 
-            string query = string.Format("SELECT DISTINCT Id, Number as 'Номер представления' FROM ed.extEntryView WHERE StudyFormId={0} AND StudyBasisId={1} AND FacultyId= {2} {3} AND IsListener = {4} AND IsSecond = {5} AND IsReduced = {6} AND IsParallel = {7} AND StudyLevelGroupId={8} order by 2", StudyFormId, StudyBasisId, FacultyId, (LicenseProgramId.HasValue ? "AND LicenseProgramId = " + LicenseProgramId : ""), QueryServ.StringParseFromBool(IsListener), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel), MainClass.studyLevelGroupId);
+            string query = string.Format("SELECT DISTINCT Id, Number as 'Номер представления' FROM ed.extEntryView WHERE StudyFormId={0} AND StudyBasisId={1} AND FacultyId= {2} {3} AND IsListener = {4} AND IsSecond = {5} AND IsReduced = {6} AND IsParallel = {7} AND StudyLevelGroupId IN ({8}) order by 2", 
+                StudyFormId, StudyBasisId, FacultyId, (LicenseProgramId.HasValue ? "AND LicenseProgramId = " + LicenseProgramId : ""), QueryServ.StringParseFromBool(IsListener), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel), Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
             HelpClass.FillDataGrid(dgvViews, _bdc, query, "");            
         }       
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            new EntryViewProtocol(null, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, LicenseProgramId, IsSecond, IsReduced, IsParallel, IsListener, chbCel.Checked).Show();            
+            new EntryViewProtocol(null, StudyLevelGroupId.Value, FacultyId.Value, StudyBasisId.Value, StudyFormId.Value, LicenseProgramId, IsSecond, IsReduced, IsParallel, IsListener, chbCel.Checked).Show();            
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {  

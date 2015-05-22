@@ -38,7 +38,7 @@ namespace Priem
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Не удалось подключиться под вашей учетной записью  " + exc.Message);
+                WinFormsServ.Error("Не удалось подключиться под вашей учетной записью  ", exc);
                 msMainMenu.Enabled = false;
             }
         }
@@ -149,7 +149,6 @@ namespace Priem
                 smiEntryView.Visible = false;
                 smiDisEntryView.Visible = false;
 
-
                 smiEGEStatistics.Visible = false;
                 smiDynamics.Visible = false;
                 smiFormA.Visible = false;
@@ -255,7 +254,6 @@ namespace Priem
                 //временно                
                 smiImport.Visible = false;                
                 
-
                 Form frm;
                 if (MainClass._config.ValuesList.Keys.Contains("lstAbitDef"))
                 {
@@ -285,10 +283,9 @@ namespace Priem
                 
                 frm.Show();
             }
-
             catch (Exception exc)
             {
-                WinFormsServ.Error("Ошибка инициализации " + exc.Message);
+                WinFormsServ.Error("Ошибка инициализации ", exc);
             }
         }
 
@@ -326,15 +323,16 @@ namespace Priem
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при чтении параметров из файла: " + ex.Message);
+                WinFormsServ.Error("Ошибка при чтении параметров из файла: ", ex);
             }
+
             try
             {
                 MainClass.DeleteAllOpenByHolder();
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка записи в базу: " + ex.Message + (ex.InnerException == null ? "" : "\nВнутреннее исключение: " + ex.InnerException.Message));
+                WinFormsServ.Error("Ошибка записи в базу: ", ex);
             }
 
             MainClass.DeleteTempFiles();
@@ -501,7 +499,7 @@ namespace Priem
 
         private void smiCreateVed_Click(object sender, EventArgs e)
         {
-            new ExamsVedList().Show();
+            new PriemLib.ExamsVedList().Show();
         }
 
         private void smiExamsVedRoomList_Click(object sender, EventArgs e)

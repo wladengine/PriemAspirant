@@ -118,7 +118,7 @@ namespace Priem
                 (Case When StudyBasisId IS NULL then '' else (case when StudyBasisId = 1 then ' г/б' else ' дог' end) end) + 
                 (Case When IsAddVed = 1 then ' дополнительная' + (case when Convert(nvarchar, AddCount) = '1' then '' else '(' + Convert(nvarchar, AddCount) + ')' end) 
                 else '' end) as Name, IsLoad  
-                FROM ed.extExamsVed WHERE ed.extExamsVed.IsLocked = 1 AND ed.extExamsVed.StudyLevelGroupId = {2} AND ed.extExamsVed.FacultyId = {0} {1} ORDER BY IsLoad, Name ", FacultyId, flt_appeal, MainClass.studyLevelGroupId);
+                FROM ed.extExamsVed WHERE ed.extExamsVed.IsLocked = 1 AND ed.extExamsVed.StudyLevelGroupId IN ({2}) AND ed.extExamsVed.FacultyId = {0} {1} ORDER BY IsLoad, Name ", FacultyId, flt_appeal, Util.BuildStringWithCollection(MainClass.lstStudyLevelGroupId));
                 
                 DataTable dt = MainClass.Bdc.GetDataSet(query).Tables[0];
 
@@ -139,7 +139,7 @@ namespace Priem
             }
             catch (Exception ex)
             {
-                WinFormsServ.Error("Ошибка при обновлении списка ведомостей: " + ex.Message);
+                WinFormsServ.Error("Ошибка при обновлении списка ведомостей: ", ex);
             }
         }
 
