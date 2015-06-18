@@ -20,13 +20,13 @@ namespace Priem
     {
         Dictionary<int?, List<string>> lstSelected;
   
-        public EntryViewProtocol(ProtocolList owner, int sStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, bool isCel)
+        public EntryViewProtocol(ProtocolList owner, int sStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList, bool isCel)
             : this(owner, sStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, isCel, null)
         {
         }
 
         //конструктор 
-        public EntryViewProtocol(ProtocolList owner, int sStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool? isSec, bool? isReduced, bool? isParal, bool? isList, bool isCel, Guid? sProtocol)
+        public EntryViewProtocol(ProtocolList owner, int sStudyLevelGroupId, int sFac, int sSection, int sForm, int? sProf, bool isSec, bool isReduced, bool isParal, bool isList, bool isCel, Guid? sProtocol)
             : base(owner, sStudyLevelGroupId, sFac, sSection, sForm, sProf, isSec, isReduced, isParal, isList, isCel, sProtocol)
         {
             _type = ProtocolTypes.EntryView;                      

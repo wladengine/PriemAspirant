@@ -51,7 +51,7 @@ namespace Priem
                                         EntryType = (Entry.StudyLevelId == 17 ? 2 : 1),
                                         Entry.StudyLevelId,
                                         x.Priority,
-                                        x.IsGosLine,
+                                        x.Entry.IsForeign,
                                         Entry.CommissionId,
                                         ComissionAddress = Entry.CommissionId
                                     }).OrderBy(x => x.Priority).ToList();
