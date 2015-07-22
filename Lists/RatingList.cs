@@ -30,28 +30,29 @@ namespace Priem
         {
             InitializeComponent();
 
-            _queryBody = @"SELECT DISTINCT ed.qAbiturient.Id as Id, ed.qAbiturient.RegNum as Рег_Номер, 
-                    ed.extPersonAspirant.PersonNum as 'Ид. номер', ed.extPersonAspirant.FIO as ФИО, 
-                    ed.extAbitMarksSum.TotalSum as 'Сумма баллов', ed.extAbitMarksSum.TotalSumFiveGrade as 'Сумма баллов (5-балльная шкала)', 
-                    ed.extAbitMarksSum.TotalCount as 'Кол-во оценок', 
-                    case when ed.qAbiturient.HasOriginals>0 then 'Да' else 'Нет' end as 'Подлинники документов', ed.qAbiturient.Coefficient as 'Рейтинговый коэффициент', 
-                    ed.Competition.Name as Конкурс, 
-                    ed.hlpAbiturientProf.ProfFiveGrade AS 'Проф. экзамен (5 баллов)', ed.hlpAbiturientProf.Prof AS 'Проф. экзамен', 
-                    CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 6 AND AbiturientId = ed.qAbiturient.Id) then 1 else CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 5 AND AbiturientId = ed.qAbiturient.Id) then 2 else CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 7 AND AbiturientId = ed.qAbiturient.Id) then 3 else 4 end end end as olymp,
-                    CASE WHEN  ed.extPersonAspirant.AttestatSeries IN ('ЗА','ЗБ','ЗВ') then 1 else CASE WHEN  ed.extPersonAspirant.AttestatSeries IN ('СА','СБ','СВ') then 2 else 3 end end as attestat,
-                    ed.extPersonAspirant.SchoolAVG as attAvg, 
-                    CASE WHEN (CompetitionId=1  OR CompetitionId=8) then 1 else case when (CompetitionId=2 OR CompetitionId=7) AND ed.extPersonAspirant.Privileges>0 then 2 else 3 end end as comp, 
+            _queryBody = @"SELECT DISTINCT qAbiturient.Id as Id, qAbiturient.RegNum as Рег_Номер, 
+                    extPerson.PersonNum as 'Ид. номер', extPerson.FIO as ФИО, 
+                    extAbitMarksSum.TotalSum as 'Сумма баллов', extAbitMarksSum.TotalSumFiveGrade as 'Сумма баллов (5-балльная шкала)', 
+                    extAbitMarksSum.TotalCount as 'Кол-во оценок', 
+                    case when qAbiturient.HasOriginals>0 then 'Да' else 'Нет' end as 'Подлинники документов', qAbiturient.Coefficient as 'Рейтинговый коэффициент', 
+                    Competition.Name as Конкурс, 
+                    hlpAbiturientProf.ProfFiveGrade AS 'Проф. экзамен (5 баллов)', hlpAbiturientProf.Prof AS 'Проф. экзамен', 
+                    CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 6 AND AbiturientId = qAbiturient.Id) then 1 else CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 5 AND AbiturientId = qAbiturient.Id) then 2 else CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 7 AND AbiturientId = qAbiturient.Id) then 3 else 4 end end end as olymp,
+                    CASE WHEN extPerson_EducationInfo_Current.AttestatSeries IN ('ЗА','ЗБ','ЗВ') then 1 else CASE WHEN  extPerson_EducationInfo_Current.AttestatSeries IN ('СА','СБ','СВ') then 2 else 3 end end as attestat,
+                    extPerson_EducationInfo_Current.SchoolAVG as attAvg, 
+                    CASE WHEN (CompetitionId=1  OR CompetitionId=8) then 1 else case when (CompetitionId=2 OR CompetitionId=7) AND extPerson.Privileges>0 then 2 else 3 end end as comp, 
                     CASE WHEN (CompetitionId=1 OR CompetitionId=8) then ed.qAbiturient.Coefficient else 10000 end as noexamssort, 
                     CASE WHEN (CompetitionId=5 OR CompetitionId=9) then 1 else 0 end as preimsort,
-                    case when ed.extPersonAspirant.IsExcellent>0 then 'Да' else 'Нет' end as 'Медалист', 
-                    ed.extPersonAspirant.AttestatSeries as 'Серия аттестата', 
-                    ed.extPersonAspirant.DiplomSeries as 'Серия диплома', 
-                    ed.extPersonAspirant.SchoolAVG as 'Средний балл', 
-                    ed.extPersonAspirant.Email + ', '+ ed.extPersonAspirant.Phone + ', ' +ed.extPersonAspirant.Mobiles AS 'Контакты',
+                    case when extPerson_EducationInfo_Current.IsExcellent>0 then 'Да' else 'Нет' end as 'Медалист', 
+                    extPerson_EducationInfo_Current.AttestatSeries as 'Серия аттестата', 
+                    extPerson_EducationInfo_Current.DiplomSeries as 'Серия диплома', 
+                    extPerson_EducationInfo_Current.SchoolAVG as 'Средний балл', 
+                    extPerson.Email + ', '+ extPerson.Phone + ', ' + extPerson.Mobiles AS 'Контакты',
                     (CASE WHEN hlpEntryWithAddExams.EntryId IS NULL THEN hlpAbiturientProf.Prof ELSE hlpAbiturientProfAdd.ProfAdd END) AS DopOrProfSort"; 
  
             _queryFrom = @" FROM ed.qAbiturient 
-                    INNER JOIN ed.extPersonAspirant ON ed.extPersonAspirant.Id = ed.qAbiturient.PersonId 
+                    INNER JOIN ed.extPerson ON ed.extPerson.Id = ed.qAbiturient.PersonId 
+                    INNER JOIN ed.extPerson_EducationInfo_Current ON extPerson_EducationInfo_Current.PersonId = extPerson.Id
                     INNER JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId 
                     INNER JOIN ed.extEnableProtocol ON ed.extEnableProtocol.AbiturientId = ed.qAbiturient.Id 
                     LEFT JOIN ed.hlpEntryWithAddExams ON hlpEntryWithAddExams.EntryId = qAbiturient.EntryId
@@ -171,13 +172,20 @@ namespace Priem
             get { return chbIsParallel.Checked; }
             set { chbIsParallel.Checked = value; }
         }
-
         public bool IsCel
         {
             get { return chbCel.Checked; }
             set { chbCel.Checked = value; }
         }
-
+        public bool IsCrimea
+        {
+            get { return chbIsCrimea.Checked; }
+            set { chbIsCrimea.Checked = value; }
+        }
+        public bool IsForeign
+        {
+            get { return MainClass.dbType == PriemType.PriemForeigners; }
+        }
         public Guid? EntryId
         {
             get
@@ -186,6 +194,7 @@ namespace Priem
                 {
                     using (PriemEntities context = new PriemEntities())
                     {
+                        
                         Guid? entId = (from ent in MainClass.GetEntry(context)
                                        where ent.IsSecond == IsSecond && ent.IsParallel == IsParallel && ent.IsReduced == IsReduced
                                        && ent.LicenseProgramId == LicenseProgramId
@@ -193,6 +202,8 @@ namespace Priem
                                        && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
                                        && ent.StudyFormId == StudyFormId
                                        && ent.StudyBasisId == StudyBasisId
+                                       && ent.IsCrimea == IsCrimea
+                                       && ent.IsForeign == IsForeign
                                        select ent.Id).FirstOrDefault();
                         return entId;
                     }
@@ -219,7 +230,7 @@ namespace Priem
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId).Where(c=>c.StudyBasisId == StudyBasisId);
+                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId).Where(c => c.StudyBasisId == StudyBasisId).Where(c => c.StudyLevelGroupId == StudyLevelGroupId);
                 
                 ent = ent.Where(c => c.IsSecond == IsSecond && c.IsReduced == IsReduced && c.IsParallel == IsParallel);
 
@@ -232,7 +243,7 @@ namespace Priem
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId);
+                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId).Where(c => c.StudyLevelGroupId == StudyLevelGroupId);
 
                 ent = ent.Where(c => c.IsSecond == IsSecond && c.IsReduced == IsReduced && c.IsParallel == IsParallel);
 
@@ -250,7 +261,7 @@ namespace Priem
         {
             using (PriemEntities context = new PriemEntities())
             {
-                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId);
+                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId).Where(c => c.StudyLevelGroupId == StudyLevelGroupId);
 
                 ent = ent.Where(c => c.IsSecond == IsSecond && c.IsReduced == IsReduced && c.IsParallel == IsParallel);
 
@@ -278,7 +289,7 @@ namespace Priem
                     return;
                 }
 
-                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId).Where(c => c.ProfileId != null);
+                var ent = MainClass.GetEntry(context).Where(c => c.FacultyId == FacultyId).Where(c => c.ProfileId != null).Where(c => c.StudyLevelGroupId == StudyLevelGroupId);
 
                 ent = ent.Where(c => c.IsSecond == IsSecond && c.IsReduced == IsReduced && c.IsParallel == IsParallel);
 
@@ -374,6 +385,8 @@ namespace Priem
                        && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
                        && ent.StudyFormId == StudyFormId
                        && ent.StudyBasisId == StudyBasisId
+                       && ent.IsCrimea == IsCrimea
+                       && ent.IsForeign == IsForeign
                        select ent).FirstOrDefault();
 
                 if (entry == null)
@@ -417,6 +430,7 @@ namespace Priem
                                     && fv.StudyFormId == StudyFormId
                                     && fv.StudyBasisId == StudyBasisId
                                     && fv.IsCel == IsCel
+                                    && fv.IsCrimea == IsCrimea
                                     select fv).FirstOrDefault();
             
             string DocNum = string.Empty;
@@ -465,9 +479,10 @@ namespace Priem
                     else
                         _queryOrange = @", CASE WHEN EXISTS(SELECT ed.extEntryView.Id FROM ed.extEntryView INNER JOIN ed.Abiturient a ON ed.extEntryView.AbiturientId = a.Id WHERE a.PersonId = ed.qAbiturient.PersonId) then 1 else 0 end as orange ";
 
-                    string queryFix = _queryBody + _queryOrange + 
+                    string queryFix = _queryBody + _queryOrange +
                     @" FROM ed.qAbiturient                     
-                    INNER JOIN ed.extPersonAspirant ON ed.extPersonAspirant.Id = ed.qAbiturient.PersonId                    
+                    INNER JOIN ed.extPerson ON ed.extPerson.Id = ed.qAbiturient.PersonId                    
+                    INNER JOIN ed.extPerson_EducationInfo_Current ON extPerson_EducationInfo_Current.PersonId = extPerson.Id
                     INNER JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId 
                     INNER JOIN ed.Fixieren ON ed.Fixieren.AbiturientId=ed.qAbiturient.Id 
                     LEFT JOIN ed.hlpEntryWithAddExams ON hlpEntryWithAddExams.EntryId = qAbiturient.EntryId
@@ -498,9 +513,9 @@ namespace Priem
                     //    sFilters += " AND ed.qAbiturient.CompetitionId NOT IN (6) ";
                                         
                     //не забрали доки
-                    sFilters += " AND (ed.qAbiturient.BackDoc=0) ";
+                    sFilters += " AND (qAbiturient.BackDoc=0) ";
 
-                    sFilters += " AND (qFor.Id IS NULL) ";
+                    sFilters += " AND qAbiturient.IsForeign=0 ";
 
                     sFilters += " AND ed.qAbiturient.Id NOT IN (select abiturientid from ed.extentryview) ";                    
                       
@@ -530,7 +545,7 @@ namespace Priem
                         // кроме бэ и тех, у кого нет сертификатов и оценок нужное кол-во оценок есть
                         sFilters += @" AND ((CompetitionId=1  OR CompetitionId=8) 
                                         OR (ed.qAbiturient.PersonId NOT IN (SELECT PersonId FROM ed.EgeCertificate) 
-                                           AND ed.qAbiturient.Id NOT IN (SELECT abiturientid from ed.Mark where IsFromEge = 1) and ed.extPersonAspirant.EgeInSPbgu = 0 and ed.qAbiturient.IsSecond = 0 and ed.qAbiturient.IsReduced = 0 and ed.qAbiturient.IsParallel = 0) 
+                                           AND ed.qAbiturient.Id NOT IN (SELECT abiturientid from ed.Mark where IsFromEge = 1) and ed.extPerson.EgeInSPbgu = 0 and ed.qAbiturient.IsSecond = 0 and ed.qAbiturient.IsReduced = 0 and ed.qAbiturient.IsParallel = 0) 
                                         OR ed.extAbitMarksSum.TotalCount = " + examsCnt + " ) ";
 
                         totalQuery = _queryBody + (chbWithOlymps.Checked ? _queryOlymps : "") + _queryOrange + _queryFrom + sFilters + sOrderBy;
@@ -582,34 +597,36 @@ namespace Priem
 
             //обработали факультет
             if (FacultyId != null)
-                s += " AND ed.qAbiturient.FacultyId = " + FacultyId;      
+                s += " AND qAbiturient.FacultyId = " + FacultyId;      
             
             //обработали форму обучения  
             if (StudyFormId != null)
-                s += " AND ed.qAbiturient.StudyFormId = " + StudyFormId;
+                s += " AND qAbiturient.StudyFormId = " + StudyFormId;
 
             //обработали основу обучения  
             if (StudyBasisId != null)
-                s += " AND ed.qAbiturient.StudyBasisId = " + StudyBasisId;               
+                s += " AND qAbiturient.StudyBasisId = " + StudyBasisId;               
 
             //обработали Направление
             if (LicenseProgramId != null)
-                s += " AND ed.qAbiturient.LicenseProgramId = " + LicenseProgramId;
+                s += " AND qAbiturient.LicenseProgramId = " + LicenseProgramId;
 
             //обработали Образ программу
             if (ObrazProgramId != null)
-                s += " AND ed.qAbiturient.ObrazProgramId = " + ObrazProgramId;
+                s += " AND qAbiturient.ObrazProgramId = " + ObrazProgramId;
 
             //обработали профиль
             if (ProfileId != null)
                 s += string.Format(" AND ed.qAbiturient.ProfileId = '{0}'", ProfileId);
             else
-                s += " AND ed.qAbiturient.ProfileId IS NULL";
+                s += " AND qAbiturient.ProfileId IS NULL";
 
 
-            s += " AND ed.qAbiturient.IsSecond = " + (IsSecond ? " 1 " : " 0 ");
-            s += " AND ed.qAbiturient.IsReduced = " + (IsReduced ? " 1 " : " 0 ");
-            s += " AND ed.qAbiturient.IsParallel = " + (IsParallel ? " 1 " : " 0 ");
+            s += " AND qAbiturient.IsSecond = " + (IsSecond ? " 1 " : " 0 ");
+            s += " AND qAbiturient.IsReduced = " + (IsReduced ? " 1 " : " 0 ");
+            s += " AND qAbiturient.IsParallel = " + (IsParallel ? " 1 " : " 0 ");
+            s += " AND qAbiturient.IsCrimea = " + (IsCrimea ? " 1 " : " 0 ");
+            s += " AND qAbiturient.IsForeign = " + (IsForeign ? " 1 " : " 0 ");
 
             return s;
         }
@@ -840,7 +857,7 @@ namespace Priem
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    context.FixierenView_UpdateLocked(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, locked);
+                    context.FixierenView_UpdateLocked(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, IsCrimea, locked);
                     
                     lblLocked.Text = locked ? "ЗАЛОЧЕНА" : "НЕ залочена";
                 }

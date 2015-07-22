@@ -190,12 +190,12 @@ namespace Priem
                             if (dgvMarks["Áàëëû", i].Value != null)
                                 mark = dgvMarks["Áàëëû", i].Value.ToString().Trim();
 
-                            int? updatedMark;
-                            int mrk;
+                            decimal? updatedMark;
+                            decimal mrk;
                                                         
                             if(string.IsNullOrEmpty(mark))
                                 updatedMark = null;
-                            else if (int.TryParse(mark, out mrk) && mrk >= 0 && mrk < 101)
+                            else if (decimal.TryParse(mark, out mrk) && mrk >= 0 && mrk < 101)
                                 updatedMark = mrk;
                             else
                             {

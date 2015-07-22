@@ -26,11 +26,11 @@ namespace Priem
             using (PriemEntities context = new PriemEntities())
             {
                 //взять максимум номера, если еще ничего не назначено
-                string num = (from ab in context.extAbitAspirant
+                string num = (from ab in context.extAbit
                               where ab.StudyLevelGroupId == MainClass.lstStudyLevelGroupId.First()
                               select ab.StudyNumber).Max();
                
-                var abits = from ab in context.extAbitAspirant
+                var abits = from ab in context.extAbit
                             join ev in context.extEntryView
                             on ab.Id equals ev.AbiturientId
                             where MainClass.lstStudyLevelGroupId.Contains(ab.StudyLevelGroupId) && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)

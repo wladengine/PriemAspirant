@@ -39,7 +39,7 @@ namespace Priem
             {
                string ehQuery = string.Empty; 
                 
-                if (_isCel.Value)
+                if (_isCel)
                    ehQuery = "SELECT CONVERT(varchar(100), Id) AS Id, Acronym as Name FROM ed.EntryHeader WHERE Id IN (7) ORDER BY Id";
                 else
                 {
@@ -93,21 +93,15 @@ namespace Priem
             if (_licenseProgramId != null)
                 sFilter += " AND ed.qAbiturient.LicenseProgramId = " + _licenseProgramId;
                         
-            if (_isSecond.HasValue)           
-                sFilter += " AND ed.qAbiturient.IsSecond = " + QueryServ.StringParseFromBool(_isSecond.Value);
-            if (_isReduced.HasValue)
-                sFilter += " AND ed.qAbiturient.IsReduced = " + QueryServ.StringParseFromBool(_isReduced.Value);
-            if (_isParallel.HasValue)
-                sFilter += " AND ed.qAbiturient.IsParallel = " + QueryServ.StringParseFromBool(_isParallel.Value);
+            sFilter += " AND ed.qAbiturient.IsSecond = " + QueryServ.StringParseFromBool(_isSecond);
+            sFilter += " AND ed.qAbiturient.IsReduced = " + QueryServ.StringParseFromBool(_isReduced);
+            sFilter += " AND ed.qAbiturient.IsParallel = " + QueryServ.StringParseFromBool(_isParallel);
 
             //обработали слушатель           
-            if (_isListener.HasValue)
-                sFilter += " AND ed.qAbiturient.IsListener = " + QueryServ.StringParseFromBool(_isListener.Value);
+            sFilter += " AND ed.qAbiturient.IsListener = " + QueryServ.StringParseFromBool(_isListener);
 
             sFilter += " AND ed.qAbiturient.BackDoc = 0 ";
-
             sFilter += " AND (ed.qAbiturient.Id NOT IN (SELECT AbiturientId FROM ed.extEntryView WHERE IsListener = 0) OR ed.qAbiturient.IsListener = 1)";
-
             sFilter += "AND ((ed.qAbiturient.IsListener = 0 AND ed.qAbiturient.IsSecond = 0 AND ed.qAbiturient.IsReduced = 0 AND ed.qAbiturient.IsParallel = 0 AND ed.qAbiturient.HasOriginals > 0) OR ed.qAbiturient.IsListener = 1 OR ed.qAbiturient.IsSecond = 1 OR ed.qAbiturient.IsReduced = 1 OR ed.qAbiturient.IsParallel = 1 OR ed.qAbiturient.IsPaid = 1)";
       
             if (_studyBasisId == 2)
@@ -337,7 +331,7 @@ namespace Priem
 
                         context.Protocol_InsertAll(_studyLevelGroupId,
                                   _facultyId, _licenseProgramId, _studyFormId, _studyBasisId, tbNum.Text, dtpDate.Value, iProtocolTypeId,
-                                  string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, paramId);
+                                  string.Empty, !isNew, null, _isSecond, _isReduced, _isParallel, _isListener, MainClass.dbType == PriemType.PriemForeigners, paramId);
 
                         protocolId = (Guid)paramId.Value;                        
 

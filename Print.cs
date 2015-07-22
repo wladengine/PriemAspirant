@@ -506,13 +506,13 @@ namespace Priem
                     bool? isParallel = prot.IsParallel;
                     bool? isList = prot.IsListener;
 
-                    string profession = (from extabit in context.extAbitAspirant
+                    string profession = (from extabit in context.extAbit
                                          join extentryView in context.extEntryView on extabit.Id equals extentryView.AbiturientId
                                          where extentryView.Id == protId
                                          select extabit.LicenseProgramName
                                   ).FirstOrDefault();
 
-                    string professionCode = (from extabit in context.extAbitAspirant
+                    string professionCode = (from extabit in context.extAbit
                                              join extentryView in context.extEntryView on extabit.Id equals extentryView.AbiturientId
                                              where extentryView.Id == protId
                                              select extabit.LicenseProgramCode
@@ -620,7 +620,7 @@ namespace Priem
 
                         using (PriemEntities ctx = new PriemEntities())
                         {
-                            var lst = (from extabit in ctx.extAbitAspirant
+                            var lst = (from extabit in ctx.extAbit
                                        join extentryView in ctx.extEntryView on extabit.Id equals extentryView.AbiturientId
                                        join extperson in ctx.extPersonAll on extabit.PersonId equals extperson.Id
                                        join competition in ctx.Competition on extabit.CompetitionId equals competition.Id
@@ -889,7 +889,7 @@ namespace Priem
 
                 using (PriemEntities ctx = new PriemEntities())
                 {
-                    var lst = (from extabit in ctx.extAbitAspirant
+                    var lst = (from extabit in ctx.extAbit
                                join extentryView in ctx.extEntryView on extabit.Id equals extentryView.AbiturientId
                                join extperson in ctx.extPersonAll on extabit.PersonId equals extperson.Id
                                join country in ctx.Country on extperson.NationalityId equals country.Id

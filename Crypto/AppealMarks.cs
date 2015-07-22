@@ -211,17 +211,17 @@ namespace Priem
                                     continue;
 
                                 Guid persId = new Guid(dgvr.Cells["PersonId"].Value.ToString());
-                                int persNum = int.Parse(dgvr.Cells["Номер"].Value.ToString());                                   
+                                int persNum = int.Parse(dgvr.Cells["Номер"].Value.ToString());
 
-                                int mrkWrTmp;
-                                int mrkOrTmp; 
-                               
-                                int? mrkWr;
-                                int? mrkOr;
+                                decimal mrkWrTmp;
+                                decimal mrkOrTmp;
+
+                                decimal? mrkWr;
+                                decimal? mrkOr;
 
                                 if (string.IsNullOrEmpty(valWr))
                                     mrkWr = null;
-                                else if (!(int.TryParse(valWr, out mrkWrTmp) && mrkWrTmp >= 0 && mrkWrTmp < 101))
+                                else if (!(decimal.TryParse(valWr, out mrkWrTmp) && mrkWrTmp >= 0 && mrkWrTmp < 101))
                                 {
                                     dgvMarks.CurrentCell = dgvr.Cells["Баллы(письм) по аппеляции"];
                                     WinFormsServ.Error(dgvr.Cells["ФИО"].Value.ToString() + ": неправильно введены данные");
@@ -232,7 +232,7 @@ namespace Priem
 
                                 if (string.IsNullOrEmpty(valOr))
                                     mrkOr = null;
-                                else if (!(int.TryParse(valOr, out mrkOrTmp) && mrkOrTmp >= 0 && mrkOrTmp < 101))
+                                else if (!(decimal.TryParse(valOr, out mrkOrTmp) && mrkOrTmp >= 0 && mrkOrTmp < 101))
                                 {
                                     dgvMarks.CurrentCell = dgvr.Cells["Баллы (устные) по аппеляции"];
                                     WinFormsServ.Error(dgvr.Cells["ФИО"].Value.ToString() + ": неправильно введены данные");
@@ -254,12 +254,12 @@ namespace Priem
                                         continue;
                                     
                                     int examInEntryId = int.Parse(examInPr);
-                                    
-                                    int? sumMark = 0;
+
+                                    decimal? sumMark = 0;
                                     if (mrkWr == null && mrkOr == null)
                                         sumMark = null;
                                     else
-                                        sumMark = (mrkWr ?? 0) + (mrkOr ?? 0); 
+                                        sumMark = (mrkWr ?? 0m) + (mrkOr ?? 0m); 
 
                                     int cnt = (from mrk in context.qMark
                                                where mrk.ExamInEntryId == examInEntryId && mrk.AbiturientId == abitId
