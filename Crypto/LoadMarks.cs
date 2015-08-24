@@ -399,7 +399,7 @@ namespace Priem
 
                             Guid abitId = new Guid(abId);
                             int examInEntryId = int.Parse(examInPr);
-                            int val = int.Parse(slNewMark[abId]);
+                            decimal val = decimal.Parse(slNewMark[abId]);
 
                             int cnt = (from mrk in context.qMark
                                        where mrk.ExamInEntryId == examInEntryId && mrk.AbiturientId == abitId
@@ -428,7 +428,7 @@ namespace Priem
                             {
                                 Guid abitId = new Guid(abId);
                                 int examInEntryId = int.Parse(examInPr);
-                                int val = int.Parse(slReplaceMark[abId]);
+                                decimal val = decimal.Parse(slReplaceMark[abId]);
 
                                 context.Mark_DeleteByAbitExamId(abitId, examInEntryId);
                                 context.Mark_Insert(abitId, examInEntryId, val, _dateExam, false, false, false, _vedId, null, null);

@@ -366,7 +366,6 @@ namespace Priem
  
         #endregion
 
-        
         protected override void OpenCard(string id, BaseFormsLib.BaseFormEx formOwner, int? index)
         {
             MainClass.OpenCardAbit(id, this, dgvAbits.CurrentRow.Index);
@@ -465,7 +464,8 @@ namespace Priem
             {                
                 string sOrderBy = string.Empty;
 
-                sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , 'Проф. экзамен' desc, ed.qAbiturient.Coefficient, attAvg desc, ФИО";                    
+                //sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , 'Проф. экзамен' desc, ed.qAbiturient.Coefficient, attAvg desc, ФИО";
+                sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , ed.qAbiturient.Coefficient, attAvg desc, ФИО";                    
                 
                 string totalQuery = null;
 
@@ -513,16 +513,16 @@ namespace Priem
                     //    sFilters += " AND ed.qAbiturient.CompetitionId NOT IN (6) ";
                                         
                     //не забрали доки
-                    sFilters += " AND (qAbiturient.BackDoc=0) ";
+                    sFilters += " AND qAbiturient.BackDoc = 0 ";
 
-                    sFilters += " AND qAbiturient.IsForeign=0 ";
+                    sFilters += " AND qAbiturient.IsForeign = 0 ";
 
-                    sFilters += " AND ed.qAbiturient.Id NOT IN (select abiturientid from ed.extentryview) ";                    
+                    sFilters += " AND qAbiturient.Id NOT IN (select abiturientid from ed.extentryview) ";                    
                       
                     // кроме бэ преодолены мин планки                       
-                    sFilters += " AND ((CompetitionId=1  OR CompetitionId=8) OR hlpMinMarkAbiturient.Id IS NULL )";                    
+                    sFilters += " AND ((CompetitionId=1  OR CompetitionId=8) OR hlpMinMarkAbiturient.Id IS NULL)";                    
 
-                    string examsCnt = _bdc.GetStringValue(string.Format(" SELECT Count(Id) FROM ed.extExamInEntry WHERE EntryId='{0}' ", EntryId.ToString()));
+                    string examsCnt = _bdc.GetStringValue(string.Format(" SELECT Count(Id) FROM ed.extExamInEntry WHERE EntryId='{0}' AND ParentExamInEntryId IS NULL", EntryId.ToString()));
                    
                     if (MainClass.dbType == PriemType.PriemAspirant)
                     { 
@@ -887,27 +887,32 @@ namespace Priem
                 {
                     using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.RequiresNew))
                     {
-                        Guid? fixViewId = (from fv in context.FixierenView
-                                           where fv.StudyLevelGroupId == StudyLevelGroupId && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
-                                           && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
-                                           && fv.ObrazProgramId == ObrazProgramId
-                                           && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
-                                           && fv.StudyFormId == StudyFormId
-                                           && fv.StudyBasisId == StudyBasisId
-                                           && fv.IsCel == IsCel
-                                           select fv.Id).FirstOrDefault();
+                        Guid? fixViewId =
+                            (from fv in context.FixierenView
+                             where fv.StudyLevelGroupId == StudyLevelGroupId && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
+                             && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
+                             && fv.ObrazProgramId == ObrazProgramId
+                             && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
+                             && fv.StudyFormId == StudyFormId
+                             && fv.StudyBasisId == StudyBasisId
+                             && fv.IsCel == IsCel
+                             && fv.IsCrimea == IsCrimea
+                             select fv.Id).FirstOrDefault();
 
-                        Guid? entryId = (from fv in context.qEntry
-                                         where fv.StudyLevelGroupId == StudyLevelGroupId && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
-                                         && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
-                                         && fv.ObrazProgramId == ObrazProgramId
-                                         && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
-                                         && fv.StudyFormId == StudyFormId
-                                         && fv.StudyBasisId == StudyBasisId
-                                         select fv.Id).FirstOrDefault();
+                        Guid? entryId =
+                            (from fv in context.qEntry
+                             where fv.StudyLevelGroupId == StudyLevelGroupId && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
+                             && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
+                             && fv.ObrazProgramId == ObrazProgramId
+                             && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
+                             && fv.StudyFormId == StudyFormId
+                             && fv.StudyBasisId == StudyBasisId
+                             && fv.IsCrimea == IsCrimea
+                             && fv.IsForeign == IsForeign
+                             select fv.Id).FirstOrDefault();
                         
                         //удалили старое
-                        context.FirstWave_DELETE(entryId, IsCel, false);
+                        context.FirstWave_DELETE(entryId, IsCel, IsCrimea, false);
 
                         var fix = from fx in context.Fixieren
                                   where fx.FixierenViewId == fixViewId
@@ -954,7 +959,7 @@ namespace Priem
                                      select fv.Id).FirstOrDefault();
                     
                     //удалили
-                    context.FirstWave_DELETE(entryId, IsCel, false);
+                    context.FirstWave_DELETE(entryId, IsCel, IsCrimea, false);
                 }
             }
             catch (Exception ex)
