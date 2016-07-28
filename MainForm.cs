@@ -11,6 +11,8 @@ using System.Diagnostics;
 
 using EducServLib;
 using PriemLib;
+using System.IO;
+using System.Threading;
 
 namespace Priem
 {
@@ -18,6 +20,12 @@ namespace Priem
     {
         private DBPriem _bdc;
         private string _titleString;
+        private bool bSuccessAuth;
+        private BackgroundWorker bw_tech;
+
+        private bool bFirstRun = true;
+        private bool bNewVersionWarningShowing = false;
+        BackgroundWorker bwChecker;
 
         public MainForm()
         {
@@ -31,16 +39,132 @@ namespace Priem
                 if (string.IsNullOrEmpty(MainClass.connString))
                     return;
 
-                MainClass.Init(this);
+                bSuccessAuth = MainClass.Init(this);
+
+                if (!bSuccessAuth)
+                {
+                    WinFormsServ.Error("Не удалось подключиться под вашей учетной записью");
+                    return;
+                }
+
+                //автоматическая проверка актуальной версии
+                bwChecker = new BackgroundWorker();
+                bwChecker.WorkerSupportsCancellation = true;
+                bwChecker.DoWork += (sender, e) =>
+                {
+                    int zz = 0;
+                    int treshHoldSeconds = 30;
+                    //3 min
+                    while (true && !e.Cancel)
+                    {
+                        zz++;
+                        Thread.Sleep(1000);
+                        if (zz >= treshHoldSeconds)
+                        {
+                            ((BackgroundWorker)sender).ReportProgress(0);
+                            //CheckActualVersion();
+                            zz = 0;
+                        }
+                    }
+                };
+                bwChecker.WorkerReportsProgress = true;
+                bwChecker.ProgressChanged += (sender, e) => { CheckActualVersion(); };
+
+                bwChecker.RunWorkerAsync();
 
                 _bdc = MainClass.Bdc;
-                OpenHelp(string.Format("{0}; Пользователь: {1}", _titleString, MainClass.GetADUserName(System.Environment.UserName)));
+                //string sPath = string.Format("{0}; Пользователь: {1}", _titleString, MainClass.GetUserName());
+
+                CheckActualVersion();
+                //OpenHelp(sPath);
+
+                //Технические запросы к базе делаются асинхронно для ускорения запуска стартового окна
+                bw_tech = new BackgroundWorker();
+                bw_tech.DoWork += (sender, e) =>
+                {
+                    MainClass.DeleteAllOpenByHolder();
+                    MainClass.InitQueryBuilder();
+                    ShowProtocolWarning();
+                };
+                bw_tech.RunWorkerCompleted += (sender, e) =>
+                {
+                    if (e.Error != null)
+                        WinFormsServ.Error(e.Error);
+                };
+                bw_tech.WorkerSupportsCancellation = true;
+                bw_tech.RunWorkerAsync();
             }
             catch (Exception exc)
             {
-                WinFormsServ.Error("Не удалось подключиться под вашей учетной записью  ", exc);
+                WinFormsServ.Error("Не удалось подключиться под вашей учетной записью  " + exc.Message);
                 msMainMenu.Enabled = false;
             }
+        }
+        public void CheckActualVersion()
+        {
+            if (bNewVersionWarningShowing)
+                return;
+
+            using (PriemEntities context = new PriemEntities())
+            {
+                string currPath = Application.StartupPath;
+                string AppType_Postfix = "";
+                switch (MainClass.dbType)
+                {
+                    case PriemType.Priem: { AppType_Postfix = "1kurs"; break; }
+                    case PriemType.PriemMag: { AppType_Postfix = "mag"; break; }
+                    case PriemType.PriemAspirant: { AppType_Postfix = "aspirant"; break; }
+                    case PriemType.PriemSPO: { AppType_Postfix = "spo"; break; }
+                }
+
+                string actualPath = context.C_AppSettings.Where(x => x.ParamKey == "CurrentDir_" + AppType_Postfix)
+                    .Select(x => x.ParamValue).FirstOrDefault();
+
+                string sForceAutoOpenCurrentVer = context.C_AppSettings.Where(x => x.ParamKey == "ForceAutoOpenCurrentVer_" + AppType_Postfix)
+                    .Select(x => x.ParamValue).FirstOrDefault();
+                bool bForceAutoOpenCurrentVer = "1".Equals(sForceAutoOpenCurrentVer, StringComparison.OrdinalIgnoreCase);
+
+                DateTime dtInfo = new FileInfo(Application.ExecutablePath).LastWriteTime;
+                //string versionInfo = string.Format(" (версия от {0})", dtInfo.ToShortDateString() + " " + dtInfo.ToShortTimeString());
+                if (!string.IsNullOrEmpty(actualPath) && !actualPath.Equals("0", StringComparison.OrdinalIgnoreCase) && !currPath.Equals(actualPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (bForceAutoOpenCurrentVer)
+                        OpenActualVersion(actualPath);
+                    else
+                    {
+                        string Message = "Вышла новая версия приложения. Запустить актуальную версию?";
+                        bNewVersionWarningShowing = true;
+                        var dr = MessageBox.Show(Message, "Контроль версий", MessageBoxButtons.YesNo);
+                        bNewVersionWarningShowing = false;
+                        if (dr == System.Windows.Forms.DialogResult.Yes)
+                            OpenActualVersion(actualPath);
+                        else if (bFirstRun)
+                            OpenHelp(string.Format("{0}; Пользователь: {1}", _titleString/* + versionInfo*/, MainClass.GetUserName()));
+                    }
+                }
+                else
+                {
+                    if (bFirstRun)
+                        OpenHelp(string.Format("{0}; Пользователь: {1}", _titleString/* + versionInfo*/, MainClass.GetUserName()));
+                }
+            }
+        }
+
+        public void OpenActualVersion(string path)
+        {
+            bwChecker.CancelAsync();
+
+            string ExeFile = "";
+            switch (MainClass.dbType)
+            {
+                case PriemType.Priem: { ExeFile = "1kurs"; break; }
+                case PriemType.PriemMag: { ExeFile = "mag"; break; }
+                case PriemType.PriemAspirant: { ExeFile = "aspirant"; break; }
+                case PriemType.PriemSPO: { ExeFile = "spo"; break; }
+            }
+
+            System.Diagnostics.Process.Start(path.TrimEnd('\\') + string.Format("\\Priem_{0}.exe", ExeFile));
+            this.Close();
         }
 
         private void SetDB()
@@ -49,6 +173,7 @@ namespace Priem
             MainClass.connString = DBConstants.CS_PRIEM;
             MainClass.connStringOnline = DBConstants.CS_PriemONLINE;
 
+            DateTime crDate = new FileInfo(Application.ExecutablePath).LastWriteTime;
             switch (dbName)
             {
                 case "Priem":
@@ -62,7 +187,7 @@ namespace Priem
                     break;
 
                 case "PriemASP":
-                    _titleString = " в аспирантуру";
+                    _titleString = " в аспирантуру (версия от " + crDate.ToShortDateString() + " " + crDate.ToShortTimeString() + ")";
                     MainClass.dbType = PriemType.PriemAspirant;
                     break;
 
@@ -106,6 +231,7 @@ namespace Priem
         {
             try
             {
+                bFirstRun = false;
                 // убирает все IsOpen для данного пользователя                
                 MainClass.DeleteAllOpenByHolder();
 
@@ -472,10 +598,10 @@ namespace Priem
 
         #endregion
 
-        private void импортОлимпиадToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SomeMethodsClass.FillOlymps();
-        }
+        //private void импортОлимпиадToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    SomeMethodsClass.FillOlymps();
+        //}
 
         private void smiChangeCompCel_Click(object sender, EventArgs e)
         {

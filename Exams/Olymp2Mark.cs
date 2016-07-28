@@ -501,8 +501,7 @@ namespace Priem
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-           
-            int? exId;
+            Guid? exId;
             Guid? abId;
             List<Guid?> lstIds = new List<Guid?>();
 
@@ -531,13 +530,13 @@ namespace Priem
                             {
                                 if (row.Cells["Перезачесть"].Value.ToString() == "True")
                                 {
-                                    exId = int.Parse(row.Cells["ExamInEntryId"].Value.ToString());
+                                    exId = Guid.Parse(row.Cells["ExamInEntryId"].Value.ToString());
                                     abId = new Guid(row.Cells["Id"].Value.ToString());
 
                                     int cnt;
 
                                     cnt = (from mrk in context.qMark
-                                           where mrk.AbiturientId == abId && mrk.ExamInEntryId == exId && mrk.IsFromEge
+                                           where mrk.AbiturientId == abId && mrk.ExamInEntryBlockUnitId == exId && mrk.IsFromEge
                                            select mrk).Count();
 
                                     if (cnt > 0)
@@ -547,7 +546,7 @@ namespace Priem
                                     }
 
                                     cnt = (from mrk in context.qMark
-                                           where mrk.AbiturientId == abId && mrk.ExamInEntryId == exId
+                                           where mrk.AbiturientId == abId && mrk.ExamInEntryBlockUnitId == exId
                                            select mrk).Count();
                                     
                                     if (cnt > 0)                                   

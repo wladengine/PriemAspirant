@@ -355,15 +355,17 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                         }
                         foreach (var M in Mrks)
                         {
-                            int? exInEnt = context.ExamInEntry.Where(x => x.EntryId == Ab.EntryId && x.ExamId == M.ExamInEntry.ExamId).Select(x => x.Id).FirstOrDefault();
-                            if (!exInEnt.HasValue)
+                            Guid? exInEntBlockUnitId = context.ExamInEntryBlockUnit
+                                .Where(x => x.ExamInEntryBlock.EntryId == Ab.EntryId && x.ExamId == M.ExamInEntryBlockUnit.ExamId)
+                                .Select(x => x.Id).FirstOrDefault();
+                            if (!exInEntBlockUnitId.HasValue)
                             {
-                                WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - нет экзамена <" + M.ExamInEntry.Exam.ExamName.Name + "> для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.SP_ObrazProgram.Name);
+                                WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - нет экзамена <" + M.ExamInEntryBlockUnit.Exam.ExamName.Name + "> для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.SP_ObrazProgram.Name);
                                 continue;
                             }
-                            if (context.Mark.Where(x => x.AbiturientId == Ab.Id && x.ExamInEntryId == exInEnt).Count() == 0)
+                            if (context.Mark.Where(x => x.AbiturientId == Ab.Id && x.ExamInEntryBlockUnitId == exInEntBlockUnitId).Count() == 0)
                             {
-                                context.Mark_Insert(Ab.Id, exInEnt, M.Value, M.PassDate, false, false, M.IsManual, M.ExamVedId, null, null);
+                                context.Mark_Insert(Ab.Id, exInEntBlockUnitId, M.Value, M.PassDate, false, false, M.IsManual, M.ExamVedId, null, null);
                                 cnt++;
                             }
                         }
