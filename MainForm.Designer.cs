@@ -730,28 +730,28 @@
             // smiEnterMarks
             // 
             this.smiEnterMarks.Name = "smiEnterMarks";
-            this.smiEnterMarks.Size = new System.Drawing.Size(242, 22);
+            this.smiEnterMarks.Size = new System.Drawing.Size(325, 22);
             this.smiEnterMarks.Text = "Ввод оценок в ведомость";
             this.smiEnterMarks.Click += new System.EventHandler(this.smiEnterMarks_Click);
             // 
             // smiLoadMarks
             // 
             this.smiLoadMarks.Name = "smiLoadMarks";
-            this.smiLoadMarks.Size = new System.Drawing.Size(242, 22);
+            this.smiLoadMarks.Size = new System.Drawing.Size(325, 22);
             this.smiLoadMarks.Text = "Загрузка оценок из ведомости";
             this.smiLoadMarks.Click += new System.EventHandler(this.smiLoadMarks_Click);
             // 
             // smiDecryptor
             // 
             this.smiDecryptor.Name = "smiDecryptor";
-            this.smiDecryptor.Size = new System.Drawing.Size(242, 22);
+            this.smiDecryptor.Size = new System.Drawing.Size(325, 22);
             this.smiDecryptor.Text = "Дешифровка";
             this.smiDecryptor.Click += new System.EventHandler(this.smiDecryptor_Click);
             // 
             // smiAppeal
             // 
             this.smiAppeal.Name = "smiAppeal";
-            this.smiAppeal.Size = new System.Drawing.Size(242, 22);
+            this.smiAppeal.Size = new System.Drawing.Size(325, 22);
             this.smiAppeal.Text = "Ведомость для аппеляции";
             this.smiAppeal.Click += new System.EventHandler(this.smiAppeal_Click);
             // 
@@ -830,8 +830,8 @@
             // examsVedMarkToHistoryToolStripMenuItem
             // 
             this.examsVedMarkToHistoryToolStripMenuItem.Name = "examsVedMarkToHistoryToolStripMenuItem";
-            this.examsVedMarkToHistoryToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.examsVedMarkToHistoryToolStripMenuItem.Text = "ExamsVedMarkToHistory";
+            this.examsVedMarkToHistoryToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
+            this.examsVedMarkToHistoryToolStripMenuItem.Text = "Перенос оценок из промежуточной таблицы";
             this.examsVedMarkToHistoryToolStripMenuItem.Click += new System.EventHandler(this.examsVedMarkToHistoryToolStripMenuItem_Click);
             // 
             // MainForm
