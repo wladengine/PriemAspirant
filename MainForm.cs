@@ -826,5 +826,10 @@ namespace Priem
         {
             //ExportClass.ImportLoginsFromCSV();
         }
+
+        private void examsVedMarkToHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ExamsVedMarkToHistory().Show();
+        }
     }
 }

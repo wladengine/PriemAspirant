@@ -117,6 +117,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblDBPath = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslMain = new System.Windows.Forms.ToolStripStatusLabel();
+            this.examsVedMarkToHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -720,7 +721,8 @@
             this.smiEnterMarks,
             this.smiLoadMarks,
             this.smiDecryptor,
-            this.smiAppeal});
+            this.smiAppeal,
+            this.examsVedMarkToHistoryToolStripMenuItem});
             this.smiCrypto.Name = "smiCrypto";
             this.smiCrypto.Size = new System.Drawing.Size(91, 20);
             this.smiCrypto.Text = "Шифровалка";
@@ -824,6 +826,13 @@
             // 
             this.tsslMain.Name = "tsslMain";
             this.tsslMain.Size = new System.Drawing.Size(0, 17);
+            // 
+            // examsVedMarkToHistoryToolStripMenuItem
+            // 
+            this.examsVedMarkToHistoryToolStripMenuItem.Name = "examsVedMarkToHistoryToolStripMenuItem";
+            this.examsVedMarkToHistoryToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.examsVedMarkToHistoryToolStripMenuItem.Text = "ExamsVedMarkToHistory";
+            this.examsVedMarkToHistoryToolStripMenuItem.Click += new System.EventHandler(this.examsVedMarkToHistoryToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -936,6 +945,7 @@
         private System.Windows.Forms.ToolStripMenuItem smiOlympCheckList;
         private System.Windows.Forms.ToolStripMenuItem smiReSetMarksForPaid;
         private System.Windows.Forms.ToolStripMenuItem smiADAccounts;
+        private System.Windows.Forms.ToolStripMenuItem examsVedMarkToHistoryToolStripMenuItem;
 
     }
 }
