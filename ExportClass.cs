@@ -25,9 +25,10 @@ namespace Priem
             
             using (PriemEntities context = new PriemEntities())
             {
+                int iSLG = MainClass.lstStudyLevelGroupId.First();
                 //взять максимум номера, если еще ничего не назначено
                 string num = (from ab in context.extAbit
-                              where ab.StudyLevelGroupId == MainClass.lstStudyLevelGroupId.First()
+                              where ab.StudyLevelGroupId == iSLG
                               select ab.StudyNumber).Max();
                
                 var abits = from ab in context.extAbit

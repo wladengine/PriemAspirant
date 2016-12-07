@@ -107,6 +107,9 @@
             this.smiLoadMarks = new System.Windows.Forms.ToolStripMenuItem();
             this.smiDecryptor = new System.Windows.Forms.ToolStripMenuItem();
             this.smiAppeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.examsVedMarkToHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузкаОценокВРодительскийЭкзаменToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.переводОценокВ5балльнуюШкалуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smiExport = new System.Windows.Forms.ToolStripMenuItem();
             this.smiVTB = new System.Windows.Forms.ToolStripMenuItem();
             this.smiSberbank = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,7 +120,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblDBPath = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslMain = new System.Windows.Forms.ToolStripStatusLabel();
-            this.examsVedMarkToHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.specialCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeMarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -598,7 +602,8 @@
             this.smiMakeBackDoc,
             this.smiDeleteDog,
             this.smiReSetMarksForPaid,
-            this.smiADAccounts});
+            this.smiADAccounts,
+            this.specialCommandsToolStripMenuItem});
             this.smiBooks.Name = "smiBooks";
             this.smiBooks.Size = new System.Drawing.Size(152, 20);
             this.smiBooks.Text = "Справочники для Паши";
@@ -722,7 +727,9 @@
             this.smiLoadMarks,
             this.smiDecryptor,
             this.smiAppeal,
-            this.examsVedMarkToHistoryToolStripMenuItem});
+            this.examsVedMarkToHistoryToolStripMenuItem,
+            this.загрузкаОценокВРодительскийЭкзаменToolStripMenuItem,
+            this.переводОценокВ5балльнуюШкалуToolStripMenuItem});
             this.smiCrypto.Name = "smiCrypto";
             this.smiCrypto.Size = new System.Drawing.Size(91, 20);
             this.smiCrypto.Text = "Шифровалка";
@@ -754,6 +761,27 @@
             this.smiAppeal.Size = new System.Drawing.Size(325, 22);
             this.smiAppeal.Text = "Ведомость для аппеляции";
             this.smiAppeal.Click += new System.EventHandler(this.smiAppeal_Click);
+            // 
+            // examsVedMarkToHistoryToolStripMenuItem
+            // 
+            this.examsVedMarkToHistoryToolStripMenuItem.Name = "examsVedMarkToHistoryToolStripMenuItem";
+            this.examsVedMarkToHistoryToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
+            this.examsVedMarkToHistoryToolStripMenuItem.Text = "Перенос оценок из промежуточной таблицы";
+            this.examsVedMarkToHistoryToolStripMenuItem.Click += new System.EventHandler(this.examsVedMarkToHistoryToolStripMenuItem_Click);
+            // 
+            // загрузкаОценокВРодительскийЭкзаменToolStripMenuItem
+            // 
+            this.загрузкаОценокВРодительскийЭкзаменToolStripMenuItem.Name = "загрузкаОценокВРодительскийЭкзаменToolStripMenuItem";
+            this.загрузкаОценокВРодительскийЭкзаменToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
+            this.загрузкаОценокВРодительскийЭкзаменToolStripMenuItem.Text = "Перегрузка оценок в родительский экзамен";
+            this.загрузкаОценокВРодительскийЭкзаменToolStripMenuItem.Click += new System.EventHandler(this.загрузкаОценокВРодительскийЭкзаменToolStripMenuItem_Click);
+            // 
+            // переводОценокВ5балльнуюШкалуToolStripMenuItem
+            // 
+            this.переводОценокВ5балльнуюШкалуToolStripMenuItem.Name = "переводОценокВ5балльнуюШкалуToolStripMenuItem";
+            this.переводОценокВ5балльнуюШкалуToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
+            this.переводОценокВ5балльнуюШкалуToolStripMenuItem.Text = "Перевод оценок в 5-балльную шкалу";
+            this.переводОценокВ5балльнуюШкалуToolStripMenuItem.Click += new System.EventHandler(this.переводОценокВ5балльнуюШкалуToolStripMenuItem_Click);
             // 
             // smiExport
             // 
@@ -827,12 +855,20 @@
             this.tsslMain.Name = "tsslMain";
             this.tsslMain.Size = new System.Drawing.Size(0, 17);
             // 
-            // examsVedMarkToHistoryToolStripMenuItem
+            // specialCommandsToolStripMenuItem
             // 
-            this.examsVedMarkToHistoryToolStripMenuItem.Name = "examsVedMarkToHistoryToolStripMenuItem";
-            this.examsVedMarkToHistoryToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
-            this.examsVedMarkToHistoryToolStripMenuItem.Text = "Перенос оценок из промежуточной таблицы";
-            this.examsVedMarkToHistoryToolStripMenuItem.Click += new System.EventHandler(this.examsVedMarkToHistoryToolStripMenuItem_Click);
+            this.specialCommandsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeMarkToolStripMenuItem});
+            this.specialCommandsToolStripMenuItem.Name = "specialCommandsToolStripMenuItem";
+            this.specialCommandsToolStripMenuItem.Size = new System.Drawing.Size(453, 22);
+            this.specialCommandsToolStripMenuItem.Text = "Special Commands";
+            // 
+            // removeMarkToolStripMenuItem
+            // 
+            this.removeMarkToolStripMenuItem.Name = "removeMarkToolStripMenuItem";
+            this.removeMarkToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeMarkToolStripMenuItem.Text = "RemoveMark";
+            this.removeMarkToolStripMenuItem.Click += new System.EventHandler(this.removeMarkToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -946,6 +982,10 @@
         private System.Windows.Forms.ToolStripMenuItem smiReSetMarksForPaid;
         private System.Windows.Forms.ToolStripMenuItem smiADAccounts;
         private System.Windows.Forms.ToolStripMenuItem examsVedMarkToHistoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузкаОценокВРодительскийЭкзаменToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem переводОценокВ5балльнуюШкалуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem specialCommandsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeMarkToolStripMenuItem;
 
     }
 }

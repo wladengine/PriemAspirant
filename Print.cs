@@ -752,8 +752,7 @@ namespace Priem
         {
             try
             {
-                WordDoc wd = new WordDoc(string.Format(@"{0}\EntryOrder1.dot", MainClass.dirTemplates));
-                TableDoc td = wd.Tables[0];
+                
                 
                 string docNum;
                 DateTime docDate;
@@ -769,15 +768,20 @@ namespace Priem
                 string basis = string.Empty;
                 string form = string.Empty;
                 string form2 = string.Empty;
+                int StudyLevelGroupId = 0;
 
                 string LicenseProgramName;
                 string LicenseProgramCode;
 
-                string DateStart = "01.09.2014";
-                string DateOfFinish = "30.06.2015";
+                string DateStart = "01.09.2016";
+                string DateOfFinish = "30.06.2017";
 
                 using (PriemEntities ctx = new PriemEntities())
                 {
+                    StudyLevelGroupId =
+                        (from protocol in ctx.Protocol
+                         where protocol.Id == protocolId
+                         select protocol.StudyLevelGroupId).FirstOrDefault();
 
                     docNum = (from protocol in ctx.Protocol
                               where protocol.Id == protocolId
@@ -835,13 +839,13 @@ namespace Priem
                         form = "очная форма обучения";
                         form2 = "очной";
                         studySrok = "1";
-                        studyFinish = "31.08.2016";
+                        studyFinish = "31.08.2017";
                         break;
                     case "2":
                         form = "заочная форма обучения";
                         form2 = "заочной";
                         studySrok = "1";
-                        studyFinish = "31.08.2017";
+                        studyFinish = "31.08.2018";
                         break;
                 }
 
@@ -865,6 +869,8 @@ namespace Priem
                         break;
                 }
 
+                WordDoc wd = new WordDoc(string.Format(@"{0}\EntryOrder{1}.dot", MainClass.dirTemplates, StudyLevelGroupId == 5 ? "Ord" : ""));
+                TableDoc td = wd.Tables[0];
 
                 wd.SetFields("Граждан", isRus ? "граждан Российской Федерации" : "иностранных граждан");
                 wd.SetFields("Граждан2", isRus ? "граждан Российской Федерации" : "");
@@ -980,9 +986,9 @@ namespace Priem
                         if (int.TryParse(Num, out Code))
                         {
                             if (Code < 38)
-                                stipendia = "6330";
+                                stipendia = "7013";
                             else
-                                stipendia = "2637";
+                                stipendia = "2922";
                         }
 
                         string ObrazProgramId = v.ObrazProgramId.ToString();

@@ -460,13 +460,19 @@ namespace Priem
         int plan = 0;
         public override void UpdateDataGrid()
         {
+            if (!LicenseProgramId.HasValue || !ObrazProgramId.HasValue)
+                return;
             try
             {                
                 string sOrderBy = string.Empty;
 
                 //sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , 'Проф. экзамен' desc, ed.qAbiturient.Coefficient, attAvg desc, ФИО";
-                sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , ed.qAbiturient.Coefficient, attAvg desc, ФИО";                    
                 
+                sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , qAbiturient.Coefficient DESC, attAvg desc, ФИО";                    
+                
+                if (StudyLevelGroupId == 5)//ординатура
+                    sOrderBy = " ORDER BY [Сумма баллов] desc, attAvg desc, ed.qAbiturient.Coefficient, ФИО";                    
+
                 string totalQuery = null;
 
                 
@@ -492,10 +498,10 @@ namespace Priem
                     LEFT JOIN ed.extAbitMarksSum ON ed.qAbiturient.Id = ed.extAbitMarksSum.Id";
 
                     string whereFix = string.Format(@" WHERE ed.FixierenView.StudyLevelGroupId = {10} AND ed.FixierenView.StudyFormId={0} AND ed.FixierenView.StudyBasisId={1} AND ed.FixierenView.FacultyId={2} 
-                                                    AND ed.FixierenView.LicenseProgramId={3} AND ed.FixierenView.ObrazProgramId={4} {5} AND ed.FixierenView.IsCel = {6}
-                                                    AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.FixierenView.IsParallel = {9} ",
+AND ed.FixierenView.LicenseProgramId={3} AND ed.FixierenView.ObrazProgramId={4} {5} AND ed.FixierenView.IsCel = {6} AND ed.FixierenView.IsCrimea = {11}
+AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.FixierenView.IsParallel = {9} ",
                         StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId == null ? " AND ed.FixierenView.ProfileId IS NULL" : "AND ed.FixierenView.ProfileId='" + ProfileId + "'",
-                        QueryServ.StringParseFromBool(IsCel), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel), StudyLevelGroupId);
+                        QueryServ.StringParseFromBool(IsCel), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel), StudyLevelGroupId, QueryServ.StringParseFromBool(IsCrimea));
                     
                     //sOrderBy = " ORDER BY Fixieren.Number ";
 
@@ -522,7 +528,7 @@ namespace Priem
                     // кроме бэ преодолены мин планки                       
                     sFilters += " AND ((CompetitionId=1  OR CompetitionId=8) OR hlpMinMarkAbiturient.Id IS NULL)";                    
 
-                    string examsCnt = _bdc.GetStringValue(string.Format(" SELECT Count(Id) FROM ed.extExamInEntry WHERE EntryId='{0}' AND ParentExamInEntryId IS NULL", EntryId.ToString()));
+                    string examsCnt = _bdc.GetStringValue(string.Format(" SELECT Count(Id) FROM ed.extExamInEntry WHERE EntryId='{0}' AND ParentExamInEntryBlockId IS NULL", EntryId.ToString()));
                    
                     if (MainClass.dbType == PriemType.PriemAspirant)
                     { 
@@ -689,6 +695,7 @@ namespace Priem
                                            && fv.StudyFormId == StudyFormId
                                            && fv.StudyBasisId == StudyBasisId
                                            && fv.IsCel == IsCel
+                                           && fv.IsCrimea == IsCrimea
                                            select fv.Id).FirstOrDefault();
 
                         if (fixViewId != null)
@@ -710,7 +717,7 @@ namespace Priem
                         int rand = new Random().Next(10000, 99999);
 
                         ObjectParameter fvId = new ObjectParameter("id", typeof(Guid));
-                        context.FixierenView_Insert(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, rand, false, false, false, fvId);
+                        context.FixierenView_Insert(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, rand, false, IsCrimea, false, fvId);
                         Guid? viewId = (Guid?)fvId.Value;
 
                         int counter = 0;
@@ -740,7 +747,7 @@ namespace Priem
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "ADOBE Pdf files|*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
-                PriemLib.Print.PrintRatingProtocol(StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId,ProfileId, IsCel, false,
+                PriemLib.Print.PrintRatingProtocol(StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId,ProfileId, IsCel, IsCrimea,
                     plan, sfd.FileName, IsSecond, IsReduced, IsParallel, false);
         }        
 
@@ -924,7 +931,10 @@ namespace Priem
                         {
                             cnt++;
                             Guid? abId = new Guid(row.Cells["Id"].Value.ToString());
-                            context.FirstWave_INSERT(abId, cnt);
+                            if (!IsCrimea)
+                                context.FirstWave_INSERT(abId, cnt);
+                            else
+                                context.FirstWave_INSERTCRIMEA(abId, cnt);
                             //context.FirstWave_INSERT(f.AbiturientId, f.Number);
                         }
                         transaction.Complete();

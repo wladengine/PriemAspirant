@@ -831,5 +831,41 @@ namespace Priem
         {
             new ExamsVedMarkToHistory().Show();
         }
+
+        private void загрузкаОценокВРодительскийЭкзаменToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MarkProvider.LoadExamsResultsToParentExam();
+        }
+
+        private void переводОценокВ5балльнуюШкалуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MarkProvider.UpdateFiveGradeMarks();
+        }
+
+        private void removeMarkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "XLSX files|*.xlsx";
+            var dr = ofd.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                DataTable tbl = PrintClass.GetDataTableFromExcel2007_New(ofd.FileName);
+                using (PriemEntities context = new PriemEntities())
+                {
+                    foreach (DataRow rw in tbl.Rows)
+                    {
+                        string PersonNum = rw[0].ToString();
+                        string ExamName = rw[1].ToString();
+
+                        Guid PersonId = context.extPerson.Where(x => x.PersonNum == PersonNum).Select(x => x.Id).DefaultIfEmpty(Guid.Empty).First();
+                        int examId = context.extExamInEntry.Where(x => x.ExamName == ExamName).Select(x => x.ExamId).DefaultIfEmpty(0).First();
+
+                        List<Guid> lstMarks = context.qMark.Where(x => x.PersonId == PersonId && x.ExamId == examId).Select(x => x.Id).ToList();
+                        foreach (Guid MarkId in lstMarks)
+                            context.Mark_Delete(MarkId);
+                    }
+                }
+            }
+        }
     }
 }
