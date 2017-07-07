@@ -343,7 +343,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                             && x.Entry.LicenseProgramId == Ab.Entry.LicenseProgramId && x.Entry.ObrazProgramId == x.Entry.ObrazProgramId);
                         if (AbitB.Count() > 1)
                         {
-                            WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - совпадения для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.SP_ObrazProgram.Name);
+                            WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - совпадения для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.ObrazProgramId);
                             continue;
                         }
                         if (AbitB.Count() == 0)
@@ -351,7 +351,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                         var Mrks = AbitB.First().Mark;
                         if (Mrks.Count() == 0)
                         {
-                            WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - нет оценок для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.SP_ObrazProgram.Name);
+                            WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - нет оценок для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.ObrazProgramId);
                             continue;
                         }
                         foreach (var M in Mrks)
@@ -361,7 +361,7 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                                 .Select(x => x.Id).FirstOrDefault();
                             if (!exInEntBlockUnitId.HasValue)
                             {
-                                WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - нет экзамена <" + M.ExamInEntryBlockUnit.Exam.ExamName.Name + "> для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.SP_ObrazProgram.Name);
+                                WinFormsServ.Error(Ab.Person.Surname + " " + (Ab.Person.Name ?? "") + " " + (Ab.Person.SecondName ?? "") + " - нет экзамена <" + M.ExamInEntryBlockUnit.Exam.ExamName.Name + "> для " + Ab.Entry.SP_LicenseProgram.Code + " " + Ab.Entry.SP_LicenseProgram.Name + " " + Ab.Entry.ObrazProgramId);
                                 continue;
                             }
                             if (context.Mark.Where(x => x.AbiturientId == Ab.Id && x.ExamInEntryBlockUnitId == exInEntBlockUnitId).Count() == 0)
@@ -380,51 +380,5 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                 MessageBox.Show("Перезачтено оценок - " + cnt);
             }
         }
-
-        //public static void ImportLoginsFromCSV()
-        //{
-        //    OpenFileDialog ofd = new OpenFileDialog();
-        //    if (ofd.ShowDialog() == DialogResult.OK)
-        //    {
-        //        try
-        //        {
-        //            using (StreamReader sr = new StreamReader(ofd.FileName, Encoding.GetEncoding(1251)))
-        //            using (PriemEntities context = new PriemEntities())
-        //            {
-        //                while (!sr.EndOfStream)
-        //                {
-        //                    string str = sr.ReadLine();
-        //                    string[] splitted = str.Split(';');
-        //                    if (splitted.Count() < 7)
-        //                        continue;
-
-        //                    string displayName = splitted[4];
-        //                    string birthdate = splitted[3];
-        //                    DateTime bDate = DateTime.Now;
-        //                    if (!DateTime.TryParse(birthdate, out bDate))
-        //                        continue;
-        //                    string account = splitted[5];
-
-        //                    Guid? AbiturientId =
-        //                        (from extPers in context.extPersonAll
-        //                         join Abit in context.Abiturient on extPers.Id equals Abit.PersonId
-        //                         join extEnt in context.extEntryView on Abit.Id equals extEnt.AbiturientId
-        //                         join Ad in context.ADUserData on Abit.Id equals Ad.AbiturientId
-        //                         where extPers.FIO == displayName && extPers.BirthDate == bDate
-        //                         select Abit.Id).FirstOrDefault();
-
-        //                    if (!AbiturientId.HasValue || AbiturientId.Value == Guid.Empty)
-        //                        continue;
-
-        //                    context.ADUserData_Update(AbiturientId, account + "@spbu.ru", account, "", true);
-        //                }
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            WinFormsServ.Error(ex);
-        //        }
-        //    }
-        //}
     }
 }

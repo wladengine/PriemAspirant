@@ -177,11 +177,6 @@ namespace Priem
             get { return chbCel.Checked; }
             set { chbCel.Checked = value; }
         }
-        public bool IsCrimea
-        {
-            get { return chbIsCrimea.Checked; }
-            set { chbIsCrimea.Checked = value; }
-        }
         public bool IsForeign
         {
             get { return MainClass.dbType == PriemType.PriemForeigners; }
@@ -202,7 +197,6 @@ namespace Priem
                                        && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
                                        && ent.StudyFormId == StudyFormId
                                        && ent.StudyBasisId == StudyBasisId
-                                       && ent.IsCrimea == IsCrimea
                                        && ent.IsForeign == IsForeign
                                        select ent.Id).FirstOrDefault();
                         return entId;
@@ -384,7 +378,6 @@ namespace Priem
                        && (ProfileId == null ? ent.ProfileId == 0 : ent.ProfileId == ProfileId)
                        && ent.StudyFormId == StudyFormId
                        && ent.StudyBasisId == StudyBasisId
-                       && ent.IsCrimea == IsCrimea
                        && ent.IsForeign == IsForeign
                        select ent).FirstOrDefault();
 
@@ -425,11 +418,10 @@ namespace Priem
                                     && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
                                     && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
                                     && fv.ObrazProgramId == ObrazProgramId
-                                    && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
+                                    && (ProfileId == null ? fv.ProfileId == 0 : fv.ProfileId == ProfileId)
                                     && fv.StudyFormId == StudyFormId
                                     && fv.StudyBasisId == StudyBasisId
                                     && fv.IsCel == IsCel
-                                    && fv.IsCrimea == IsCrimea
                                     select fv).FirstOrDefault();
             
             string DocNum = string.Empty;
@@ -498,10 +490,10 @@ namespace Priem
                     LEFT JOIN ed.extAbitMarksSum ON ed.qAbiturient.Id = ed.extAbitMarksSum.Id";
 
                     string whereFix = string.Format(@" WHERE ed.FixierenView.StudyLevelGroupId = {10} AND ed.FixierenView.StudyFormId={0} AND ed.FixierenView.StudyBasisId={1} AND ed.FixierenView.FacultyId={2} 
-AND ed.FixierenView.LicenseProgramId={3} AND ed.FixierenView.ObrazProgramId={4} {5} AND ed.FixierenView.IsCel = {6} AND ed.FixierenView.IsCrimea = {11}
+AND ed.FixierenView.LicenseProgramId={3} AND ed.FixierenView.ObrazProgramId={4} {5} AND ed.FixierenView.IsCel = {6}
 AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.FixierenView.IsParallel = {9} ",
                         StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId == null ? " AND ed.FixierenView.ProfileId IS NULL" : "AND ed.FixierenView.ProfileId='" + ProfileId + "'",
-                        QueryServ.StringParseFromBool(IsCel), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel), StudyLevelGroupId, QueryServ.StringParseFromBool(IsCrimea));
+                        QueryServ.StringParseFromBool(IsCel), QueryServ.StringParseFromBool(IsSecond), QueryServ.StringParseFromBool(IsReduced), QueryServ.StringParseFromBool(IsParallel), StudyLevelGroupId);
                     
                     //sOrderBy = " ORDER BY Fixieren.Number ";
 
@@ -631,7 +623,6 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
             s += " AND qAbiturient.IsSecond = " + (IsSecond ? " 1 " : " 0 ");
             s += " AND qAbiturient.IsReduced = " + (IsReduced ? " 1 " : " 0 ");
             s += " AND qAbiturient.IsParallel = " + (IsParallel ? " 1 " : " 0 ");
-            s += " AND qAbiturient.IsCrimea = " + (IsCrimea ? " 1 " : " 0 ");
             s += " AND qAbiturient.IsForeign = " + (IsForeign ? " 1 " : " 0 ");
 
             return s;
@@ -691,11 +682,10 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                                            && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
                                            && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
                                            && fv.ObrazProgramId == ObrazProgramId
-                                           && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
+                                           && (ProfileId == null ? fv.ProfileId == 0 : fv.ProfileId == ProfileId)
                                            && fv.StudyFormId == StudyFormId
                                            && fv.StudyBasisId == StudyBasisId
                                            && fv.IsCel == IsCel
-                                           && fv.IsCrimea == IsCrimea
                                            select fv.Id).FirstOrDefault();
 
                         if (fixViewId != null)
@@ -717,7 +707,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                         int rand = new Random().Next(10000, 99999);
 
                         ObjectParameter fvId = new ObjectParameter("id", typeof(Guid));
-                        context.FixierenView_Insert(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, rand, false, IsCrimea, false, fvId);
+                        context.FixierenView_Insert(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, rand, false, false, false, fvId);
                         Guid? viewId = (Guid?)fvId.Value;
 
                         int counter = 0;
@@ -747,7 +737,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "ADOBE Pdf files|*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
-                PriemLib.Print.PrintRatingProtocol(StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId,ProfileId, IsCel, IsCrimea,
+                PriemLib.Print.PrintRatingProtocol(StudyFormId, StudyBasisId, FacultyId, LicenseProgramId, ObrazProgramId,ProfileId, IsCel, 
                     plan, sfd.FileName, IsSecond, IsReduced, IsParallel, false);
         }        
 
@@ -864,7 +854,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    context.FixierenView_UpdateLocked(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, IsCrimea, locked);
+                    context.FixierenView_UpdateLocked(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, false, locked);
                     
                     lblLocked.Text = locked ? "ЗАЛОЧЕНА" : "НЕ залочена";
                 }
@@ -899,11 +889,11 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                              where fv.StudyLevelGroupId == StudyLevelGroupId && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
                              && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
                              && fv.ObrazProgramId == ObrazProgramId
-                             && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
+                             && (ProfileId == null ? fv.ProfileId == 0 : fv.ProfileId == ProfileId)
                              && fv.StudyFormId == StudyFormId
                              && fv.StudyBasisId == StudyBasisId
                              && fv.IsCel == IsCel
-                             && fv.IsCrimea == IsCrimea
+                             && fv.IsCrimea == false
                              select fv.Id).FirstOrDefault();
 
                         Guid? entryId =
@@ -911,15 +901,15 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                              where fv.StudyLevelGroupId == StudyLevelGroupId && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
                              && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
                              && fv.ObrazProgramId == ObrazProgramId
-                             && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
+                             && (ProfileId == null ? fv.ProfileId == 0 : fv.ProfileId == ProfileId)
                              && fv.StudyFormId == StudyFormId
                              && fv.StudyBasisId == StudyBasisId
-                             && fv.IsCrimea == IsCrimea
+                             && fv.IsCrimea == false
                              && fv.IsForeign == IsForeign
                              select fv.Id).FirstOrDefault();
                         
                         //удалили старое
-                        context.FirstWave_DELETE(entryId, IsCel, IsCrimea, false);
+                        context.FirstWave_DELETE(entryId, IsCel, false, false);
 
                         var fix = from fx in context.Fixieren
                                   where fx.FixierenViewId == fixViewId
@@ -931,11 +921,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                         {
                             cnt++;
                             Guid? abId = new Guid(row.Cells["Id"].Value.ToString());
-                            if (!IsCrimea)
-                                context.FirstWave_INSERT(abId, cnt);
-                            else
-                                context.FirstWave_INSERTCRIMEA(abId, cnt);
-                            //context.FirstWave_INSERT(f.AbiturientId, f.Number);
+                            context.FirstWave_INSERT(abId, cnt);
                         }
                         transaction.Complete();
                     }
@@ -963,13 +949,13 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                                      where fv.StudyLevelGroupId == StudyLevelGroupId && fv.IsReduced == IsReduced && fv.IsParallel == IsParallel && fv.IsSecond == IsSecond
                                      && fv.FacultyId == FacultyId && fv.LicenseProgramId == LicenseProgramId
                                      && fv.ObrazProgramId == ObrazProgramId
-                                     && (ProfileId == null ? fv.ProfileId == null : fv.ProfileId == ProfileId)
+                                     && (ProfileId == null ? fv.ProfileId == 0 : fv.ProfileId == ProfileId)
                                      && fv.StudyFormId == StudyFormId
                                      && fv.StudyBasisId == StudyBasisId
                                      select fv.Id).FirstOrDefault();
                     
                     //удалили
-                    context.FirstWave_DELETE(entryId, IsCel, IsCrimea, false);
+                    context.FirstWave_DELETE(entryId, IsCel, false, false);
                 }
             }
             catch (Exception ex)
