@@ -102,6 +102,8 @@
             this.smiDeleteDog = new System.Windows.Forms.ToolStripMenuItem();
             this.smiReSetMarksForPaid = new System.Windows.Forms.ToolStripMenuItem();
             this.smiADAccounts = new System.Windows.Forms.ToolStripMenuItem();
+            this.specialCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeMarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
             this.smiEnterMarks = new System.Windows.Forms.ToolStripMenuItem();
             this.smiLoadMarks = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,8 +122,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblDBPath = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslMain = new System.Windows.Forms.ToolStripStatusLabel();
-            this.specialCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeMarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getMotLettEssayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -720,6 +721,22 @@
             this.smiADAccounts.Text = "Загрузка аккаунтов";
             this.smiADAccounts.Click += new System.EventHandler(this.smiADAccounts_Click);
             // 
+            // specialCommandsToolStripMenuItem
+            // 
+            this.specialCommandsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeMarkToolStripMenuItem,
+            this.getMotLettEssayToolStripMenuItem});
+            this.specialCommandsToolStripMenuItem.Name = "specialCommandsToolStripMenuItem";
+            this.specialCommandsToolStripMenuItem.Size = new System.Drawing.Size(453, 22);
+            this.specialCommandsToolStripMenuItem.Text = "Special Commands";
+            // 
+            // removeMarkToolStripMenuItem
+            // 
+            this.removeMarkToolStripMenuItem.Name = "removeMarkToolStripMenuItem";
+            this.removeMarkToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.removeMarkToolStripMenuItem.Text = "RemoveMark";
+            this.removeMarkToolStripMenuItem.Click += new System.EventHandler(this.removeMarkToolStripMenuItem_Click);
+            // 
             // smiCrypto
             // 
             this.smiCrypto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -855,20 +872,12 @@
             this.tsslMain.Name = "tsslMain";
             this.tsslMain.Size = new System.Drawing.Size(0, 17);
             // 
-            // specialCommandsToolStripMenuItem
+            // getMotLettEssayToolStripMenuItem
             // 
-            this.specialCommandsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeMarkToolStripMenuItem});
-            this.specialCommandsToolStripMenuItem.Name = "specialCommandsToolStripMenuItem";
-            this.specialCommandsToolStripMenuItem.Size = new System.Drawing.Size(453, 22);
-            this.specialCommandsToolStripMenuItem.Text = "Special Commands";
-            // 
-            // removeMarkToolStripMenuItem
-            // 
-            this.removeMarkToolStripMenuItem.Name = "removeMarkToolStripMenuItem";
-            this.removeMarkToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.removeMarkToolStripMenuItem.Text = "RemoveMark";
-            this.removeMarkToolStripMenuItem.Click += new System.EventHandler(this.removeMarkToolStripMenuItem_Click);
+            this.getMotLettEssayToolStripMenuItem.Name = "getMotLettEssayToolStripMenuItem";
+            this.getMotLettEssayToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.getMotLettEssayToolStripMenuItem.Text = "GetMotLettEssay";
+            this.getMotLettEssayToolStripMenuItem.Click += new System.EventHandler(this.getMotLettEssayToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -986,7 +995,7 @@
         private System.Windows.Forms.ToolStripMenuItem переводОценокВ5балльнуюШкалуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem specialCommandsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeMarkToolStripMenuItem;
-
+        private System.Windows.Forms.ToolStripMenuItem getMotLettEssayToolStripMenuItem;
     }
 }
 

@@ -834,7 +834,9 @@ namespace Priem
 
         private void загрузкаОценокВРодительскийЭкзаменToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MarkProvider.LoadExamsResultsToParentExam();
+            var dr = MessageBox.Show("Обновлять уже имеющиеся оценки?", "Уточнение", MessageBoxButtons.YesNo);
+            bool bUpdExistingMarks = dr == DialogResult.Yes;
+            MarkProvider.LoadExamsResultsToParentExam(bUpdExistingMarks);
         }
 
         private void переводОценокВ5балльнуюШкалуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -865,6 +867,16 @@ namespace Priem
                             context.Mark_Delete(MarkId);
                     }
                 }
+            }
+        }
+
+        private void getMotLettEssayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            var dr = dlg.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                EssayImportClass.ImportEssay(dlg.SelectedPath);
             }
         }
     }

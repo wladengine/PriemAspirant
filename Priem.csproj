@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangeAbitClass.cs" />
+    <Compile Include="EssayImportClass.cs" />
     <Compile Include="Exams\Olymp2Mark.cs">
       <SubType>Form</SubType>
     </Compile>

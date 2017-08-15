@@ -32,11 +32,13 @@ namespace Priem
 
             _queryBody = @"SELECT DISTINCT qAbiturient.Id as Id, qAbiturient.RegNum as Рег_Номер, 
                     extPerson.PersonNum as 'Ид. номер', extPerson.FIO as ФИО, 
-                    extAbitMarksSum.TotalSum as 'Сумма баллов', extAbitMarksSum.TotalSumFiveGrade as 'Сумма баллов (5-балльная шкала)', 
+                    qAbiturient.Sum + extAbitAdditionalMarksSum_FAST.AdditionalMarksSum as 'Сумма баллов',
+                    qAbiturient.Sum as 'Сумма баллов (без ИД)',
+                    extAbitAdditionalMarksSum_FAST.AdditionalMarksSum AS [Сумма ИД],
                     extAbitMarksSum.TotalCount as 'Кол-во оценок', 
                     case when qAbiturient.HasOriginals>0 then 'Да' else 'Нет' end as 'Подлинники документов', qAbiturient.Coefficient as 'Рейтинговый коэффициент', 
                     Competition.Name as Конкурс, 
-                    hlpAbiturientProf.ProfFiveGrade AS 'Проф. экзамен (5 баллов)', hlpAbiturientProf.Prof AS 'Проф. экзамен', 
+                    hlpAbiturientProf.Prof AS 'Проф. экзамен', 
                     CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 6 AND AbiturientId = qAbiturient.Id) then 1 else CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 5 AND AbiturientId = qAbiturient.Id) then 2 else CASE WHEN EXISTS(SELECT Id FROM ed.Olympiads WHERE OlympTypeId = 3 AND OlympValueId = 7 AND AbiturientId = qAbiturient.Id) then 3 else 4 end end end as olymp,
                     CASE WHEN extPerson_EducationInfo_Current.AttestatSeries IN ('ЗА','ЗБ','ЗВ') then 1 else CASE WHEN  extPerson_EducationInfo_Current.AttestatSeries IN ('СА','СБ','СВ') then 2 else 3 end end as attestat,
                     extPerson_EducationInfo_Current.SchoolAVG as attAvg, 
@@ -55,6 +57,7 @@ namespace Priem
                     INNER JOIN ed.extPerson_EducationInfo_Current ON extPerson_EducationInfo_Current.PersonId = extPerson.Id
                     INNER JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId 
                     INNER JOIN ed.extEnableProtocol ON ed.extEnableProtocol.AbiturientId = ed.qAbiturient.Id 
+                    LEFT JOIN ed.extAbitAdditionalMarksSum_FAST ON qAbiturient.Id = extAbitAdditionalMarksSum_FAST.AbiturientId
                     LEFT JOIN ed.hlpEntryWithAddExams ON hlpEntryWithAddExams.EntryId = qAbiturient.EntryId
                     LEFT JOIN ed.hlpAbiturientProfAdd ON ed.hlpAbiturientProfAdd.Id = ed.qAbiturient.Id 
                     LEFT JOIN ed.hlpAbiturientProf ON ed.hlpAbiturientProf.Id = ed.qAbiturient.Id 
@@ -460,10 +463,10 @@ namespace Priem
 
                 //sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , 'Проф. экзамен' desc, ed.qAbiturient.Coefficient, attAvg desc, ФИО";
                 
-                sOrderBy = " ORDER BY [Сумма баллов (5-балльная шкала)] desc, [Проф. экзамен (5 баллов)] DESC , qAbiturient.Coefficient DESC, attAvg desc, ФИО";                    
+                sOrderBy = " ORDER BY [Сумма баллов] desc, [Сумма баллов (без ИД)] DESC, [Проф. экзамен] DESC, qAbiturient.Coefficient DESC, attAvg desc, ФИО";                    
                 
                 if (StudyLevelGroupId == 5)//ординатура
-                    sOrderBy = " ORDER BY [Сумма баллов] desc, attAvg desc, ed.qAbiturient.Coefficient, ФИО";                    
+                    sOrderBy = " ORDER BY [Сумма баллов] desc, [Проф. экзамен] DESC, attAvg desc, qAbiturient.Coefficient, ФИО";                    
 
                 string totalQuery = null;
 
@@ -483,6 +486,7 @@ namespace Priem
                     INNER JOIN ed.extPerson_EducationInfo_Current ON extPerson_EducationInfo_Current.PersonId = extPerson.Id
                     INNER JOIN ed.Competition ON ed.Competition.Id = ed.qAbiturient.CompetitionId 
                     INNER JOIN ed.Fixieren ON ed.Fixieren.AbiturientId=ed.qAbiturient.Id 
+                    LEFT JOIN ed.extAbitAdditionalMarksSum_FAST ON qAbiturient.Id = extAbitAdditionalMarksSum_FAST.AbiturientId
                     LEFT JOIN ed.hlpEntryWithAddExams ON hlpEntryWithAddExams.EntryId = qAbiturient.EntryId
                     LEFT JOIN ed.FixierenView ON ed.Fixieren.FixierenViewId=ed.FixierenView.Id 
                     LEFT JOIN ed.hlpAbiturientProfAdd ON ed.hlpAbiturientProfAdd.Id = ed.qAbiturient.Id 
@@ -707,7 +711,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                         int rand = new Random().Next(10000, 99999);
 
                         ObjectParameter fvId = new ObjectParameter("id", typeof(Guid));
-                        context.FixierenView_Insert(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, rand, false, false, false, fvId);
+                        context.FixierenView_Insert(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, rand, false, false, fvId);
                         Guid? viewId = (Guid?)fvId.Value;
 
                         int counter = 0;
@@ -854,7 +858,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
             {
                 using (PriemEntities context = new PriemEntities())
                 {
-                    context.FixierenView_UpdateLocked(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, false, locked);
+                    context.FixierenView_UpdateLocked(StudyLevelGroupId, FacultyId, LicenseProgramId, ObrazProgramId, ProfileId, StudyBasisId, StudyFormId, IsSecond, IsReduced, IsParallel, IsCel, locked);
                     
                     lblLocked.Text = locked ? "ЗАЛОЧЕНА" : "НЕ залочена";
                 }
@@ -893,7 +897,6 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                              && fv.StudyFormId == StudyFormId
                              && fv.StudyBasisId == StudyBasisId
                              && fv.IsCel == IsCel
-                             && fv.IsCrimea == false
                              select fv.Id).FirstOrDefault();
 
                         Guid? entryId =
@@ -909,7 +912,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                              select fv.Id).FirstOrDefault();
                         
                         //удалили старое
-                        context.FirstWave_DELETE(entryId, IsCel, false, false);
+                        context.FirstWave_DELETE(entryId, IsCel, false);
 
                         var fix = from fx in context.Fixieren
                                   where fx.FixierenViewId == fixViewId
@@ -955,7 +958,7 @@ AND ed.FixierenView.IsSecond = {7} AND ed.FixierenView.IsReduced = {8} AND ed.Fi
                                      select fv.Id).FirstOrDefault();
                     
                     //удалили
-                    context.FirstWave_DELETE(entryId, IsCel, false, false);
+                    context.FirstWave_DELETE(entryId, IsCel, false);
                 }
             }
             catch (Exception ex)
