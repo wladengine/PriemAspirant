@@ -771,7 +771,7 @@ namespace Priem
 
         private void номераЗачетокToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExportClass.SetStudyNumbers();
+            PriemLib.ExportClass.SetStudyNumbers();
         }
 
         private void smiExportStudent_Click(object sender, EventArgs e)
@@ -878,6 +878,11 @@ namespace Priem
             {
                 EssayImportClass.ImportEssay(dlg.SelectedPath);
             }
+        }
+
+        private void smiReSetMarkFromBudget_Click(object sender, EventArgs e)
+        {
+            MarkProvider.ReSetMarkFromBudget();
         }
     }
 }

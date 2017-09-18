@@ -104,6 +104,7 @@
             this.smiADAccounts = new System.Windows.Forms.ToolStripMenuItem();
             this.specialCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeMarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getMotLettEssayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
             this.smiEnterMarks = new System.Windows.Forms.ToolStripMenuItem();
             this.smiLoadMarks = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,7 +123,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblDBPath = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslMain = new System.Windows.Forms.ToolStripStatusLabel();
-            this.getMotLettEssayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiReSetMarkFromBudget = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -604,7 +605,8 @@
             this.smiDeleteDog,
             this.smiReSetMarksForPaid,
             this.smiADAccounts,
-            this.specialCommandsToolStripMenuItem});
+            this.specialCommandsToolStripMenuItem,
+            this.smiReSetMarkFromBudget});
             this.smiBooks.Name = "smiBooks";
             this.smiBooks.Size = new System.Drawing.Size(152, 20);
             this.smiBooks.Text = "Справочники для Паши";
@@ -736,6 +738,13 @@
             this.removeMarkToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.removeMarkToolStripMenuItem.Text = "RemoveMark";
             this.removeMarkToolStripMenuItem.Click += new System.EventHandler(this.removeMarkToolStripMenuItem_Click);
+            // 
+            // getMotLettEssayToolStripMenuItem
+            // 
+            this.getMotLettEssayToolStripMenuItem.Name = "getMotLettEssayToolStripMenuItem";
+            this.getMotLettEssayToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.getMotLettEssayToolStripMenuItem.Text = "GetMotLettEssay";
+            this.getMotLettEssayToolStripMenuItem.Click += new System.EventHandler(this.getMotLettEssayToolStripMenuItem_Click);
             // 
             // smiCrypto
             // 
@@ -872,12 +881,12 @@
             this.tsslMain.Name = "tsslMain";
             this.tsslMain.Size = new System.Drawing.Size(0, 17);
             // 
-            // getMotLettEssayToolStripMenuItem
+            // smiReSetMarkFromBudget
             // 
-            this.getMotLettEssayToolStripMenuItem.Name = "getMotLettEssayToolStripMenuItem";
-            this.getMotLettEssayToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.getMotLettEssayToolStripMenuItem.Text = "GetMotLettEssay";
-            this.getMotLettEssayToolStripMenuItem.Click += new System.EventHandler(this.getMotLettEssayToolStripMenuItem_Click);
+            this.smiReSetMarkFromBudget.Name = "smiReSetMarkFromBudget";
+            this.smiReSetMarkFromBudget.Size = new System.Drawing.Size(453, 22);
+            this.smiReSetMarkFromBudget.Text = "Скопировать оценки с бюджета на договор";
+            this.smiReSetMarkFromBudget.Click += new System.EventHandler(this.smiReSetMarkFromBudget_Click);
             // 
             // MainForm
             // 
@@ -996,6 +1005,7 @@
         private System.Windows.Forms.ToolStripMenuItem specialCommandsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeMarkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getMotLettEssayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smiReSetMarkFromBudget;
     }
 }
 

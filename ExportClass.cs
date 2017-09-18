@@ -18,48 +18,6 @@ namespace Priem
 {
     public static class ExportClass
     {
-        public static void SetStudyNumbers()
-        {
-            if (!MainClass.IsPasha())
-                return;
-            
-            using (PriemEntities context = new PriemEntities())
-            {
-                int iSLG = MainClass.lstStudyLevelGroupId.First();
-                //взять максимум номера, если еще ничего не назначено
-                string num = (from ab in context.extAbit
-                              where ab.StudyLevelGroupId == iSLG
-                              select ab.StudyNumber).Max();
-               
-                var abits = from ab in context.extAbit
-                            join ev in context.extEntryView
-                            on ab.Id equals ev.AbiturientId
-                            where MainClass.lstStudyLevelGroupId.Contains(ab.StudyLevelGroupId) && (ab.StudyNumber == null || ab.StudyNumber.Length == 0)
-                            orderby ab.FacultyId, ab.FIO
-                            select ab;
-
-                List<Guid> lstAbits = (from a in abits select a.Id).ToList();
-
-                int stNum = 0;
-
-                if (num != null && num.Length != 0)
-                    stNum = int.Parse(num.Substring(3));
-
-                stNum++;
-
-                foreach (Guid abitId in lstAbits)
-                {
-                    string sNum = "0000" + stNum.ToString();
-                    sNum = sNum.Substring(sNum.Length - 4, 4);
-                    sNum = "13" + 6 + sNum;                
-
-                    context.Abiturient_UpdateStudyNumber(sNum, abitId);                    
-                    stNum++;
-                }
-                MessageBox.Show("Done");
-            }            
-        }
-
         public static void ExportVTB()
         {
             try
@@ -301,22 +259,6 @@ where ed.extentryview.studyformid=1 and ed.extentryview.studybasisid=1 and ed.ex
                 WinFormsServ.Error("Ошибка при экспорте");
             }
             return;
-        }
-
-        public static void SetAvgBall()
-        {
-            if (!MainClass.IsPasha())
-                return;
-
-            MessageBox.Show("Метод не описан!");
-        }
-
-        public static void SetPayData()
-        {
-            if (!MainClass.IsPasha())
-                return;
-
-            MessageBox.Show("Метод не описан!");
         }
 
         public static void ReSetMarksForPaid()
